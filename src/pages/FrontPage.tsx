@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { FaGlobe, FaWallet } from 'react-icons/fa';
 import gsap from "gsap";
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import "../index.css"
 
 import SplitType from "split-type";
 gsap.registerPlugin(ScrollTrigger);
@@ -133,6 +134,7 @@ const FrontPage: React.FC = () => {
     },
     
     
+    
   };
 
   const tableContainersRef = useRef<Array<HTMLDivElement | null>>([]); // New reference for table containers
@@ -192,10 +194,10 @@ const FrontPage: React.FC = () => {
   }, []);
 
   return (
-    <div style={styles.page}>
+    <div style={styles.page}  className="page">
       {/* Header Prices */}
      
-      <div style={styles.headerPrices}>
+      <div style={styles.headerPrices} className="headerPrices">
         {[7733, 7733, 7733, 7733, 7733, 7733].map((price, index) => (
           <div
             key={index}
@@ -225,8 +227,8 @@ const FrontPage: React.FC = () => {
       <div style={{ display: "flex", gap: "2rem", width:"100%" }}>
         {/* Tables */}
         <div style={{ display: "flex", gridTemplateColumns: "2fr 3fr", gap: "2rem", flex: 2 }}>
-          <div
-            ref={(el) => tableContainersRef.current.push(el)} // Add ref to table container
+          <div className="tableContainer"
+            ref={(el) => tableContainersRef.current.push(el) } // Add ref to table container
             style={{ ...styles.tableContainer, width: "50%" }}
           >
             <div style={styles.tableHeader}>7-DEC - 1:45PM</div>
@@ -307,7 +309,7 @@ const FrontPage: React.FC = () => {
       </div>
 
       {/* Footer Info */}
-      <div style={styles.footer}>
+      <div style={styles.footer} className="footer">
   <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", width: "40%" }}>
     <FaGlobe style={{ ...styles.footerIcon, fontSize: "3.5rem" , padding:".8rem" }} />
     <span style={{ wordWrap: "break-word", maxWidth: "80%" }}>
@@ -315,7 +317,7 @@ const FrontPage: React.FC = () => {
     </span>
   </div>
 
-  <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", width: "40%" }}>
+  <div  className="footerIcon" style={{ display: "flex", alignItems: "flex-start", gap: "10px", width: "40%" }}>
     <FaWallet style={{ ...styles.footerIcon, fontSize: "3.5rem" ,padding:".8rem"}} />
     <span style={{ wordWrap: "break-word", maxWidth: "80%" }}>
       Save up to 10% of every purchase you made
