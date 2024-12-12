@@ -196,7 +196,7 @@ const FrontPage: React.FC = () => {
   return (
     <div style={styles.page}  className="page">
       {/* Header Prices */}
-     
+    
       <div style={styles.headerPrices} className="headerPrices">
         {[7733, 7733, 7733, 7733, 7733, 7733].map((price, index) => (
           <div
