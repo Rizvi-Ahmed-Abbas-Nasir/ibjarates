@@ -12,6 +12,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Maintenance from "./pages/maintenance"
 import Carrier from "./pages/Carrier"
 import FrontPage from './pages/FrontPage'
+import EsteemUserSlider from "./pages/EsteemUserSlider";
+import Feature from "./pages/Feature";
 import './index.css'
 
 
@@ -93,6 +95,10 @@ function App() {
       {/* <Preloader /> */}
       <AnimatePresence initial={false} mode={"wait"}>
        <FrontPage />
+       <EsteemUserSlider />
+       <Feature />
+
+
       </AnimatePresence>
       <Toaster position="top-center" reverseOrder={false} />
       {/* <Footer /> */}
