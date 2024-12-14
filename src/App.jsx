@@ -14,8 +14,15 @@ import Carrier from "./pages/Carrier"
 import FrontPage from './pages/FrontPage'
 import EsteemUserSlider from "./pages/EsteemUserSlider";
 import Feature from "./pages/Feature";
+import CollapesCards from "./pages/CollapesCards";
+import APIChart from "./pages/APIChart"
+import ClientSection from "./pages/ClientSection"
+import NewsSection from "./pages/NewsSection"
 import './index.css'
-
+import ReadLatest from "./pages/ReadLatest"
+import Odd from "./pages/Odd"
+import Footer from "./pages/Footer"
+import AboutText from "./pages/AboutText";
 
 //Pages
 import Home from "./pages/Home";
@@ -25,7 +32,6 @@ import Quote from "./pages/Quote";
 
 // Components
 import Portfolio from "./pages/Portfolio";
-import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Cursor from "./components/CustomCursor";
 
@@ -97,8 +103,14 @@ function App() {
        <FrontPage />
        <EsteemUserSlider />
        <Feature />
-
-
+      <CollapesCards />
+      <NewsSection />
+      <APIChart />
+      <ClientSection />
+      <ReadLatest />
+      <Odd />
+      <AboutText />
+      <Footer/>
       </AnimatePresence>
       <Toaster position="top-center" reverseOrder={false} />
       {/* <Footer /> */}

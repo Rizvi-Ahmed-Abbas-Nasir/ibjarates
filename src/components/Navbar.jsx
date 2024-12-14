@@ -10,12 +10,13 @@ const Container = styled.div`
   z-index: 99999;
   width: 100%;
 `;
-
 const Nav = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center; /* Center content horizontally */
   margin: 2rem 3rem;
+  position: relative; /* Allows precise positioning of menu button */
+
   @media (max-width: 768px) {
     margin: 1rem 1rem;
   }
@@ -23,6 +24,12 @@ const Nav = styled.div`
 
 const Logo = styled(Link)`
   width: 10rem;
+  display: flex;
+  justify-content: center; /* Ensures logo is centered */
+  position: absolute; /* Center the logo relative to the navbar */
+  left: 50%;
+  transform: translateX(-50%); /* Adjust logo to the exact center */
+
   img {
     width: 100%;
     height: 100%;
@@ -37,10 +44,9 @@ const MenuBtn = styled.div`
   color: #fff;
   overflow: hidden;
   position: relative;
-  top: 0;
-  right: 0;
   z-index: 99999;
   cursor: pointer;
+  margin-left: auto; /* Push menu button to the right */
 
   .menu_slider {
     position: relative;
@@ -70,7 +76,7 @@ const MenuBtn = styled.div`
 
 const NavContainer = styled.div`
   position: absolute;
-  background-color: #000000;
+  // background-color: #f8d878;
   top: 0;
   right: 0;
   height: 40px;

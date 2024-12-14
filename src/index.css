@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* In your component's CSS file or inside styled-components/global styles */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+
 /* For screens smaller than 1200px (Large tablets, smaller desktops) */
 /* Top cards: Wrap and auto-adjust width/height */
 @media (max-width: 768px) {
@@ -70,4 +74,131 @@
     font-size: 1rem; /* Slightly reduce font size */
     padding: 12px; /* Adjust padding for smaller buttons */
   }
+}
+
+/* Basic styling for the slider */
+#slider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: white;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Styling for the cards */
+.card {
+  height: 200px;
+  width: 300px;
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  margin: 0 10px;
+  position: relative;
+  z-index: 1;
+  opacity: 0; /* Cards initially hidden */
+  animation: fadeIn 2s forwards;
+}
+
+/* Fade-in animation for cards */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Gallery animation with sliding and stacking effects */
+@keyframes slide {
+  0% {
+    transform: translateX(0%);
+    z-index: 2;
+  }
+  16.66% {
+    transform: translateX(120%);
+    z-index: 2;
+  }
+  16.67% {
+    transform: translateX(120%);
+    z-index: 1;
+  }
+  33.34% {
+    transform: translateX(0%);
+    z-index: 1;
+  }
+  66.33% {
+    transform: translateX(0%);
+    z-index: 1;
+  }
+  66.34% {
+    transform: translateX(0%);
+    z-index: 2;
+  }
+  100% {
+    transform: translateX(0%);
+    z-index: 2;
+  }
+}
+
+@keyframes slide-last {
+  0% {
+    transform: translateX(0%);
+    z-index: 2;
+  }
+  16.66% {
+    transform: translateX(120%);
+    z-index: 2;
+  }
+  16.67% {
+    transform: translateX(120%);
+    z-index: 1;
+  }
+  33.34% {
+    transform: translateX(0%);
+    z-index: 1;
+  }
+  83.33% {
+    transform: translateX(0%);
+    z-index: 1;
+  }
+  83.34% {
+    transform: translateX(0%);
+    z-index: 2;
+  }
+  100% {
+    transform: translateX(0%);
+    z-index: 2;
+  }
+}
+
+/* Apply the slide effect with animation delay to cards */
+.card:nth-child(1) {
+  animation: slide 6s infinite;
+}
+
+.card:nth-child(2) {
+  animation: slide 6s infinite;
+  animation-delay: -2s;
+}
+
+.card:nth-child(3) {
+  animation: slide 6s infinite;
+  animation-delay: -4s;
+}
+
+.card:nth-child(4) {
+  animation: slide 6s infinite;
+  animation-delay: -6s;
+}
+
+.card:nth-child(5) {
+  animation: slide-last 6s infinite;
+  animation-delay: -8s;
 }

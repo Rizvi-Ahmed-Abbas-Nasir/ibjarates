@@ -3,63 +3,65 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
+
 type Style = React.CSSProperties;
 
 const EsteemUserSlider: React.FC = () => {
-
   const styles: Record<string, Style> = {
     page: {
-      
       backgroundColor: "white",
-      width:"100%",
+      width: "100%",
       display: "flex",
-      justifyContent: "center", // Center content horizontally
-      alignItems: "center", // Center content vertically
-      flexDirection: "column", // Arrange children vertically
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "column",
+      fontFamily: "'Roboto', sans-serif", // Apply the imported font here
     },
-    APIContainer:{
-      fontSize: "3rem", // Increase the size of the ico
+    APIContainer: {
+      fontSize: "4rem",
+      fontFamily: "'Roboto', sans-serif", // Apply the font to header
     },
-    Containre:{
+    Containre: {
       overflow: "auto",
       overflowY: "scroll",
-      width:"100%",
-      height:"200vh",
-      display:"flex",
-      gap:"3rem",
-      justifyContent:"center",
-      flexDirection:"column"
-    }
+      width: "100%",
+      height: "200vh",
+      display: "flex",
+      gap: "3rem",
+      paddingTop: "10rem",
+      justifyContent: "center",
+      flexDirection: "column",
+      fontFamily: "'Roboto', sans-serif", // Apply the font to content
+    },
+  };
 
-  }
   const slidesRef = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const slider = document.querySelector("#slider") as HTMLDivElement;
-  
-    // Scroll-triggered animation
+
     gsap.to(slidesRef.current, {
       x: () => `-${slider.scrollWidth - slider.clientWidth}px`,
       ease: "power3.out",
       scrollTrigger: {
         trigger: slider,
         start: "top top",
-        end: "+=1000", // Adjust the distance for unpinning
+        end: "+=1000",
         scrub: 1,
-        pin: true, // Pin temporarily during the animation
+        pin: true,
         anticipatePin: 1,
-        onLeave: () => ScrollTrigger.getById("slider")?.kill(), // Unpin and cleanup after scroll
+        onLeave: () => ScrollTrigger.getById("slider")?.kill(),
       },
     });
-  
+
     const handleScroll = () => {
       slidesRef.current.forEach((slide, index) => {
         if (slide) {
           const rect = slide.getBoundingClientRect();
           const slideCenter = rect.left + rect.width / 2;
           const windowCenter = window.innerWidth / 2;
-  
+
           if (Math.abs(slideCenter - windowCenter) < rect.width / 2) {
             setActiveIndex(index);
             gsap.to(slide, {
@@ -77,64 +79,86 @@ const EsteemUserSlider: React.FC = () => {
         }
       });
     };
-  
+
     slider.addEventListener("scroll", handleScroll);
-  
+
     return () => {
       slider.removeEventListener("scroll", handleScroll);
-      ScrollTrigger.getById("slider")?.kill(); // Cleanup on unmount
+      ScrollTrigger.getById("slider")?.kill();
     };
   }, []);
-  
+
+  // Array of images to display in the slider
+  const images = [
+    "https://senseware.co.in/ibjarates/images/API-Subsc-logo/Paytm-Money.png",
+    "https://senseware.co.in/ibjarates/images/API-Subsc-logo/BajajFinserv.png",
+    "https://senseware.co.in/ibjarates/images/API-Subsc-logo/Central-Bank-Of-India.png",
+    "https://senseware.co.in/ibjarates/images/API-Subsc-logo/Paytm-Money.png",
+    "https://senseware.co.in/ibjarates/images/API-Subsc-logo/Shriram-Finance-Limited.png",
+    "https://senseware.co.in/ibjarates/images/API-Subsc-logo/IFL.png",
+    "https://senseware.co.in/ibjarates/images/API-Subsc-logo/Keertana.png",
+    "https://senseware.co.in/ibjarates/images/API-Subsc-logo/360one.png"
+
+
+  ];
 
   return (
     <div style={styles.Containre}>
-    <div style={styles.page}>
-      <div style={styles.APIContainer}>
-        <h1>API Esteemed Users</h1>
-      </div>
-    </div>
-    <div
-      id="slider"
-      style={{
-        display: "flex",
-        justifyContent: "start",
-        alignItems: "start",
-        height: "100%",
-        backgroundColor: "white",
-        overflowX: "scroll",
-        overflow:"hidden",
-        whiteSpace: "nowrap",
-        scrollSnapType: "x mandatory",
-        padding:"3rem",
-
-      }}
-    >
-      {"Slide 1 Slide 2 Slide 3 Slide 4".split(" ").map((slide, index) => (
-        <div
-          key={index}
-          ref={(el) => (slidesRef.current[index] = el)}
-          style={{
-            flex: activeIndex === index ? 3 : 1,
-            height: "300px",
-            minWidth: "30%",
-            backgroundColor: activeIndex === index ? "#555" : "#333",
-            color: "#fff",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            fontSize: "1.5rem",
-            borderRadius: "10px",
-            cursor: "pointer",
-            margin: "10px",
-            transition: "all 0.3s ease",
-            scrollSnapAlign: "center",
-          }}
-        >
-          {slide}
+      <div style={styles.page}>
+        <div style={styles.APIContainer}>
+          <h1>API Esteemed Users</h1>
         </div>
-      ))}
-    </div>
+      </div>
+      <div
+        id="slider"
+        style={{
+          display: "flex",
+          justifyContent: "start",
+          alignItems: "start",
+          height: "100%",
+          backgroundColor: "white",
+          overflowX: "scroll",
+          gap:"2rem",
+          overflow: "hidden",
+          whiteSpace: "nowrap",
+          scrollSnapType: "x mandatory",
+          padding: "3rem",
+        }}
+      >
+        {images.map((image, index) => (
+          <div
+            key={index}
+            ref={(el) => (slidesRef.current[index] = el)}
+            style={{
+              flex: activeIndex === index ? 3 : 1,
+              height: "290px",
+              minWidth: "16%",
+              backgroundColor: "white",
+              color: "#fff",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "1.5rem",
+              cursor: "pointer",
+              margin: "10px",
+              transition: "all 0.3s ease",
+              scrollSnapAlign: "center",
+            }}
+          >
+            <img
+              src={image}
+              alt={`Slide ${index + 1}`}
+              style={{
+                maxWidth: "100%%",
+                maxHeight: "90%",
+                border:"2px solid #F0F0F0",
+                objectFit: "contain", // Ensures image is contained within the card
+                borderRadius: "2rem",
+              }}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

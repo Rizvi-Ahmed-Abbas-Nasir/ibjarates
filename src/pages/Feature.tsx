@@ -29,19 +29,18 @@ const FeatureSection: React.FC = () => {
   );
 };
 
-// Inline styles object
 const styles = {
   featureSection: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: "5rem",
-    gap: "5rem",
+    padding: "10rem",
+    gap: "3rem",
     backgroundColor: "white",
     height: "100vh",
   },
   leftSection: {
-    flex: 2,
+    flex: "2 1 auto", // Adjusted flex-grow, flex-shrink, and flex-basis
     backgroundColor: "#ffdd99",
     padding: "2rem",
     borderRadius: "3rem",
@@ -49,8 +48,8 @@ const styles = {
     display: "flex",
     flexDirection: "column" as "column",
     justifyContent: "space-between",
-    width: "80%",
-    height: "55%",
+    width: "70%",
+    height: "70%",
   },
   heading: {
     fontSize: "4rem",
@@ -73,18 +72,19 @@ const styles = {
     border: "none",
   },
   rightSection: {
-    flex: 1,
+    flex: "0 0 28%", // Explicitly set flex-basis to 20% with no flex-grow
     backgroundColor: "white",
     padding: "2rem",
     borderRadius: "3rem",
     boxShadow: "0 10px 15px rgba(0, 0, 0, 0.2)", // Added shadow to the card
-    width: "100%",
-    height: "55%",
+    height: "70%",
+    border: "2px solid #F0F0F0",
   },
   iconTitle: {
     display: "flex",
-    alignItems: "center",
+    alignItems: "start",
     gap: "0.75rem",
+    flexDirection: "column" as "column",
     marginBottom: "1rem",
   },
   subHeading: {
@@ -94,12 +94,16 @@ const styles = {
   },
   icon: {
     color: "#2d3748",
-    fontSize: "2rem",
+    fontSize: "10rem",
+    padding: "2rem",
   },
   text: {
     color: "#718096",
     fontSize: "1rem",
+    width: "90%",
   },
 };
+
+
 
 export default FeatureSection;
