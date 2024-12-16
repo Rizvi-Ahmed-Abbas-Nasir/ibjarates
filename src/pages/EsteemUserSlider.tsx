@@ -14,6 +14,7 @@ const EsteemUserSlider: React.FC = () => {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
+      gap:"5rem",
       flexDirection: "column",
       fontFamily: "'Roboto', sans-serif", // Apply the imported font here
     },
@@ -25,7 +26,7 @@ const EsteemUserSlider: React.FC = () => {
       overflow: "auto",
       overflowY: "scroll",
       width: "100%",
-      height: "200vh",
+      height: "190vh",
       display: "flex",
       gap: "3rem",
       paddingTop: "10rem",
@@ -104,11 +105,7 @@ const EsteemUserSlider: React.FC = () => {
 
   return (
     <div style={styles.Containre}>
-      <div style={styles.page}>
-        <div style={styles.APIContainer}>
-          <h1>API Esteemed Users</h1>
-        </div>
-      </div>
+   
       <div
         id="slider"
         style={{
@@ -125,6 +122,11 @@ const EsteemUserSlider: React.FC = () => {
           padding: "3rem",
         }}
       >
+           <div style={styles.page}>
+        <div style={styles.APIContainer}>
+          <h1>API Esteemed Users</h1>
+        </div>
+        <div className="w-full flex">
         {images.map((image, index) => (
           <div
             key={index}
@@ -156,8 +158,13 @@ const EsteemUserSlider: React.FC = () => {
                 borderRadius: "2rem",
               }}
             />
+            
           </div>
+          
         ))}
+        </div>
+              </div>
+
       </div>
     </div>
   );

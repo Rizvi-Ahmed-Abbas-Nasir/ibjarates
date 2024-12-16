@@ -1,28 +1,34 @@
 import React from "react";
 import { FaArrowRight, FaUser } from "react-icons/fa";
-import { AiOutlineFileText } from "react-icons/ai";
 
 const FeatureSection: React.FC = () => {
   return (
     <div style={styles.featureSection}>
       {/* Left Section */}
       <div style={styles.leftSection}>
-        <h2 style={styles.heading}>Accounting software that handles it all.</h2>
-        <button style={styles.button}>
-          SEE ALL FEATURES <FaArrowRight />
-        </button>
+        <h2 style={styles.heading}>
+          IBJA Rates API Adheres to CERT-in Security Policies.
+        </h2>
+        <a
+          href="https://ibjarates.com/assets/pdf/Ibj-%20Gold-and-Silver-Rates-Web-Service-Security-Audit-Certificate-Final.pdf"
+          style={styles.button}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View Certificates <FaArrowRight />
+        </a>
       </div>
 
       {/* Right Section */}
       <div style={styles.rightSection}>
         {/* Easy Invoicing */}
         <div style={styles.iconTitle}>
-        <FaUser style={styles.icon} />
-        <h3 style={styles.subHeading}>Easy Invoicing</h3>
+          <FaUser style={styles.icon} />
+          <h3 style={styles.subHeading}>Easy Invoicing</h3>
         </div>
         <p style={styles.text}>
-          Automate recurring invoices and save time by using pre-built templates.
-          Get paid on time.
+          Automate recurring invoices and save time by using pre-built
+          templates. Get paid on time.
         </p>
       </div>
     </div>
@@ -37,19 +43,19 @@ const styles = {
     padding: "10rem",
     gap: "3rem",
     backgroundColor: "white",
-    height: "100vh",
+    height: "80vh",
   },
   leftSection: {
-    flex: "2 1 auto", // Adjusted flex-grow, flex-shrink, and flex-basis
+    flex: "2 1 auto", 
     backgroundColor: "#ffdd99",
     padding: "2rem",
     borderRadius: "3rem",
-    boxShadow: "0 10px 15px rgba(0, 0, 0, 0.2)", // Added a deeper shadow for the card
+    boxShadow: "0 10px 15px rgba(0, 0, 0, 0.2)",
     display: "flex",
     flexDirection: "column" as "column",
     justifyContent: "space-between",
     width: "70%",
-    height: "70%",
+    height: "100%",
   },
   heading: {
     fontSize: "4rem",
@@ -69,15 +75,15 @@ const styles = {
     borderRadius: "9999px",
     cursor: "pointer",
     transition: "background-color 0.3s",
-    border: "none",
+    textDecoration: "none", // Ensures it looks like a button
   },
   rightSection: {
-    flex: "0 0 28%", // Explicitly set flex-basis to 20% with no flex-grow
+    flex: "0 0 28%",
     backgroundColor: "white",
     padding: "2rem",
     borderRadius: "3rem",
-    boxShadow: "0 10px 15px rgba(0, 0, 0, 0.2)", // Added shadow to the card
-    height: "70%",
+    boxShadow: "0 10px 15px rgba(0, 0, 0, 0.2)",
+    height: "100%",
     border: "2px solid #F0F0F0",
   },
   iconTitle: {
@@ -103,7 +109,5 @@ const styles = {
     width: "90%",
   },
 };
-
-
 
 export default FeatureSection;

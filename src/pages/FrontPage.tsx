@@ -132,6 +132,11 @@ const FrontPage: React.FC = () => {
       width: "70%", // Reduced width
       fontSize: "1.3rem", // Increased text size (20px)
     },
+    arrow: {
+      marginLeft: "0.5rem",
+      cursor: "pointer",
+      fontSize: "1.2rem",
+    },
     
     
     
@@ -253,35 +258,35 @@ const FrontPage: React.FC = () => {
           </div>
 
           <div
-            ref={(el) => tableContainersRef.current.push(el)} // Add ref to table container
-            style={{ ...styles.tableContainer, width: "70%" }}
-          >
-            <div style={styles.tableHeader}>Previous Dates Rate</div>
-            <table style={styles.table}>
-              <thead>
-                <tr>
-                  <th style={styles.tableCell}>PURITY</th>
-                  <th style={styles.tableCell}>AM</th>
-                  <th style={styles.tableCell}>AM</th>
-                  <th style={styles.tableCell}>AM</th>
-                  <th style={styles.tableCell}>AM</th>
-                  <th style={styles.tableCell}>PM</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[...Array(6)].map((_, index) => (
-                  <tr key={index}>
-                    <td style={styles.tableCell}>GOLD 999</td>
-                    <td style={styles.tableCell}>40735</td>
-                    <td style={styles.tableCell}>40735</td>
-                    <td style={styles.tableCell}>40735</td>
-                    <td style={styles.tableCell}>40735</td>
-                    <td style={styles.tableCell}>40735</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+        ref={(el) => tableContainersRef.current.push(el)} // Add ref to table container
+        style={{ ...styles.tableContainer, width: "70%" }}
+      >
+        <div style={styles.tableHeader}>
+          <span>Previous Dates Rate</span>
+          <span>
+            <span style={styles.arrow}>▲</span>
+            <span style={styles.arrow}>▼</span>
+          </span>
+        </div>
+        <table style={styles.table}>
+          <thead>
+            <tr>
+              <th style={styles.tableCell}>PURITY</th>
+              <th style={styles.tableCell}>AM</th>
+              <th style={styles.tableCell}>PM</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[...Array(6)].map((_, index) => (
+              <tr key={index}>
+                <td style={styles.tableCell}>GOLD 999</td>
+                <td style={styles.tableCell}>40735</td>
+                <td style={styles.tableCell}>40735</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
         </div>
 
         {/* Sidebar Buttons */}

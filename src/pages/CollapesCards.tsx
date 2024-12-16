@@ -60,7 +60,6 @@ const SlidingCollapsingCards: React.FC = () => {
     container: {
       position: "relative" as const,
       textAlign: "center" as const, // Center the heading
-      marginBottom: "2rem", // Add space between heading and cards
     },
     heading: {
       fontSize: "3rem", // Large font size
@@ -75,6 +74,7 @@ const SlidingCollapsingCards: React.FC = () => {
       height: "80vh", // Increased height for scroll area
       backgroundColor: "white",
       overflow: "hidden" as const,
+      width:"100%",
       position: "relative" as 'relative', // Explicitly cast position to 'relative'
     },
     slide: {
@@ -104,11 +104,13 @@ const SlidingCollapsingCards: React.FC = () => {
 
   return (
     <div>
-        <div style={styles.container}>
+      <div id="slider" ref={sliderRef} style={styles.slider}>
+      <div className="w-full gap-[5rem] flex flex-col">
+
+      <div style={styles.container}>
         <h1 style={styles.heading}>IBJA API Successfully Integrated</h1>
       </div>
-    
-      <div id="slider" ref={sliderRef} style={styles.slider}>
+<div className="flex w-full justify-center items-center">
         {images.map((imgSrc, index) => (
           <div
             key={index}
@@ -119,6 +121,8 @@ const SlidingCollapsingCards: React.FC = () => {
             <img src={imgSrc} alt={`Slide ${index + 1}`} style={styles.image} />
           </div>
         ))}
+        </div>
+        </div>
       </div>
     </div>
   );
