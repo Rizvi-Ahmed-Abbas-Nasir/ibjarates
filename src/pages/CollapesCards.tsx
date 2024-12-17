@@ -71,7 +71,7 @@ const SlidingCollapsingCards: React.FC = () => {
       display: "flex",
       justifyContent: "center" as const,
       alignItems: "center" as const,
-      height: "80vh", // Increased height for scroll area
+      height: "60vh", // Increased height for scroll area
       backgroundColor: "white",
       overflow: "hidden" as const,
       width:"100%",

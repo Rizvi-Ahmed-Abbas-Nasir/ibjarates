@@ -45,6 +45,7 @@ const APIChart: React.FC = () => {
   // Chart Options
   const chartOptions = {
     responsive: true,
+    maintainAspectRatio: false, // Allow manual height adjustments
     plugins: {
       legend: {
         display: false, // Hide the legend
@@ -70,12 +71,13 @@ const APIChart: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center items-center w-full h-[15%]">
+    <div className="flex justify-center items-center w-full h-auto">
       <div className="p-6 rounded-xl bg-[#fff2d8] shadow-lg w-[90%] flex flex-col justify-start mb-6">
         <h3 className="text-black text-lg font-bold mb-4">Sales 2022</h3>
         <div className="text-black text-sm mb-4 flex justify-between p-5">
           <p>
-            <span className="text-[4rem] font-bold">$12.7k</span> <span className="text-green-500">+1.3%</span> vs last year
+            <span className="text-[3rem] font-bold">$12.7k</span>{" "}
+            <span className="text-green-500">+1.3%</span> vs last year
           </p>
           <div className="flex justify-between gap-5 bg-[#fafaf8] px-[3rem] py-[0.7rem] rounded-[1rem]">
             <button className="px-3 py-1 rounded-md text-black text-sm">Daily</button>
@@ -83,7 +85,8 @@ const APIChart: React.FC = () => {
             <button className="px-5 py-3 bg-[#070757] text-white rounded-[1rem] text-sm">Annually</button>
           </div>
         </div>
-        <div className="py-5">
+        {/* Chart with Reduced Height */}
+        <div className="py-5" style={{ height: "650px" }}> {/* Adjust height here */}
           <Line data={salesData} options={chartOptions} />
         </div>
       </div>

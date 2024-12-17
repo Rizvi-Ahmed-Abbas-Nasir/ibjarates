@@ -76,32 +76,33 @@ const Cursor = () => {
   }, []);
 
   // Animate cursor position
-  useEffect(() => {
-    gsap.to(outerCursorRef.current, {
-      x: mousePosition.x,
-      y: mousePosition.y,
-      scale: cursorSize || 1,
-      duration: 0.2,
+useEffect(() => {
+  gsap.to(outerCursorRef.current, {
+    x: mousePosition.x,
+    y: mousePosition.y,
+    scale: cursorSize || 1,
+    duration: 0.1, // Reduced duration for faster speed
+    ease: "power2.out",
+  });
+
+  gsap.to(innerCursorRef.current, {
+    x: mousePosition.x,
+    y: mousePosition.y,
+    duration: 0.05, // Even faster for the inner cursor
+    ease: "power2.out",
+  });
+
+  if (textRef.current) {
+    gsap.to(textRef.current, {
+      x: mousePosition.x + 15,
+      y: mousePosition.y + 15,
+      opacity: cursorText ? 1 : 0,
+      duration: 0.1, // Faster text movement
       ease: "power2.out",
     });
+  }
+}, [mousePosition, cursorSize, cursorText]);
 
-    gsap.to(innerCursorRef.current, {
-      x: mousePosition.x,
-      y: mousePosition.y,
-      duration: 0.1,
-      ease: "power2.out",
-    });
-
-    if (textRef.current) {
-      gsap.to(textRef.current, {
-        x: mousePosition.x + 15,
-        y: mousePosition.y + 15,
-        opacity: cursorText ? 1 : 0,
-        duration: 0.2,
-        ease: "power2.out",
-      });
-    }
-  }, [mousePosition, cursorSize, cursorText]);
 
   // Remove default system cursor
   useEffect(() => {

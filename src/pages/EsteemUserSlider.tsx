@@ -23,13 +23,14 @@ const EsteemUserSlider: React.FC = () => {
       fontFamily: "'Roboto', sans-serif", // Apply the font to header
     },
     Containre: {
+      backgroundColor: "white",
       overflow: "auto",
       overflowY: "scroll",
       width: "100%",
-      height: "190vh",
+      height: "170vh",
       display: "flex",
       gap: "3rem",
-      paddingTop: "10rem",
+      paddingTop: "5rem",
       justifyContent: "center",
       flexDirection: "column",
       fontFamily: "'Roboto', sans-serif", // Apply the font to content

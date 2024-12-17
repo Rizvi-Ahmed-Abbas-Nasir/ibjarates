@@ -43,7 +43,7 @@ const styles = {
     padding: "10rem",
     gap: "3rem",
     backgroundColor: "white",
-    height: "80vh",
+    height: "85vh",
   },
   leftSection: {
     flex: "2 1 auto", 
