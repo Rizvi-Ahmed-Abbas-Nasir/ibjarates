@@ -25,7 +25,7 @@ const BoostCardApproval = () => {
   return (
     <section className="py-[12rem] bg-gray-50">
       <h2 className="text-[3rem] font-serif font-bold text-center mb-12">
-        Boost the odds of card approval.
+        Recent Achievements.
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-5 lg:px-20">
         {features.map((feature, index) => (

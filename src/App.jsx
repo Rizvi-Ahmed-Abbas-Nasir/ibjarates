@@ -9,8 +9,6 @@ import gsap from "gsap";
 import { ToastContainer } from "react-toastify";
 import { Toaster } from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
-import Maintenance from "./pages/maintenance"
-import Carrier from "./pages/Carrier"
 import FrontPage from './pages/FrontPage'
 import EsteemUserSlider from "./pages/EsteemUserSlider";
 import Feature from "./pages/Feature";
@@ -24,21 +22,14 @@ import Odd from "./pages/Odd"
 import Footer from "./pages/Footer"
 import AboutText from "./pages/AboutText";
 
-//Pages
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Team from "./pages/Team";
-import Quote from "./pages/Quote";
 
 // Components
-import Portfolio from "./pages/Portfolio";
 import Navbar from "./components/Navbar";
 import Cursor from "./components/CustomCursor";
 
 //Css
 import "./App.scss";
 import Preloader from "./components/Preloader";
-import Services from "./pages/Services";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 

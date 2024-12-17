@@ -43,7 +43,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: "10rem",
     gap: "3rem",
     backgroundColor: "white",
-    height: "100vh",
+    height: "80vh",
   },
   leftSection: {
     flex: "2 1 auto",
@@ -55,7 +55,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     flexDirection: "column",
     justifyContent: "space-between",
     width: "70%",
-    height: "70%",
+    height: "100%",
     border:"2px solid #F0F0F0",
 
   },

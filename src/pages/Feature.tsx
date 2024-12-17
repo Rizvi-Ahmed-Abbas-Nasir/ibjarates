@@ -78,7 +78,7 @@ const styles = {
     textDecoration: "none", // Ensures it looks like a button
   },
   rightSection: {
-    flex: "0 0 28%",
+    flex: "0 0 29%",
     backgroundColor: "white",
     padding: "2rem",
     borderRadius: "3rem",
