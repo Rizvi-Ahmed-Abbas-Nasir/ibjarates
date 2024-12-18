@@ -94,6 +94,7 @@ const SlidingCollapsingCards: React.FC = () => {
       margin: "0 10px",
       position: "relative" as 'relative', // Explicitly cast position to 'relative'
       opacity: 0, // Cards initially hidden
+      animation: "fadeIn 2s", // Apply fade-in animation
       transition: "transform 0.6s ease,  0.6s ease", // Smooth transition
 
     },

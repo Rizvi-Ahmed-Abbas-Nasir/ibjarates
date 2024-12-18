@@ -32,14 +32,18 @@ const ReadTheLatest = () => {
             key={index}
             className="bg-white flex flex-col rounded-[2rem] p-6 shadow-md hover:shadow-lg transition duration-300"
           >
-            <div className="flex px-[3rem] py-[5rem] w-[100%] justify-center  ">
-              <img src={article.image} alt="Featured" className="rounded-md " />
+            <div className="flex justify-center w-full h-[10rem] px-[3rem] py-[5rem]">
+              <img
+                src={article.image}
+                alt="Featured"
+                className="rounded-md object-cover max-h-full w-auto"
+              />
             </div>
-            <div className="flex justify-center space-x-4 ">
-              <img src={article.logo1} alt="Logo 1" className="w-8 h-8" />
-              <img src={article.logo2} alt="Logo 2" className="w-8 h-8" />
+            <div className="flex justify-center space-x-4 mt-4">
+              <img src={article.logo1} alt="Logo 1" className="w-8 h-8 rounded-full object-cover" />
+              <img src={article.logo2} alt="Logo 2" className="w-8 h-8 rounded-full object-cover" />
             </div>
-            <p className="text-gray-700 text-[1.2rem] text-center">{article.title}</p>
+            <p className="text-gray-700 text-[1.2rem] text-center mt-4">{article.title}</p>
           </div>
         ))}
       </div>
