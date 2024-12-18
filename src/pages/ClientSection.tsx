@@ -23,13 +23,13 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <div className="bg-white py-[10rem] px-5 lg:px-20">
+    <div className="bg-[#e0e0e02d] py-[10rem] px-5 lg:px-[8rem]">
       <h2 className="text-[3rem] font-serif font-bold text-center mb-10">What our clients says</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {testimonials.map((testimonial, index) => (
           <div
             key={index}
-            className="bg-yellow-50 py-[5rem] px-[2rem] flex flex-col justify-between rounded-lg shadow-md text-gray-700 hover:shadow-lg transition duration-300"
+            className="bg-yellow-50 py-[5rem] px-[2rem] flex flex-col justify-between rounded-[2rem] shadow-lg text-gray-700 hover:shadow-xl transition duration-300"
           >
             <p className="mb-4 text-[1rem] italic">"{testimonial.text}"</p>
             <div className="flex items-center space-x-3 mt-4">

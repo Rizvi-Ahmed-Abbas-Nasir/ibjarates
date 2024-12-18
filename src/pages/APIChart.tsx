@@ -72,7 +72,7 @@ const APIChart: React.FC = () => {
 
   return (
     <div className="flex justify-center items-center w-full h-auto">
-      <div className="p-6 rounded-xl bg-[#fff2d8] shadow-lg w-[90%] flex flex-col justify-start mb-6">
+      <div className="p-6 rounded-xl bg-[#fff2d8] shadow-lg w-[87%] flex flex-col justify-start mb-6">
         <h3 className="text-black text-lg font-bold mb-4">Sales 2022</h3>
         <div className="text-black text-sm mb-4 flex justify-between p-5">
           <p>

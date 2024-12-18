@@ -17,7 +17,7 @@ const SlidingCollapsingCards: React.FC = () => {
       ScrollTrigger.create({
         trigger: slider,
         start: "top top", // Starts when the top of the slider hits the top of the viewport
-        end: "+=200%", // End after 200% of the scroll height (adjust this if needed)
+        end: "+=0%", // End after 200% of the scroll height (adjust this if needed)
         scrub: 1, // Smoothly scrub the animation
         pin: true, // Pin the slider while scrolling
         onUpdate: (self) => {
@@ -60,6 +60,10 @@ const SlidingCollapsingCards: React.FC = () => {
     container: {
       position: "relative" as const,
       textAlign: "center" as const, // Center the heading
+      width:"100%",
+      display:"flex",
+      justifyContent: "center",
+
     },
     heading: {
       fontSize: "3rem", // Large font size
@@ -71,7 +75,7 @@ const SlidingCollapsingCards: React.FC = () => {
       display: "flex",
       justifyContent: "center" as const,
       alignItems: "center" as const,
-      height: "60vh", // Increased height for scroll area
+      height: "50vh", // Increased height for scroll area
       backgroundColor: "white",
       overflow: "hidden" as const,
       width:"100%",
@@ -90,7 +94,9 @@ const SlidingCollapsingCards: React.FC = () => {
       margin: "0 10px",
       position: "relative" as 'relative', // Explicitly cast position to 'relative'
       opacity: 0, // Cards initially hidden
-      animation: "fadeIn 2s forwards", // Apply fade-in animation
+      animation: "fadeIn 2s", // Apply fade-in animation
+      transition: "transform 0.6s ease,  0.6s ease", // Smooth transition
+
     },
     image: {
       height: "100%",

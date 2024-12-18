@@ -2,7 +2,7 @@ import React from 'react';
 
 const AboutIBJARates = () => {
   return (
-    <section className="bg-white py-[8rem] px-5 lg:px-[15rem] text-gray-700 text-center">
+    <section className="bg-white py-[8rem] px-5 lg:px-[20rem] text-gray-700 text-center">
       <h2 className="text-[2.5rem] font-bold text-gray-800 mb-6">About IBJA Rates</h2>
       <p className="text-md leading-7">
         IBJA Gold prices are India's Benchmark rates. Authentic source for daily Gold and Silver

@@ -40,10 +40,10 @@ const styles: { [key: string]: React.CSSProperties } = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: "10rem",
+    padding: "7rem",
     gap: "3rem",
     backgroundColor: "white",
-    height: "80vh",
+    height: "70vh",
   },
   leftSection: {
     flex: "2 1 auto",

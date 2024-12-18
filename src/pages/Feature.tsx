@@ -4,6 +4,7 @@ import { FaArrowRight, FaUser } from "react-icons/fa";
 const FeatureSection: React.FC = () => {
   return (
     <div style={styles.featureSection}>
+      <div className="w-full h-full flex gap-[3rem]">
       {/* Left Section */}
       <div style={styles.leftSection}>
         <h2 style={styles.heading}>
@@ -31,6 +32,7 @@ const FeatureSection: React.FC = () => {
           templates. Get paid on time.
         </p>
       </div>
+      </div>
     </div>
   );
 };
@@ -40,25 +42,27 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: "10rem",
+    padding: "7rem",
+    paddingLeft: "7rem",
+    paddingRight: "7rem",
     gap: "3rem",
     backgroundColor: "white",
-    height: "85vh",
+    height: "70vh",
   },
   leftSection: {
     flex: "2 1 auto", 
     backgroundColor: "#ffdd99",
-    padding: "2rem",
-    borderRadius: "3rem",
-    boxShadow: "0 10px 15px rgba(0, 0, 0, 0.2)",
+    padding: "3rem",
+    borderRadius: "2rem",
+    boxShadow: "0 7px 4px rgba(0, 0, 0, 0.2)",
     display: "flex",
     flexDirection: "column" as "column",
     justifyContent: "space-between",
-    width: "70%",
+    width: "50%",
     height: "100%",
   },
   heading: {
-    fontSize: "4rem",
+    fontSize: "3rem",
     fontWeight: "bold",
     color: "#2d3748",
     marginBottom: "1.5rem",
@@ -81,8 +85,8 @@ const styles = {
     flex: "0 0 29%",
     backgroundColor: "white",
     padding: "2rem",
-    borderRadius: "3rem",
-    boxShadow: "0 10px 15px rgba(0, 0, 0, 0.2)",
+    borderRadius: "2rem",
+    boxShadow: "0 7px 4px rgba(0, 0, 0, 0.2)",
     height: "100%",
     border: "2px solid #F0F0F0",
   },
@@ -105,8 +109,7 @@ const styles = {
   },
   text: {
     color: "#718096",
-    fontSize: "1rem",
-    width: "90%",
+    fontSize: "1.3rem",
   },
 };
 

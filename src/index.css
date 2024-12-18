@@ -202,3 +202,39 @@
   animation: slide-last 6s infinite;
   animation-delay: -8s;
 }
+
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); /* Move halfway through the slides */
+  }
+}
+
+.slider {
+  height: 100%;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.slide-track {
+  display: flex;
+  gap: 5rem; /* Adjust gap as needed */
+  animation: scroll 20s linear infinite;
+  width: calc(500px * 2); /* Twice the width for duplicate slides */
+}
+
+.slide {
+  flex: 0 0 30%; /* Ensure consistent width */
+}
+
+.slide img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+

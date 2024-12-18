@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="bg-yellow-50  px-5 py-[10rem] lg:px-[10rem] text-gray-800">
+    <footer className="bg-yellow-50  border-t border-[2px] px-5 py-[10rem] lg:px-[10rem] text-gray-800">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
         {/* Contact Section */}
         <div>
