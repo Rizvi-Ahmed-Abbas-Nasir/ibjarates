@@ -24,13 +24,13 @@ const articles = [
 
 const ReadTheLatest = () => {
   return (
-    <section className="py-10 bg-[#f1cf8a1c]">
+    <section className="py-10 bg-[#bebdbd11]">
       <h2 className="text-[3rem] font-serif font-bold text-center mb-2">Read the Latest</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-[3rem] py-[3rem] lg:px-[7rem]">
         {articles.map((article, index) => (
           <div
             key={index}
-            className="bg-white flex flex-col rounded-[2rem] p-6 shadow-md hover:shadow-lg transition duration-300"
+            className="bg-white flex flex-col rounded-[2rem] p-6 shadow-md hover:shadow-xl border-[1px] border-[#3f3d3d11]  transition duration-300"
           >
             <div className="flex justify-center w-full h-[10rem] px-[3rem] py-[5rem]">
               <img

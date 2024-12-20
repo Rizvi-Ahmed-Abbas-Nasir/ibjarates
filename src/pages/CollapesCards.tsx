@@ -16,10 +16,9 @@ const SlidingCollapsingCards: React.FC = () => {
       // Initialize ScrollTrigger on the slider
       ScrollTrigger.create({
         trigger: slider,
-        start: "top top", // Starts when the top of the slider hits the top of the viewport
+        start: "-40%", // Starts when the top of the slider hits the top of the viewport
         end: "+=0%", // End after 200% of the scroll height (adjust this if needed)
         scrub: 1, // Smoothly scrub the animation
-        pin: true, // Pin the slider while scrolling
         onUpdate: (self) => {
           const progress = self.progress; // Scroll progress from 0 to 1
           const middleIndex = Math.floor(slidesRef.current.length / 2); // Find the center index
@@ -32,10 +31,10 @@ const SlidingCollapsingCards: React.FC = () => {
 
               // Animate each card's x-position and scale based on scroll progress
               gsap.to(slide, {
-                x: offset * 300 * (1 - progress), // Move cards towards the center
-                scale: index === middleIndex ? 1 : 1 - progress * 0.2, // Shrink other cards
+                x: offset * 200 * (1 - progress), // Move cards towards the center
+                scale: index === middleIndex ? 1 : 1 - progress * 0.3, // Shrink other cards
                 duration: 0.3,
-                ease: "power3.out",
+                ease: "power4.out",
                 opacity: 1, // Ensure opacity stays at 1
               });
             }
@@ -93,9 +92,9 @@ const SlidingCollapsingCards: React.FC = () => {
       borderRadius: "10px",
       margin: "0 10px",
       position: "relative" as 'relative', // Explicitly cast position to 'relative'
-      opacity: 0, // Cards initially hidden
-      animation: "fadeIn 2s", // Apply fade-in animation
-      transition: "transform 0.6s ease,  0.6s ease", // Smooth transition
+      opacity: 1, // Cards initially hidden
+      animation: "fadeIn 1ms", // Apply fade-in animation
+      transition: "transform 0.2s ease,  0.4s ease", // Smooth transition
 
     },
     image: {
