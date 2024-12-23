@@ -84,9 +84,9 @@ const FrontPage: React.FC = () => {
       fontSize: "1.2rem", /* Increase font size here */
     },
     
-    buttonHover: {
-      backgroundColor: "#ffedcc",
-    },
+    // buttonHover: {
+    //   backgroundColor: "#ffedcc",
+    // },
     footer: {
       display: "flex",
       justifyContent: "space-between",
@@ -104,19 +104,19 @@ const FrontPage: React.FC = () => {
       textAlign: "left",
       fontSize: "8rem", // Increase the size of the icon
     },
-    sidebar: {
-      display: "flex",
-      flexDirection: "column",
-      justifyContent:"end",
-      alignItems:"start",
-      gap: "3rem",
-      width: "100%", /* Adjusted width */
-      height: "100%", /* Increased height */
-    },
     sidebarContainer: {
       width: "20%", /* Adjust the width of the sidebar container */
       display: "flex",
       justifyContent: "flex-end",
+    },
+    sidebar: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "flex-end", // align the items to the end
+      alignItems: "flex-start", // align the items to the start (left)
+      gap: "3rem",
+      width: "100%", /* Adjusted width */
+      height: "100%", /* Increased height */
     },
     button: {
       backgroundColor: "#fffae6",
@@ -128,9 +128,12 @@ const FrontPage: React.FC = () => {
       textAlign: "center",
       fontWeight: "bold",
       cursor: "pointer",
-      transition: "background-color 0.3s",
+      transition: "background-color 0.3s, transform 0.3s", // Add transform transition
       width: "70%", // Reduced width
-      fontSize: "1.3rem", // Increased text size (20px)
+      fontSize: "1.3rem", // Increased text size
+    },
+    buttonHover: {
+      backgroundColor: "#f8d878", // Golden color for hover
     },
     arrow: {
       marginLeft: "0.5rem",
@@ -291,24 +294,27 @@ const FrontPage: React.FC = () => {
 
         {/* Sidebar Buttons */}
         <div style={{ ...styles.sidebarContainer }}>
-          <div style={styles.sidebar}>
-            {["Download Last 30 Days", "IBJA Terms", "List of Holidays"].map((label, index) => (
-              <button
-                key={index}
-                style={styles.button}
-                ref={(el) => (sidebarButtonsRef.current[index] = el)} // Correct assignment of ref
-                onMouseOver={(e) => {
-                  (e.target as HTMLButtonElement).style.backgroundColor = styles.buttonHover.backgroundColor!;
-                }}
-                onMouseOut={(e) => {
-                  (e.target as HTMLButtonElement).style.backgroundColor = styles.button.backgroundColor!;
-                }}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        </div>
+      <div style={styles.sidebar}>
+        {["Download Last 30 Days", "IBJA Terms", "List of Holidays"].map((label, index) => (
+          <button
+            key={index}
+            style={styles.button}
+            ref={(el) => (sidebarButtonsRef.current[index] = el)} // Correct assignment of ref
+            onMouseOver={(e) => {
+              (e.target as HTMLButtonElement).style.transform = "translateY(-5px)"; // Apply translate on hover
+              (e.target as HTMLButtonElement).style.backgroundColor = styles.buttonHover.backgroundColor!;
+            }}
+            onMouseOut={(e) => {
+              (e.target as HTMLButtonElement).style.transform = "translateY(0)"; // Reset translate on mouse out
+              (e.target as HTMLButtonElement).style.backgroundColor = styles.button.backgroundColor!;
+            }}
+            className="transition-transform transform" // Tailwind CSS classes for smooth transitions
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+    </div>
 
 
       </div>
