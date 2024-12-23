@@ -1,15 +1,44 @@
-import React from "react";
-import { FaArrowRight } from "react-icons/fa";
+import React, { useEffect, useRef } from "react";
 
 const FeatureSection: React.FC = () => {
+  const listRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const listElement = listRef.current;
+    if (!listElement) return;
+
+    const scrollHeight = listElement.scrollHeight;
+    const clientHeight = listElement.clientHeight;
+
+    let start = 0;
+
+    const scrollInterval = setInterval(() => {
+      if (listElement) {
+        listElement.scrollTop = start;
+        start += 1; // Adjust speed here
+        if (start > scrollHeight - clientHeight) {
+          start = 0; // Reset to top when scrolled to the bottom
+        }
+      }
+    }, 50); // Adjust interval here for smoother scrolling
+
+    return () => clearInterval(scrollInterval);
+  }, []);
+
   return (
     <div style={styles.featureSection}>
       {/* Left Section */}
       <div style={styles.leftSection}>
-        
         {/* Scrollable List */}
-        <div style={styles.scrollableList}>
+        <div style={styles.scrollableList} ref={listRef}>
           <ul style={styles.list}>
+            <li style={styles.listItem}>Manage your invoices with ease</li>
+            <li style={styles.listItem}>Track expenses and revenues</li>
+            <li style={styles.listItem}>Generate financial reports</li>
+            <li style={styles.listItem}>Secure cloud-based storage</li>
+            <li style={styles.listItem}>Multi-user support with roles</li>
+            <li style={styles.listItem}>Integration with banking systems</li>
+            <li style={styles.listItem}>Real-time notifications</li>
             <li style={styles.listItem}>Manage your invoices with ease</li>
             <li style={styles.listItem}>Track expenses and revenues</li>
             <li style={styles.listItem}>Generate financial reports</li>
@@ -19,8 +48,6 @@ const FeatureSection: React.FC = () => {
             <li style={styles.listItem}>Real-time notifications</li>
           </ul>
         </div>
-        
-   
       </div>
 
       {/* Right Section */}
@@ -56,21 +83,15 @@ const styles: { [key: string]: React.CSSProperties } = {
     justifyContent: "space-between",
     width: "70%",
     height: "100%",
-    border:"2px solid #F0F0F0",
-
-  },
-  heading: {
-    fontSize: "4rem",
-    fontWeight: "bold",
-    color: "#2d3748",
-    marginBottom: "1.5rem",
+    border: "2px solid #F0F0F0",
   },
   scrollableList: {
     flexGrow: 1,
     backgroundColor: "white",
     borderRadius: "2rem",
-    overflowY: "auto",
+    overflowY: "hidden", // Hide scrollbar
     height: "100%",
+    position: "relative",
   },
   list: {
     listStyleType: "none",
@@ -82,20 +103,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     borderBottom: "1px solid #E2E8F0",
     fontSize: "1.5rem",
     color: "#2d3748",
-  },
-  button: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "0.5rem",
-    padding: "1rem",
-    width: "30%",
-    backgroundColor: "#2d3748",
-    color: "white",
-    borderRadius: "9999px",
-    cursor: "pointer",
-    transition: "background-color 0.3s",
-    border: "none",
   },
   rightSection: {
     flex: "0 0 30%",
