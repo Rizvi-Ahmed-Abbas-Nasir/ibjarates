@@ -101,7 +101,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   listItem: {
     padding: "0.75rem 1rem",
     borderBottom: "1px solid #E2E8F0",
-    fontSize: "1.5rem",
+    fontSize: "1.7rem",
     color: "#2d3748",
   },
   rightSection: {
