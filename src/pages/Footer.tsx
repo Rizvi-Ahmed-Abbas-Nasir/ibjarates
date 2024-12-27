@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-yellow-50  border-t border-[2px] px-5 py-[10rem] lg:px-[10rem] text-gray-800">
+    <footer className="bg-yellow-50  border-t border-[2px] px-5 py-[6rem] lg:px-[10rem] text-gray-800">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
         {/* Contact Section */}
         <div>
@@ -43,11 +43,14 @@ const Footer = () => {
           <div className="flex space-x-4 mb-4">
             {/* Replace text with actual icons or images */}
             <span className="text-2xl cursor-pointer">📘</span> {/* Facebook */}
-            <span className="text-2xl cursor-pointer">📷</span> {/* Instagram */}
-            <span className="text-2xl cursor-pointer">✖️</span> {/* X (Twitter) */}
+            <span className="text-2xl cursor-pointer">📷</span>{" "}
+            {/* Instagram */}
+            <span className="text-2xl cursor-pointer">✖️</span>{" "}
+            {/* X (Twitter) */}
           </div>
           <p className="text-sm text-gray-600">
-            is the community-focused nonprofit donor management software built to deliver a better giving experience and help organizations thrive.
+            is the community-focused nonprofit donor management software built
+            to deliver a better giving experience and help organizations thrive.
           </p>
         </div>
       </div>

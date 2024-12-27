@@ -25,11 +25,27 @@ ChartJS.register(
 const APIChart: React.FC = () => {
   // Sales Data for Chart
   const salesData = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
     datasets: [
       {
         label: "Sales 2022",
-        data: [1200, 1900, 3000, 2500, 2800, 3500, 4100, 4300, 2000, 3000, 3900, 4500],
+        data: [
+          1200, 1900, 3000, 2500, 2800, 3500, 4100, 4300, 2000, 3000, 3900,
+          4500,
+        ],
         fill: true,
         backgroundColor: "rgba(75, 29, 130, 0.2)", // Indigo fill for the chart with transparency
         borderColor: "#4B1D82", // Indigo border color
@@ -80,13 +96,21 @@ const APIChart: React.FC = () => {
             <span className="text-green-500">+1.3%</span> vs last year
           </p>
           <div className="flex justify-between gap-5 bg-[#fafaf8] px-[3rem] py-[0.7rem] rounded-[1rem]">
-            <button className="px-3 py-1 rounded-md text-black text-sm">Daily</button>
-            <button className="px-3 py-1 rounded-md text-black text-sm">Weekly</button>
-            <button className="px-5 py-3 bg-[#070757] text-white rounded-[1rem] text-sm">Annually</button>
+            <button className="px-3 py-1 rounded-md text-black text-sm">
+              Daily
+            </button>
+            <button className="px-3 py-1 rounded-md text-black text-sm">
+              Weekly
+            </button>
+            <button className="px-5 py-3 bg-[#070757] text-white rounded-[1rem] text-sm">
+              Annually
+            </button>
           </div>
         </div>
         {/* Chart with Reduced Height */}
-        <div className="py-5" style={{ height: "650px" }}> {/* Adjust height here */}
+        <div className="py-5" style={{ height: "650px" }}>
+          {" "}
+          {/* Adjust height here */}
           <Line data={salesData} options={chartOptions} />
         </div>
       </div>

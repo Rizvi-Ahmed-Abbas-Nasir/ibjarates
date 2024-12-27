@@ -16,7 +16,6 @@ const OuterCursor = styled.div`
   border: 3px solid #ffd700;
   background-color: transparent;
   transform: translate(-50%, -50%);
-  transition: all 0.25s ease-out;
 
   @media (pointer: coarse) {
     display: none;
@@ -33,7 +32,6 @@ const InnerCursor = styled.div`
   pointer-events: none;
   z-index: 10000;
   transform: translate(-50%, -50%);
-  transition: all 0.3s ease-out;
 `;
 
 // Cursor Text
@@ -76,33 +74,32 @@ const Cursor = () => {
   }, []);
 
   // Animate cursor position
-useEffect(() => {
-  gsap.to(outerCursorRef.current, {
-    x: mousePosition.x,
-    y: mousePosition.y,
-    scale: cursorSize || 1,
-    duration: 0.1, // Reduced duration for faster speed
-    ease: "power2.out",
-  });
-
-  gsap.to(innerCursorRef.current, {
-    x: mousePosition.x,
-    y: mousePosition.y,
-    duration: 0.05, // Even faster for the inner cursor
-    ease: "power2.out",
-  });
-
-  if (textRef.current) {
-    gsap.to(textRef.current, {
-      x: mousePosition.x + 15,
-      y: mousePosition.y + 15,
-      opacity: cursorText ? 1 : 0,
-      duration: 0.1, // Faster text movement
+  useEffect(() => {
+    gsap.to(outerCursorRef.current, {
+      x: mousePosition.x,
+      y: mousePosition.y,
+      scale: cursorSize || 1,
+      duration: 0.5,
       ease: "power2.out",
     });
-  }
-}, [mousePosition, cursorSize, cursorText]);
 
+    gsap.to(innerCursorRef.current, {
+      x: mousePosition.x,
+      y: mousePosition.y,
+      duration: 0, // Even faster for the inner cursor
+      ease: "none",
+    });
+
+    if (textRef.current) {
+      gsap.to(textRef.current, {
+        x: mousePosition.x + 15,
+        y: mousePosition.y + 15,
+        opacity: cursorText ? 1 : 0,
+        duration: 0.1, // Faster text movement
+        ease: "power2.out",
+      });
+    }
+  }, [mousePosition, cursorSize, cursorText]);
 
   // Remove default system cursor
   useEffect(() => {

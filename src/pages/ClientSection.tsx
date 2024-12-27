@@ -1,52 +1,92 @@
-import React from 'react';
+import React from "react";
+import Title from "../components/common/Title";
+import styled from "styled-components";
+import Logo from "../assets/Logo/Bajaj_Finserv_Logo.png";
+
+const Container = styled.div`
+  padding: 0 10rem;
+`;
+
+const CardsWrapper = styled.div`
+  display: flex;
+  gap: 2rem;
+`;
+
+const Card = styled.div`
+  width: calc(33.3% - 2rem);
+  background-color: #fefce8;
+  padding: 1.5rem;
+  border-radius: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  p {
+    font-style: italic;
+    text-align: center;
+  }
+  .info_wrapper {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid #00000024;
+    .profile_img {
+      width: auto;
+      height: 3rem;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+`;
 
 const testimonials = [
   {
-    text: 'Customers will not download an extra app for pharmacies or the e-prescription. In my opinion, WhatsApp is the most natural solution here.',
-    name: 'Adrian Knoch',
-    title: 'easyApotheke Duderstadt',
-    image: 'https://via.placeholder.com/40', // Replace with actual image URL
+    text: "Customers will not download an extra app for pharmacies or the e-prescription. In my opinion, WhatsApp is the most natural solution here.",
+    name: "Adrian Knoch",
+    title: "easyApotheke Duderstadt",
+    image: Logo, // Replace with actual image URL
   },
   {
-    text: 'We can map our entire sales process in Superchat\'s messaging software. We have a separate mailbox for each phase. That makes our work clear.',
-    name: 'Andreas Niemiec',
-    title: 'Niemiec Versicherungsmakler GmbH & Co. KG',
-    image: 'https://via.placeholder.com/40', // Replace with actual image URL
+    text: "We can map our entire sales process in Superchat's messaging software. We have a separate mailbox for each phase. That makes our work clear.",
+    name: "Andreas Niemiec",
+    title: "Niemiec Versicherungsmakler GmbH & Co. KG",
+    image: Logo, // Replace with actual image URL
   },
   {
-    text: 'Our communication has been more efficient, simpler and clearer since the implementation of Superchat. Incoming customer inquiries are directly assigned to the right person, labeled and processed.',
-    name: 'Christian Schuder',
-    title: 'Porsche Zentrum Bade-Baden',
-    image: 'https://via.placeholder.com/40', // Replace with actual image URL
+    text: "Our communication has been more efficient, simpler and clearer since the implementation of Superchat. Incoming customer inquiries are directly assigned to the right person, labeled and processed.",
+    name: "Christian Schuder",
+    title: "Porsche Zentrum Bade-Baden",
+    image: Logo, // Replace with actual image URL
   },
 ];
 
 const Testimonials = () => {
   return (
-    <div className="bg-[#e0e0e02d] py-[10rem] px-5 lg:px-[8rem]">
-      <h2 className="text-[3rem] font-serif font-bold text-center mb-10">What our clients says</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {testimonials.map((testimonial, index) => (
-          <div
-            key={index}
-            className="bg-yellow-50 py-[5rem] px-[2rem] flex flex-col justify-between rounded-[2rem] shadow-lg text-gray-700 hover:shadow-xl transition duration-300"
-          >
-            <p className="mb-4 text-[1rem] italic">"{testimonial.text}"</p>
-            <div className="flex items-center space-x-3 mt-4">
-              <img
-                src={testimonial.image}
-                alt={testimonial.name}
-                className="w-10 h-10 rounded-full"
-              />
-              <div>
-                <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
-                <p className="text-sm text-gray-600">{testimonial.title}</p>
+    <>
+      <Title title="What our clients says" />
+
+      <Container>
+        <CardsWrapper>
+          {testimonials.map((item, index) => (
+            <Card key={index}>
+              <p>{item.text}</p>
+              <div className="info_wrapper">
+                <div className="profile_img">
+                  <img src={item.image} alt="" />
+                </div>
+                {/* <div className="info">
+                  <span className="name">{item.name}</span>
+                  <span className="title">{item.title}</span>
+                </div> */}
               </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+            </Card>
+          ))}
+        </CardsWrapper>
+      </Container>
+    </>
   );
 };
 

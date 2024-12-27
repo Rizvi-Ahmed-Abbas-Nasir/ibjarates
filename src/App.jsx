@@ -9,19 +9,18 @@ import gsap from "gsap";
 import { ToastContainer } from "react-toastify";
 import { Toaster } from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
-import FrontPage from './pages/FrontPage'
+import FrontPage from "./pages/FrontPage";
 import EsteemUserSlider from "./pages/EsteemUserSlider";
 import Feature from "./pages/Feature";
 import CollapesCards from "./pages/CollapesCards";
-import APIChart from "./pages/APIChart"
-import ClientSection from "./pages/ClientSection"
-import NewsSection from "./pages/NewsSection"
-import './index.css'
-import ReadLatest from "./pages/ReadLatest"
-import Odd from "./pages/Odd"
-import Footer from "./pages/Footer"
+import APIChart from "./pages/APIChart";
+import ClientSection from "./pages/ClientSection";
+import NewsSection from "./pages/NewsSection";
+import "./index.css";
+import ReadLatest from "./pages/ReadLatest";
+import Odd from "./pages/Odd";
+import Footer from "./pages/Footer";
 import AboutText from "./pages/AboutText";
-
 
 // Components
 import Navbar from "./components/Navbar";
@@ -38,27 +37,27 @@ function App() {
   const location = useLocation();
   const AppRef = useRef(null);
 
-  useEffect(() => {
-    const locomotiveScroll = new LocomotiveScroll({
-      lenisOptions: {
-        smoothTouch: false,
-        autoResize: true,
-      },
-    });
+  // useEffect(() => {
+  //   const locomotiveScroll = new LocomotiveScroll({
+  //     lenisOptions: {
+  //       smoothTouch: false,
+  //       autoResize: true,
+  //     },
+  //   });
 
-    setLocoScroll(locomotiveScroll);
+  //   setLocoScroll(locomotiveScroll);
 
-    const refreshScrollTrigger = () => {
-      ScrollTrigger.refresh();
-    };
+  //   const refreshScrollTrigger = () => {
+  //     ScrollTrigger.refresh();
+  //   };
 
-    const observer = new ResizeObserver(refreshScrollTrigger);
-    observer.observe(AppRef.current);
+  //   const observer = new ResizeObserver(refreshScrollTrigger);
+  //   observer.observe(AppRef.current);
 
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
+  //   return () => {
+  //     observer.disconnect();
+  //   };
+  // }, []);
 
   const scrollTo = (target) => {
     if (locoScroll)
@@ -91,17 +90,17 @@ function App() {
       <Navbar />
       {/* <Preloader /> */}
       <AnimatePresence initial={false} mode={"wait"}>
-       <FrontPage />
-       <EsteemUserSlider />
-       <Feature />
-      <CollapesCards />
-      <NewsSection />
-      <APIChart />
-      <ClientSection />
-      <ReadLatest />
-      <Odd />
-      <AboutText />
-      <Footer/>
+        <FrontPage />
+        <EsteemUserSlider />
+        <Feature />
+        {/* <APIChart /> */}
+        <NewsSection />
+        <CollapesCards />
+        <ClientSection />
+        {/* <ReadLatest /> */}
+        {/* <Odd /> */}
+        <AboutText />
+        <Footer />
       </AnimatePresence>
       <Toaster position="top-center" reverseOrder={false} />
       {/* <Footer /> */}

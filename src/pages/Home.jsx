@@ -307,7 +307,7 @@ const Home = () => {
           </ShowReel>
         </Hero>
         <About />
-         <Services /> 
+        <Services />
         <PortfolioSection />
         <Approch />
         <Brands />

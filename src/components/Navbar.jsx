@@ -73,7 +73,6 @@ const MenuBtn = styled.div`
   }
 `;
 
-
 const NavContainer = styled.div`
   position: absolute;
   // background-color: #f8d878;
@@ -103,6 +102,7 @@ const Backdrop = styled.div`
   display: none;
   opacity: 0;
   z-index: 9999;
+  backdrop-filter: blur(8px);
 `;
 
 const Navlinks = styled.div`
@@ -194,7 +194,7 @@ const Links = [
     title: "Portfolio",
     href: "/portfolio",
   },
-  
+
   {
     title: "Contact Us",
     href: "/contact",
@@ -370,20 +370,6 @@ const Navbar = () => {
               ))}
             </ul>
           </Navlinks>
-          <SocialLinks>
-            <ul>
-              {SocialLink.map((link, index) => (
-                <li
-                  key={index}
-                  ref={(element) => (socialRefs.current[index] = element)}
-                >
-                  <a href={link.href} target="_blank">
-                    {link.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </SocialLinks>
         </NavContainer>
       </Nav>
 
