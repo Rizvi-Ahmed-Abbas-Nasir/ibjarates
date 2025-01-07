@@ -8,7 +8,7 @@ const Container = styled.div`
   border-radius: 1rem;
   padding: 5rem;
   @media (max-width: 1080px) {
-    padding: 2rem 2rem;
+    padding: 5rem 5rem;
     margin: 2rem;
   }
   @media (max-width: 768px) {
@@ -18,7 +18,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h3`
-  font-size: 3.5rem;
+  font-size: 3rem;
   width: 70%;
   font-weight: 700;
   @media (max-width: 1080px) {
@@ -32,14 +32,14 @@ const Section = styled.div`
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  height: 35rem;
+  height: 25rem;
   margin-top: 3rem;
   @media (max-width: 1370px) {
     /* padding: 0 5rem; */
   }
 
   @media (max-width: 1080px) {
-    height: 25rem;
+    height: 15rem;
     gap: 1rem;
   }
 
