@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
-
+import axios from "axios";
 
 const Title = styled.div`
   margin: 3rem 0rem;
@@ -109,6 +109,21 @@ const images = [
 
 export default function Integrated() {
   const containerRef = useRef(null);
+  const [ApiIntegrated, setApiIntegrated] = useState<any>([]);
+
+  const getData = async () => {
+    await axios
+      .get(
+        "https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=APIEsteemedUsers",
+        {
+          headers: {
+            ACCESS_TOKEN: process.env.VITE_API_KEY,
+            RequestType: "Testimonial",
+          },
+        }
+      )
+      .then((response) => setApiIntegrated(response.data));
+  };
 
   useEffect(() => {
     gsap.to(".API_logo", {
@@ -122,6 +137,9 @@ export default function Integrated() {
         toggleActions: "play none none reverse",
       },
     });
+
+    // Replace images with data
+    //getData();
   }, []);
 
   return (

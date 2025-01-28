@@ -6,9 +6,9 @@ import img3 from "../../../assets/images/ibrates.webp";
 import img4 from "../../../assets/images/equites.webp";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Autoplay } from "swiper/modules";
-
+import axios from "axios";
 
 const Container = styled.div`
   padding: 0 10rem;
@@ -36,7 +36,7 @@ const BlogWrapper = styled.div`
 const BlogPost = styled.div`
   background-color: #f5f3eb;
   width: 100%;
-  height:55vh;
+  height: 55vh;
   border-radius: 0.7rem;
   overflow: hidden;
   padding: 1rem;
@@ -65,7 +65,7 @@ const BlogPost = styled.div`
 
 const ImageWrapper = styled.div`
   width: 100%;
-  height:17rem;
+  height: 17rem;
   img {
     width: 100%;
     height: 100%;
@@ -116,8 +116,56 @@ const AchievementTitle = styled.h3`
   }
 `;
 
+const newsDataDemo = [
+  {
+    NewsTitle: "Senseware",
+    NewsDescription: "tests",
+    NewsLink: "Senseware",
+    NewsDate: "17-01-2025",
+    NewsImage: img1,
+  },
+  {
+    NewsTitle: "Senseware",
+    NewsDescription: "tests",
+    NewsLink: "Senseware",
+    NewsDate: "17-01-2025",
+    NewsImage: img2,
+  },
+  {
+    NewsTitle: "Senseware",
+    NewsDescription: "tests",
+    NewsLink: "Senseware",
+    NewsDate: "17-01-2025",
+    NewsImage: img3,
+  },
+  {
+    NewsTitle: "Senseware",
+    NewsDescription: "tests",
+    NewsLink: "Senseware",
+    NewsDate: "17-01-2025",
+    NewsImage: img4,
+  },
+];
+
 export default function Blog() {
   const listRef = useRef<HTMLDivElement>(null);
+  const [newsData, setNewsData] = useState<any>([]);
+
+  const getData = async () => {
+    const apiKey = import.meta.env.VITE_API_KEY;
+
+    await axios
+      .get(
+        "https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=News",
+        {
+          headers: {
+            ACCESS_TOKEN:` ${apiKey}`,
+            RequestType: "News",
+          },
+        }
+      )
+      .then((response) => setNewsData(response.data));
+  };
 
   useEffect(() => {
     const listElement = listRef.current;
@@ -138,6 +186,9 @@ export default function Blog() {
       }
     }, 50); // Adjust interval here for smoother scrolling
 
+    // call this function and replace demo data with state data
+    // getData();
+
     return () => clearInterval(scrollInterval);
   }, []);
 
@@ -155,75 +206,23 @@ export default function Blog() {
               delay: 1500,
             }}
           >
-            <SwiperSlide>
-              <BlogPost>
-                <ImageWrapper>
-                  <img src={img1} alt="" />
-                </ImageWrapper>
-                <div className="info">
-                  <span className="subTitle">News</span>
-                  <h3 className="blog_title"> Punjab National Bank</h3>
-                  <p className="description">
-                  Punjab National Bank (PNB) uses IBJA Gold rates API for their retails gold loan.
-                  </p>
-                  <a href="" className="url">
-                    Learn More
-                  </a>
-                </div>
-              </BlogPost>
-            </SwiperSlide>
-            <SwiperSlide>
-              <BlogPost>
-                <ImageWrapper>
-                  <img src={img2} alt="" />
-                </ImageWrapper>
-                <div className="info">
-                  <span className="subTitle">News</span>
-                  <h3 className="blog_title">  India International Bullion</h3>
-                  <p className="description">
-                  India International Bullion Summit 2024 ( IIBS-9) 
-                  </p>
-                  <a href="" className="url">
-                    Learn More
-                  </a>
-                </div>
-              </BlogPost>
-             
-            </SwiperSlide>
-            <SwiperSlide>
-              <BlogPost>
-                <ImageWrapper>
-                  <img src={img3} alt="" />
-                </ImageWrapper>
-                <div className="info">
-                  <span className="subTitle">News</span>
-                  <h3 className="blog_title">  IBJA Rates is the India’s benchmark</h3>
-                  <p className="description">
-                  IBJA Rates is the India’s benchmark for Gold Rates to be referred by all NBFCs and State & Co-Op Banks as per RBI circular
-                  </p>
-                  <a href="" className="url">
-                    Learn More
-                  </a>
-                </div>
-              </BlogPost>
-            </SwiperSlide>
-            <SwiperSlide>
-              <BlogPost>
-                <ImageWrapper>
-                  <img src={img4} alt="" />
-                </ImageWrapper>
-                <div className="info">
-                  <span className="subTitle">News</span>
-                  <h3 className="blog_title">   Equitas Small Finance </h3>
-                  <p className="description">
-                  Equitas Small Finance Bank Limited successfully
-                  </p>
-                  <a href="" className="url">
-                    Learn More
-                  </a>
-                </div>
-              </BlogPost>
-            </SwiperSlide>
+            {newsDataDemo.map((item, index) => (
+              <SwiperSlide>
+                <BlogPost key={index}>
+                  <ImageWrapper>
+                    <img src={item.NewsImage} alt="" />
+                  </ImageWrapper>
+                  <div className="info">
+                    <span className="subTitle">News</span>
+                    <h3 className="blog_title">{item.NewsTitle}</h3>
+                    <p className="description">{item.NewsDescription}</p>
+                    <a href={item.NewsLink} target="_blank" className="url">
+                      Learn More
+                    </a>
+                  </div>
+                </BlogPost>
+              </SwiperSlide>
+            ))}
           </Swiper>
         </BlogWrapper>
         <AchievementWrapper>

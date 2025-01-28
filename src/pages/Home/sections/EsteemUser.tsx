@@ -9,10 +9,11 @@ import img6 from "../../../assets/Logo/Keertana.png";
 import img7 from "../../../assets/Logo/IFL.png";
 import img8 from "../../../assets/Logo/360one.png";
 import Title from "../../../components/Title";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
+import axios from "axios";
 
 const Container = styled.div``;
 
@@ -87,6 +88,21 @@ const data = [
 
 export default function EsteemUser() {
   const containerRef = useRef(null);
+  const [APIEsteemedUsers, setAPIEsteemedUsers] = useState<any>([]);
+
+  const getData = async () => {
+    await axios
+      .get(
+        "https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=APIEsteemedUsers",
+        {
+          headers: {
+            ACCESS_TOKEN: process.env.VITE_API_KEY,
+            RequestType: "Testimonial",
+          },
+        }
+      )
+      .then((response) => setAPIEsteemedUsers(response.data));
+  };
 
   useEffect(() => {
     gsap.to(".esteemed_card", {
@@ -100,6 +116,9 @@ export default function EsteemUser() {
         toggleActions: "play none none reverse",
       },
     });
+
+    // call this function and replace data with APIEsteemedUsers
+    // getData()
   }, []);
 
   return (

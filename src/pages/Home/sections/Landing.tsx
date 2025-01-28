@@ -241,7 +241,18 @@ TitleContainer:{
 };
 
 export default function Landing() {
-  // const [priceData, setPriceData] = useState<any>([])
+  // interface Price {
+  //   RateDate: string;  
+  //   RateTime: string; 
+  //   Purity: string;    
+  //   GoldRate: string;  
+  //   SilverRate: string | "";  
+  // }
+  
+  // const [priceData, setPriceData] = useState<Price[]>([]);
+  
+  const [PDF, setPDFata] = useState<any>([]);
+
   const priceCardsRef = useRef<Array<HTMLDivElement | null>>([]);
   const sidebarButtonsRef = useRef<(HTMLButtonElement | null)[]>([]);
   const tableContainersRef = useRef<Array<HTMLDivElement | null>>([]); 
@@ -267,18 +278,18 @@ export default function Landing() {
 
       try {
         const apiKey = import.meta.env.VITE_API_KEY;
-
         const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDate}&END_DATE=${formattedEndDate}`,
           {
             headers: {
-              Authorization: ` ${apiKey}`,
+              ACCESS_TOKEN:  `${apiKey}`,
+              RequestType: 'GetRates',
               'Content-Type': 'application/json', 
             },
           }
         );
 
         console.log(response.data);
-        // setPriceData(response.data)
+        setPriceData(response.data)
 
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -287,6 +298,50 @@ export default function Landing() {
 
     fetchData();
   }, []); 
+
+
+  useEffect(() => {
+
+    function formatDate(date: Date): string {
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0'); 
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    }
+    
+    const today = new Date();
+    
+    const startDate = new Date(today.setHours(0, 0, 0, 0)); 
+    const endDate = new Date(today.setHours(18, 0, 0, 0)); 
+    
+    const formattedStartDate = formatDate(startDate);
+    const formattedEndDate = formatDate(endDate);
+  
+      const fetchData = async () => {
+  
+        try {
+          const apiKey = import.meta.env.VITE_API_KEY;
+
+          const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=30DaysPdf`,
+            {
+              headers: {
+                ACCESS_TOKEN: ` ${apiKey}`,
+                RequestType: "30DaysPdf",
+                'Content-Type': 'application/json', 
+              },
+            }
+          );
+  
+          console.log(response.data);
+          // setPDF(response.data)
+  
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+  
+      fetchData();
+    }, []); 
 
 
   
@@ -315,7 +370,7 @@ export default function Landing() {
       const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDate}&END_DATE=${formattedEndDate}`,
         {
           headers: {
-            Authorization: ` ${apiKey}`,
+            ACCESS_TOKEN: ` ${apiKey}`,
             'Content-Type': 'application/json', 
           },
         }
@@ -342,11 +397,10 @@ export default function Landing() {
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
     
-    const startDateToday = new Date(today.setHours(0, 0, 0, 0)); // 12 AM for today
-    const endDateToday = new Date(today.setHours(18, 0, 0, 0)); // 6 PM for today
-    
-    const startDateYesterday = new Date(yesterday.setHours(0, 0, 0, 0)); // 12 AM for yesterday
-    const endDateYesterday = new Date(yesterday.setHours(18, 0, 0, 0)); // 6 PM for yesterday
+    const startDateToday = new Date(today.setHours(0, 0, 0, 0)); 
+    const endDateToday = new Date(today.setHours(18, 0, 0, 0)); 
+    const startDateYesterday = new Date(yesterday.setHours(0, 0, 0, 0)); 
+    const endDateYesterday = new Date(yesterday.setHours(18, 0, 0, 0)); 
     
     const formattedStartDateToday = formatDate(startDateToday);
     const formattedEndDateToday = formatDate(endDateToday);
@@ -360,7 +414,7 @@ export default function Landing() {
       const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDateYesterday}&END_DATE=${formattedEndDateYesterday}`,
         {
           headers: {
-            Authorization: ` ${apiKey}`,
+            ACCESS_TOKEN: ` ${apiKey}`,
             'Content-Type': 'application/json', 
           },
         }
