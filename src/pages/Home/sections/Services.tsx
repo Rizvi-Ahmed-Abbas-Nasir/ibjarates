@@ -153,13 +153,13 @@ const Button = styled(Link)`
 
 const servicesData = [
   {
-    name: "DO YOU TRADE IN GOLD OR SILVER?",
+    name: "IBJA GOLD PRICES ARE INDIA's BENCHMARK RATES?",
     info: "Submit your trading details on www.APIGold.com & Stand a chance to win Exclusive Rewards Daily, Weekly & Monthly!",
     image: editingThumbnail,
     backgroundColor: "#C49A6C",
     addInfo: [
       {
-        name: "Gold & Silver Trading Simplified:",
+        name: "Gold & Silver Trading Simplified",
         info: " Hassle-free and secure trading options tailored for you.",
       },
       {
@@ -174,14 +174,14 @@ const servicesData = [
     btnText: "Learn More",
   },
   {
-    name: "DO YOU TRADE IN BULLION OR JEWELRY?",
+    name: "INDIA INFORMATIVE BULLETIN ON BULLION & JEWELRY",
     info: "Submit your trading details at www.IBJAVerified.com & unlock Exclusive Rewards for Traders!.",
     image: logoThumbnail,
     backgroundColor: "#F4A460",
     addInfo: [
       {
         name: "Certified Suppliers Only",
-        info: "Trade confidently with legitimate,",
+        info: "IBJA Bulletin provide BULLION & JEWELRY,",
       },
       {
         name: "Exclusive Rewards",
