@@ -3,8 +3,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { useRef } from "react";
 import styled from "styled-components";
-import editingThumbnail from "../../../assets/images/services/1.png";
-import logoThumbnail from "../../../assets/images/services/2.png";
+import editingThumbnail from "../../../assets/images/services/goldtwo.png";
+import logoThumbnail from "../../../assets/images/services/goldone.png";
 import photoshootThumbnail from "../../../assets/images/services/3.png";
 import SMMThumbnail from "../../../assets/images/services/4.png";
 import { Link } from "react-router-dom";
@@ -156,7 +156,7 @@ const servicesData = [
     name: "DO YOU TRADE IN GOLD OR SILVER?",
     info: "Submit your trading details on www.APIGold.com & Stand a chance to win Exclusive Rewards Daily, Weekly & Monthly!",
     image: editingThumbnail,
-    backgroundColor: "#90EE90",
+    backgroundColor: "#C49A6C",
     addInfo: [
       {
         name: "Gold & Silver Trading Simplified:",
@@ -177,7 +177,7 @@ const servicesData = [
     name: "DO YOU TRADE IN BULLION OR JEWELRY?",
     info: "Submit your trading details at www.IBJAVerified.com & unlock Exclusive Rewards for Traders!.",
     image: logoThumbnail,
-    backgroundColor: "#ADD8E6",
+    backgroundColor: "#F4A460",
     addInfo: [
       {
         name: "Certified Suppliers Only",
@@ -194,51 +194,51 @@ const servicesData = [
     ],
     btnText: "Learn More ",
   },
-  {
-    name: "IBJA BULLETIN",
-    info: "Your Trusted Source for Bullion & Jewellery Industry Updates.",
-    image: photoshootThumbnail,
-    backgroundColor: "#FFB6C1",
-    addInfo: [
-      {
-        name: "Stay Informed",
-        info: "Get the latest insights, trends, and updates.",
-      },
-      {
-        name: "Comprehensive Industry Analysis",
-        info: "Deep dive into the challenges, opportunities",
-      },
-      {
-        name: "Empowering Traders & Investors",
-        info: "Gain a competitive edge with expert guidance",
-      },
-    ],
-    btnText: "Learn More",
-  },
+  // {
+  //   name: "IBJA BULLETIN",
+  //   info: "Your Trusted Source for Bullion & Jewellery Industry Updates.",
+  //   image: photoshootThumbnail,
+  //   backgroundColor: "#FFB6C1",
+  //   addInfo: [
+  //     {
+  //       name: "Stay Informed",
+  //       info: "Get the latest insights, trends, and updates.",
+  //     },
+  //     {
+  //       name: "Comprehensive Industry Analysis",
+  //       info: "Deep dive into the challenges, opportunities",
+  //     },
+  //     {
+  //       name: "Empowering Traders & Investors",
+  //       info: "Gain a competitive edge with expert guidance",
+  //     },
+  //   ],
+  //   btnText: "Learn More",
+  // },
  
 
-  {
-    name: "IBJA RATES API",
-    info: "India's Trusted Gold and Silver Rates API",
-    image: SMMThumbnail,
-    backgroundColor: "#FFB6C1",
-    addInfo: [
-      {
-        name: "Historical Data Access",
-        info: "Analyze historical trends for informed decision-making.",
-      },
-      {
-        name: "Reliable & Authentic Source",
-        info: "Trusted by businesses across India",
-      },
-      {
-        name: "Seamless Integration",
-        info: "Easily integrate with your applications for live",
-      },
+  // {
+  //   name: "IBJA RATES API",
+  //   info: "India's Trusted Gold and Silver Rates API",
+  //   image: SMMThumbnail,
+  //   backgroundColor: "#FFB6C1",
+  //   addInfo: [
+  //     {
+  //       name: "Historical Data Access",
+  //       info: "Analyze historical trends for informed decision-making.",
+  //     },
+  //     {
+  //       name: "Reliable & Authentic Source",
+  //       info: "Trusted by businesses across India",
+  //     },
+  //     {
+  //       name: "Seamless Integration",
+  //       info: "Easily integrate with your applications for live",
+  //     },
       
-    ],
-    btnText: "Learn More",
-  },
+  //   ],
+  //   btnText: "Learn More",
+  // },
  
 ];
 
