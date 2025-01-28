@@ -3,7 +3,8 @@ import Title from "../../../components/Title";
 import Logo from "../../../assets/Logo/BajajFinserv.png";
 import Logo2 from "../../../assets/Logo/India.png";
 import Logo3 from "../../../assets/Logo/ICICI.png";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Container = styled.div`
   padding: 0 10rem;
@@ -52,11 +53,9 @@ const Card = styled.div`
       height: 3rem;
       img {
         width: 13rem;
-        height:4rem;
+        height: 4rem;
         object-fit: cover;
       }
-
-    
     }
   }
 
@@ -66,9 +65,6 @@ const Card = styled.div`
   @media (max-width: 768px) {
     width: 100%;
   }
-
-
-  
 `;
 
 const testimonials = [
@@ -92,7 +88,34 @@ const testimonials = [
   },
 ];
 
+type TestimonialResType = {
+  CompanyName: string;
+  CompanyDescription: string;
+  CompanyImage: string;
+};
+
 export default function Testimonials() {
+  const [testimonial, setTestimonial] = useState<TestimonialResType[]>([]);
+
+  const getData = async () => {
+    await axios
+      .get(
+        "https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=Testimonial",
+        {
+          headers: {
+            ACCESS_TOKEN: process.env.VITE_API_KEY,
+            RequestType: "Testimonial",
+          },
+        }
+      )
+      .then((response) => setTestimonial(response.data));
+  };
+
+  useEffect(() => {
+    // call this function and replace testimonials in line no 125 with testimonial State Data
+    // getData();
+  }, []);
+
   return (
     <>
       <Title title="What our clients says" />
@@ -106,10 +129,6 @@ export default function Testimonials() {
                 <div className="profile_img">
                   <img src={item.image} alt="" />
                 </div>
-                {/* <div className="info">
-            <span className="name">{item.name}</span>
-            <span className="title">{item.title}</span>
-          </div> */}
               </div>
             </Card>
           ))}

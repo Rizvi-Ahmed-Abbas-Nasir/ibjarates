@@ -1,6 +1,6 @@
 import gsap from "gsap";
 import axios from "axios";
-import { useRef } from 'react';
+import { useRef } from "react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Banner1 from "../../../assets/images/smaill-banner.jpg";
@@ -46,15 +46,15 @@ const Card = styled.div`
     padding: 1rem;
 
     width: 100%;
-    .TOPTitle{
-    font-size:1.5rem;
+    .TOPTitle {
+      font-size: 1.5rem;
     }
     .title {
       font-weight: 600;
-  
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Lighter border */
-  padding-bottom: 0.5rem;
-    font-size:1rem;
+
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Lighter border */
+      padding-bottom: 0.5rem;
+      font-size: 1rem;
 
       padding: 0.7rem 0rem;
       display: flex;
@@ -156,8 +156,7 @@ const styles: Record<string, Style> = {
     flexDirection: "row",
     flexWrap: "nowrap",
     alignItems: "center",
-  }
-,  
+  },
   table: {
     width: "100%",
     textAlign: "center",
@@ -223,53 +222,51 @@ const styles: Record<string, Style> = {
     fontSize: "1.2rem",
   },
 
-TitleContainer:{
-  width:"100%",
-  display:"flex",
-  justifyContent: "center",
-  gap:"8rem",
-},
- Title : {
-  fontWeight: "600",
-  paddingBottom: "0.5rem",
-  padding: "0.7rem 0",
-  display: "flex",
-  alignItems: "center",
- 
-}
-
+  TitleContainer: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    gap: "8rem",
+  },
+  Title: {
+    fontWeight: "600",
+    paddingBottom: "0.5rem",
+    padding: "0.7rem 0",
+    display: "flex",
+    alignItems: "center",
+  },
 };
 
 export default function Landing() {
   // const [priceData, setPriceData] = useState<any>([])
   const priceCardsRef = useRef<Array<HTMLDivElement | null>>([]);
   const sidebarButtonsRef = useRef<(HTMLButtonElement | null)[]>([]);
-  const tableContainersRef = useRef<Array<HTMLDivElement | null>>([]); 
+  const tableContainersRef = useRef<Array<HTMLDivElement | null>>([]);
 
- useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const apiKey = import.meta.env.VITE_API_KEY;
 
-        const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=16/12/2024&END_DATE=16/12/2024`,
+        const response = await axios.get(
+          `https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=16/12/2024&END_DATE=16/12/2024`,
           {
             headers: {
               Authorization: ` ${apiKey}`,
-              'Content-Type': 'application/json', 
+              "Content-Type": "application/json",
             },
           }
         );
 
         console.log(response.data);
         // setPriceData(response.data)
-
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, []); 
+  }, []);
 
   useEffect(() => {
     if (sidebarButtonsRef.current.length > 0) {
@@ -321,47 +318,104 @@ export default function Landing() {
     );
   }, []);
 
-
   //dummy value bhaiii
   const currentDate = new Date();
-  
+
   // Corrected options for date formatting
   const options: Intl.DateTimeFormatOptions = {
-    weekday: 'short',  
-    year: 'numeric',  
-    month: 'short',  
-    day: 'numeric',  
-    hour: 'numeric', 
-    minute: 'numeric',  
-    hour12: true, 
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
   };
 
-  const formattedDate = currentDate.toLocaleString('en-GB', options).replace(',', '');
+  const formattedDate = currentDate
+    .toLocaleString("en-GB", options)
+    .replace(",", "");
 
   const priceData = [
-    { RateDate: "16/01/2025", RateTime: "12AM", Purity: "916", GoldRate: "72106", SilverRate: "" },
-    { RateDate: "16/01/2025", RateTime: "6PM", Purity: "916", GoldRate: "72533", SilverRate: "" },
-    { RateDate: "16/01/2025", RateTime: "6PM", Purity: "585", GoldRate: "46323", SilverRate: "" },
-    { RateDate: "16/01/2025", RateTime: "12AM", Purity: "999", GoldRate: "78718", SilverRate: "91218" },
-    { RateDate: "16/01/2025", RateTime: "12AM", Purity: "750", GoldRate: "59039", SilverRate: "" },
-    { RateDate: "16/01/2025", RateTime: "12AM", Purity: "585", GoldRate: "46050", SilverRate: "" },
-    { RateDate: "16/01/2025", RateTime: "6PM", Purity: "999", GoldRate: "79184", SilverRate: "91784" },
-    { RateDate: "16/01/2025", RateTime: "12AM", Purity: "995", GoldRate: "78403", SilverRate: "" },
-    { RateDate: "16/01/2025", RateTime: "6PM", Purity: "995", GoldRate: "78867", SilverRate: "" },
-    { RateDate: "16/01/2025", RateTime: "6PM", Purity: "750", GoldRate: "59388", SilverRate: "" }
+    {
+      RateDate: "16/01/2025",
+      RateTime: "12AM",
+      Purity: "916",
+      GoldRate: "72106",
+      SilverRate: "",
+    },
+    {
+      RateDate: "16/01/2025",
+      RateTime: "6PM",
+      Purity: "916",
+      GoldRate: "72533",
+      SilverRate: "",
+    },
+    {
+      RateDate: "16/01/2025",
+      RateTime: "6PM",
+      Purity: "585",
+      GoldRate: "46323",
+      SilverRate: "",
+    },
+    {
+      RateDate: "16/01/2025",
+      RateTime: "12AM",
+      Purity: "999",
+      GoldRate: "78718",
+      SilverRate: "91218",
+    },
+    {
+      RateDate: "16/01/2025",
+      RateTime: "12AM",
+      Purity: "750",
+      GoldRate: "59039",
+      SilverRate: "",
+    },
+    {
+      RateDate: "16/01/2025",
+      RateTime: "12AM",
+      Purity: "585",
+      GoldRate: "46050",
+      SilverRate: "",
+    },
+    {
+      RateDate: "16/01/2025",
+      RateTime: "6PM",
+      Purity: "999",
+      GoldRate: "79184",
+      SilverRate: "91784",
+    },
+    {
+      RateDate: "16/01/2025",
+      RateTime: "12AM",
+      Purity: "995",
+      GoldRate: "78403",
+      SilverRate: "",
+    },
+    {
+      RateDate: "16/01/2025",
+      RateTime: "6PM",
+      Purity: "995",
+      GoldRate: "78867",
+      SilverRate: "",
+    },
+    {
+      RateDate: "16/01/2025",
+      RateTime: "6PM",
+      Purity: "750",
+      GoldRate: "59388",
+      SilverRate: "",
+    },
   ];
 
-  const goldPurityMapping = [
-    { Carrot: 24 },
-   
-  ];
-  
+  const goldPurityMapping = [{ Carrot: 24 }];
 
   return (
     <>
       <Container className="Container">
         <div style={styles.page} className="page">
-        <div style={styles.headerPrices} className="headerPrices">
+          <div style={styles.headerPrices} className="headerPrices">
             {priceData.slice(0, 6).map((price, index) => (
               <div
                 key={index}
@@ -370,44 +424,42 @@ export default function Landing() {
                 style={styles.priceCard}
               >
                 {goldPurityMapping.map((price1, index) => (
-                    <div  key={index} 
-                    ref={(el) => priceCardsRef.current.push(el)}
->
-                <div style={styles.priceCardTitle}> {price1.Carrot}K Gold</div>
-                </div>
-   ))}
-           
+                  <div key={index} ref={(el) => priceCardsRef.current.push(el)}>
+                    <div style={styles.priceCardTitle}>
+                      {" "}
+                      {price1.Carrot}K Gold
+                    </div>
+                  </div>
+                ))}
+
                 <div
                   style={{ display: "flex", alignItems: "center", gap: "8px" }}
                 >
-                  <span style={styles.priceCardValue}>₹ {price.GoldRate}.00</span>
+                  <span style={styles.priceCardValue}>
+                    ₹ {price.GoldRate}.00
+                  </span>
                   <span
-                  style={{
-                    color: index % 2 === 0 ? "green" : "red",
-                    fontSize: "1.2rem",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {index % 2 === 0 ? "▲" : "▼"}
+                    style={{
+                      color: index % 2 === 0 ? "green" : "red",
+                      fontSize: "1.2rem",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {index % 2 === 0 ? "▲" : "▼"}
                   </span>
                 </div>
-                
               </div>
-           
             ))}
           </div>
           <div style={styles.MainContent} className="MainContent">
             <div style={styles.MainContentSecond} className="MainContentSecond">
-              
               <div
                 className="tableContainer"
                 ref={(el) => tableContainersRef.current.push(el)} // Add ref to table container
                 style={{ ...styles.tableContainer, width: "100%" }}
               >
-                
-                <div style={styles.tableHeader}>
-      {formattedDate}
-    </div>                <table style={styles.table}>
+                <div style={styles.tableHeader}>{formattedDate}</div>{" "}
+                <table style={styles.table}>
                   <thead>
                     <tr>
                       <th style={styles.tableCell}>PURITY</th>
@@ -416,48 +468,55 @@ export default function Landing() {
                     </tr>
                   </thead>
                   <tbody>
-                  {priceData.slice(0, 6).map((price, index) => {
-                const amData = priceData.filter((p) => p.Purity === price.Purity && p.RateTime === "12AM");
-                const pmData = priceData.filter((p) => p.Purity === price.Purity && p.RateTime === "6PM");
+                    {priceData.slice(0, 6).map((price, index) => {
+                      const amData = priceData.filter(
+                        (p) =>
+                          p.Purity === price.Purity && p.RateTime === "12AM"
+                      );
+                      const pmData = priceData.filter(
+                        (p) => p.Purity === price.Purity && p.RateTime === "6PM"
+                      );
 
-                const isSilver = price.SilverRate !== "";
+                      const isSilver = price.SilverRate !== "";
 
-                if (isSilver && index === priceData.length - 1) {
-                  return (
-                    <tr key={index}>
-                      <td style={styles.tableCell}>Silver {price.Purity}</td>
-                      <td style={styles.tableCell}>
-                        {amData.length > 0 ? amData[0].SilverRate : "-"}
-                      </td>
-                      <td style={styles.tableCell}>
-                        {pmData.length > 0 ? pmData[0].SilverRate : "-"}
-                      </td>
-                    </tr>
-                  );
-                }
+                      if (isSilver && index === priceData.length - 1) {
+                        return (
+                          <tr key={index}>
+                            <td style={styles.tableCell}>
+                              Silver {price.Purity}
+                            </td>
+                            <td style={styles.tableCell}>
+                              {amData.length > 0 ? amData[0].SilverRate : "-"}
+                            </td>
+                            <td style={styles.tableCell}>
+                              {pmData.length > 0 ? pmData[0].SilverRate : "-"}
+                            </td>
+                          </tr>
+                        );
+                      }
 
-                return (
-                  <tr key={index}>
-                    <td style={styles.tableCell}>Gold {price.Purity}</td>
-                    <td style={styles.tableCell}>
-                      {amData.length > 0 ? amData[0].GoldRate : "-"}
-                    </td>
-                    <td style={styles.tableCell}>
-                      {pmData.length > 0 ? pmData[0].GoldRate : "-"}
-                    </td>
-                  </tr>
-                );
-              })}
+                      return (
+                        <tr key={index}>
+                          <td style={styles.tableCell}>Gold {price.Purity}</td>
+                          <td style={styles.tableCell}>
+                            {amData.length > 0 ? amData[0].GoldRate : "-"}
+                          </td>
+                          <td style={styles.tableCell}>
+                            {pmData.length > 0 ? pmData[0].GoldRate : "-"}
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
-                  
                 </table>
-                <div style={styles.TitleContainer}>  
+                <div style={styles.TitleContainer}>
                   <div style={styles.Title}>
-                Download last 30 Days <IoMdDownload />
-              </div>
-              <div style={styles.Title} >
-                IBJA Terms <IoDocumentTextOutline />
-              </div></div>
+                    Download last 30 Days <IoMdDownload />
+                  </div>
+                  <div style={styles.Title}>
+                    IBJA Terms <IoDocumentTextOutline />
+                  </div>
+                </div>
               </div>
 
               {/* Second Table */}
@@ -468,12 +527,15 @@ export default function Landing() {
                 <div style={styles.tableHeader}>
                   <span> {formattedDate}</span>
                   <div className="buttonNEXbtn">
-                  <div>  <button className="buttonNEX">Next</button>
+                    <div>
+                      {" "}
+                      <button className="buttonNEX">Next</button>
+                    </div>
+                    <div>
+                      {" "}
+                      <button className="buttonNEX">Previous</button>
+                    </div>
                   </div>
-                  <div>  <button className="buttonNEX">Previous</button>
-                  </div>
-</div>
-
                 </div>
                 <table style={styles.table}>
                   <thead>
@@ -484,47 +546,55 @@ export default function Landing() {
                     </tr>
                   </thead>
                   <tbody>
-                  {priceData.slice(0, 6).map((price, index) => {
-                const amData = priceData.filter((p) => p.Purity === price.Purity && p.RateTime === "12AM");
-                const pmData = priceData.filter((p) => p.Purity === price.Purity && p.RateTime === "6PM");
+                    {priceData.slice(0, 6).map((price, index) => {
+                      const amData = priceData.filter(
+                        (p) =>
+                          p.Purity === price.Purity && p.RateTime === "12AM"
+                      );
+                      const pmData = priceData.filter(
+                        (p) => p.Purity === price.Purity && p.RateTime === "6PM"
+                      );
 
-                const isSilver = price.SilverRate !== "";
+                      const isSilver = price.SilverRate !== "";
 
-                if (isSilver && index === priceData.length - 1) {
-                  return (
-                    <tr key={index}>
-                      <td style={styles.tableCell}>Silver {price.Purity}</td>
-                      <td style={styles.tableCell}>
-                        {amData.length > 0 ? amData[0].SilverRate : "-"}
-                      </td>
-                      <td style={styles.tableCell}>
-                        {pmData.length > 0 ? pmData[0].SilverRate : "-"}
-                      </td>
-                    </tr>
-                  );
-                }
+                      if (isSilver && index === priceData.length - 1) {
+                        return (
+                          <tr key={index}>
+                            <td style={styles.tableCell}>
+                              Silver {price.Purity}
+                            </td>
+                            <td style={styles.tableCell}>
+                              {amData.length > 0 ? amData[0].SilverRate : "-"}
+                            </td>
+                            <td style={styles.tableCell}>
+                              {pmData.length > 0 ? pmData[0].SilverRate : "-"}
+                            </td>
+                          </tr>
+                        );
+                      }
 
-                return (
-                  <tr key={index}>
-                    <td style={styles.tableCell}>Gold {price.Purity}</td>
-                    <td style={styles.tableCell}>
-                      {amData.length > 0 ? amData[0].GoldRate : "-"}
-                    </td>
-                    <td style={styles.tableCell}>
-                      {pmData.length > 0 ? pmData[0].GoldRate : "-"}
-                    </td>
-                  </tr>
-                );
-              })}
+                      return (
+                        <tr key={index}>
+                          <td style={styles.tableCell}>Gold {price.Purity}</td>
+                          <td style={styles.tableCell}>
+                            {amData.length > 0 ? amData[0].GoldRate : "-"}
+                          </td>
+                          <td style={styles.tableCell}>
+                            {pmData.length > 0 ? pmData[0].GoldRate : "-"}
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
-                <div style={styles.TitleContainer}>  
+                <div style={styles.TitleContainer}>
                   <div style={styles.Title}>
-                  List of Holidays <GrDocumentTime />
+                    List of Holidays <GrDocumentTime />
                   </div>
-              <div style={styles.Title} >
-                IBJA Terms <IoDocumentTextOutline />
-              </div></div>
+                  <div style={styles.Title}>
+                    IBJA Terms <IoDocumentTextOutline />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -534,15 +604,9 @@ export default function Landing() {
           <Card>
             <div className="info">
               <div className="TOPTitle">Daily Market Update</div>
-              <div className="title">
-                17/01/2025
-              </div>
-              <div className="title">
-              16/01/2025
-              </div>
-              <div className="title">
-              15/01/2025
-              </div>
+              <div className="title">17/01/2025</div>
+              <div className="title">16/01/2025</div>
+              <div className="title">15/01/2025</div>
             </div>
           </Card>
           <Card>
