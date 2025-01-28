@@ -247,11 +247,28 @@ export default function Landing() {
   const tableContainersRef = useRef<Array<HTMLDivElement | null>>([]); 
 
  useEffect(() => {
+
+  function formatDate(date: Date): string {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); 
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+  
+  const today = new Date();
+  
+  const startDate = new Date(today.setHours(0, 0, 0, 0)); 
+  const endDate = new Date(today.setHours(18, 0, 0, 0)); 
+  
+  const formattedStartDate = formatDate(startDate);
+  const formattedEndDate = formatDate(endDate);
+
     const fetchData = async () => {
+
       try {
         const apiKey = import.meta.env.VITE_API_KEY;
 
-        const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=16/12/2024&END_DATE=16/12/2024`,
+        const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDate}&END_DATE=${formattedEndDate}`,
           {
             headers: {
               Authorization: ` ${apiKey}`,
@@ -270,6 +287,93 @@ export default function Landing() {
 
     fetchData();
   }, []); 
+
+
+  
+
+
+  const PREFETCH = async () => {
+
+    function formatDate(date: Date): string {
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0'); 
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    }
+    
+    const today = new Date();
+    
+    const startDate = new Date(today.setHours(0, 0, 0, 0)); 
+    const endDate = new Date(today.setHours(18, 0, 0, 0)); 
+    
+    const formattedStartDate = formatDate(startDate);
+    const formattedEndDate = formatDate(endDate);
+  
+    try {
+      const apiKey = import.meta.env.VITE_API_KEY;
+
+      const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDate}&END_DATE=${formattedEndDate}`,
+        {
+          headers: {
+            Authorization: ` ${apiKey}`,
+            'Content-Type': 'application/json', 
+          },
+        }
+      );
+
+      console.log(response.data);
+      // setPriceData(response.data)
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const NEXTFETCH = async () => {
+    function formatDate(date: Date): string {  
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0'); 
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    }
+    
+    const today = new Date();
+    
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    
+    const startDateToday = new Date(today.setHours(0, 0, 0, 0)); // 12 AM for today
+    const endDateToday = new Date(today.setHours(18, 0, 0, 0)); // 6 PM for today
+    
+    const startDateYesterday = new Date(yesterday.setHours(0, 0, 0, 0)); // 12 AM for yesterday
+    const endDateYesterday = new Date(yesterday.setHours(18, 0, 0, 0)); // 6 PM for yesterday
+    
+    const formattedStartDateToday = formatDate(startDateToday);
+    const formattedEndDateToday = formatDate(endDateToday);
+    
+    const formattedStartDateYesterday = formatDate(startDateYesterday);
+    const formattedEndDateYesterday = formatDate(endDateYesterday);
+  
+    try {
+      const apiKey = import.meta.env.VITE_API_KEY;
+
+      const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDateYesterday}&END_DATE=${formattedEndDateYesterday}`,
+        {
+          headers: {
+            Authorization: ` ${apiKey}`,
+            'Content-Type': 'application/json', 
+          },
+        }
+      );
+
+      console.log(response.data);
+      // setPriceData(response.data)
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
 
   useEffect(() => {
     if (sidebarButtonsRef.current.length > 0) {
@@ -337,6 +441,13 @@ export default function Landing() {
   };
 
   const formattedDate = currentDate.toLocaleString('en-GB', options).replace(',', '');
+
+  const todayFormatted = currentDate.toLocaleString('en-GB', options).replace(',', '');
+  const yesterdayDate = new Date(currentDate);
+  yesterdayDate.setDate(currentDate.getDate() - 1);
+  const yesterdayFormatted = yesterdayDate.toLocaleString('en-GB', options).replace(',', '');
+
+
 
   const priceData = [
     { RateDate: "16/01/2025", RateTime: "12AM", Purity: "916", GoldRate: "72106", SilverRate: "" },
@@ -466,11 +577,11 @@ export default function Landing() {
                 style={{ ...styles.tableContainer, width: "100%" }}
               >
                 <div style={styles.tableHeader}>
-                  <span> {formattedDate}</span>
+                  <span> {yesterdayFormatted}</span>
                   <div className="buttonNEXbtn">
-                  <div>  <button className="buttonNEX">Next</button>
+                  <div>  <button className="buttonNEX" onClick={NEXTFETCH}>Next</button>
                   </div>
-                  <div>  <button className="buttonNEX">Previous</button>
+                  <div>  <button className="buttonNEX" onClick={PREFETCH}>Previous</button>
                   </div>
 </div>
 
