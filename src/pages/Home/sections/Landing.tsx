@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import axios from "axios";
 import { useRef } from 'react';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Banner1 from "../../../assets/images/smaill-banner.jpg";
 import Banner2 from "../../../assets/images/smaill-banner2.jpg";
@@ -241,6 +241,7 @@ TitleContainer:{
 };
 
 export default function Landing() {
+  // const [priceData, setPriceData] = useState<any>([])
   const priceCardsRef = useRef<Array<HTMLDivElement | null>>([]);
   const sidebarButtonsRef = useRef<(HTMLButtonElement | null)[]>([]);
   const tableContainersRef = useRef<Array<HTMLDivElement | null>>([]); 
@@ -260,6 +261,7 @@ export default function Landing() {
         );
 
         console.log(response.data);
+        // setPriceData(response.data)
 
       } catch (error) {
         console.error('Error fetching data:', error);
