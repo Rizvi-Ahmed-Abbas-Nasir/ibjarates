@@ -35,13 +35,13 @@ export default function Footer() {
               Air plant banjo lyft occupy retro adaptogen indego
             </p>
           </div>
-          <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
-            <div className="lg:w-1/4 md:w-1/2 w-full px-4">
+          <div className=" flex justify-center w-[100%] md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
+            <div className=" md:w-1/2 w-full px-4">
               <h2 className="title-font font-medium text-black tracking-widest text-[1.2rem] mb-3">
                 Contact
               </h2>
               <nav className="list-none  mb-10">
-                <li className="py-[.7rem]">
+                <li className="py-[.7rem] w-[13rem]">
                   <a href="http://localhost:5173/" className="text-black hover:text-black">
 IBJA House, 2nd Agiary Lane,
 Zaveri Bazar, Mumbai - 400003.</a>
@@ -59,7 +59,7 @@ Zaveri Bazar, Mumbai - 400003.</a>
                 </li>
               </nav>
             </div>
-            <div className="lg:w-1/4 md:w-1/2 w-full px-4">
+            <div className=" md:w-1/2 w-full px-4">
             <h2 className="title-font font-medium text-black tracking-widest text-[1.2rem] mb-3">
                 Information 
               </h2>
@@ -78,23 +78,8 @@ Zaveri Bazar, Mumbai - 400003.</a>
                 </li>
               </nav>
             </div>
-              <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-              <h2 className="title-font font-medium text-black tracking-widest text-[1.2rem] mb-3">
-              Media Spokesperson
-              </h2>
-              <nav className="list-none  mb-10">
-                <li className="py-[.7rem]">
-                  <a className="text-black hover:text-black">CA SURENDRA MEHTA</a>
-                </li>
-                <li className="py-[.7rem]">
-                  <a className="text-black hover:text-black">
-
-+91 9820127931</a>
-                </li>
-              
-              </nav>
-            </div>
-               <div className="lg:w-1/4 md:w-1/2 w-full px-4">
+             
+               <div className=" md:w-1/2 w-full px-4">
             
               <nav className="list-none mt-[-1rem]">
                 <li className="py-[.7rem]">

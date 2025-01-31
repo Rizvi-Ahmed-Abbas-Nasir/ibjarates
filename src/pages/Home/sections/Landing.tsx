@@ -149,6 +149,7 @@ const styles: Record<string, Style> = {
     justifyContent: "center",
     backgroundColor: "rgb(241 181 75 / 46%)",
     padding: "1rem",
+    fontSize:"1.2rem",
     borderTopLeftRadius: ".8rem",
     borderTopRightRadius: ".8rem",
     fontWeight: "bold",
@@ -282,14 +283,13 @@ export default function Landing() {
           {
             headers: {
               ACCESS_TOKEN:  `${apiKey}`,
-              RequestType: 'GetRates',
               'Content-Type': 'application/json', 
             },
           }
         );
 
         console.log(response.data);
-        setPriceData(response.data)
+        // setPriceData(response.data)
 
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -326,7 +326,6 @@ export default function Landing() {
             {
               headers: {
                 ACCESS_TOKEN: ` ${apiKey}`,
-                RequestType: "30DaysPdf",
                 'Content-Type': 'application/json', 
               },
             }
@@ -503,18 +502,49 @@ export default function Landing() {
 
 
 
-  const priceData = [
-    { RateDate: "16/01/2025", RateTime: "12AM", Purity: "916", GoldRate: "72106", SilverRate: "" },
-    { RateDate: "16/01/2025", RateTime: "6PM", Purity: "916", GoldRate: "72533", SilverRate: "" },
-    { RateDate: "16/01/2025", RateTime: "6PM", Purity: "585", GoldRate: "46323", SilverRate: "" },
-    { RateDate: "16/01/2025", RateTime: "12AM", Purity: "999", GoldRate: "78718", SilverRate: "91218" },
-    { RateDate: "16/01/2025", RateTime: "12AM", Purity: "750", GoldRate: "59039", SilverRate: "" },
-    { RateDate: "16/01/2025", RateTime: "12AM", Purity: "585", GoldRate: "46050", SilverRate: "" },
-    { RateDate: "16/01/2025", RateTime: "6PM", Purity: "999", GoldRate: "79184", SilverRate: "91784" },
-    { RateDate: "16/01/2025", RateTime: "12AM", Purity: "995", GoldRate: "78403", SilverRate: "" },
-    { RateDate: "16/01/2025", RateTime: "6PM", Purity: "995", GoldRate: "78867", SilverRate: "" },
-    { RateDate: "16/01/2025", RateTime: "6PM", Purity: "750", GoldRate: "59388", SilverRate: "" }
-  ];
+  const jsonData: string = `[ 
+    { "RateDate": "16/01/2025", "RateTime": "12AM", "Purity": "916", "GoldRate": "72106", "SilverRate": "", "Carrot": 24 },
+    { "RateDate": "16/01/2025", "RateTime": "6PM", "Purity": "916", "GoldRate": "72533", "SilverRate": "", "Carrot": 22 },
+    { "RateDate": "16/01/2025", "RateTime": "6PM", "Purity": "585", "GoldRate": "46323", "SilverRate": "91228", "Carrot": 18 },
+    { "RateDate": "16/01/2025", "RateTime": "12AM", "Purity": "999", "GoldRate": "78718", "SilverRate": "91218", "Carrot": 16 },
+    { "RateDate": "16/01/2025", "RateTime": "12AM", "Purity": "750", "GoldRate": "59039", "SilverRate": "", "Carrot": 14 },
+    { "RateDate": "16/01/2025", "RateTime": "12AM", "Purity": "585", "GoldRate": "46050", "SilverRate": "91228", "Carrot": 12 },
+    { "RateDate": "16/01/2025", "RateTime": "6PM", "Purity": "999", "GoldRate": "79184", "SilverRate": "91784", "Carrot": 16 },
+    { "RateDate": "16/01/2025", "RateTime": "12AM", "Purity": "995", "GoldRate": "78403", "SilverRate": "", "Carrot": 16 },
+    { "RateDate": "16/01/2025", "RateTime": "6PM", "Purity": "995", "GoldRate": "78867", "SilverRate": "", "Carrot": 16 },
+    { "RateDate": "16/01/2025", "RateTime": "6PM", "Purity": "750", "GoldRate": "59388", "SilverRate": "", "Carrot": 16 }
+  ]`;
+
+  interface PriceData {
+    RateDate: string;
+    RateTime: string;
+    Purity: string;
+    GoldRate: string;
+    SilverRate: string;
+    Carrot: number;
+  }
+  
+  function convertJsonToObjects(jsonString: string): PriceData[] {
+    try {
+      const data: PriceData[] = JSON.parse(jsonString);
+      return data.map((item) => ({
+        RateDate: item.RateDate,
+        RateTime: item.RateTime,
+        Purity: item.Purity,
+        GoldRate: item.GoldRate ? item.GoldRate : "",
+        SilverRate: item.SilverRate ? item.SilverRate : "",
+        Carrot: item.Carrot
+      }));
+    } catch (error) {
+      console.error("Invalid JSON:", error);
+      return [];
+    }
+  }
+  
+  // Convert JSON string to objects
+  const priceObjects = convertJsonToObjects(jsonData);
+  console.log(priceObjects);
+  
 
   const goldPurityMapping = [
     { Carrot: 24 },
@@ -527,40 +557,55 @@ export default function Landing() {
       <Container className="Container">
         <div style={styles.page} className="page">
         <div style={styles.headerPrices} className="headerPrices">
-            {priceData.slice(0, 6).map((price, index) => (
-              <div
-                key={index}
-                className="priceCard"
-                ref={(el) => priceCardsRef.current.push(el)}
-                style={styles.priceCard}
-              >
-                {goldPurityMapping.map((price1, index) => (
-                    <div  key={index} 
-                    ref={(el) => priceCardsRef.current.push(el)}
->
-                <div style={styles.priceCardTitle}> {price1.Carrot}K Gold</div>
-                </div>
-   ))}
-           
-                <div
-                  style={{ display: "flex", alignItems: "center", gap: "8px" }}
-                >
-                  <span style={styles.priceCardValue}>₹ {price.GoldRate}.00</span>
-                  <span
-                  style={{
-                    color: index % 2 === 0 ? "green" : "red",
-                    fontSize: "1.2rem",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {index % 2 === 0 ? "▲" : "▼"}
-                  </span>
-                </div>
-                
-              </div>
-           
-            ))}
+  {priceObjects.slice(0, 6).map((price, index) => (
+    <div
+      key={index}
+      className="priceCard"
+      ref={(el) => priceCardsRef.current.push(el)}
+      style={styles.priceCard}
+    >
+      {index !== priceObjects.slice(0, 6).length - 1 ? (
+        <>
+         
+            <div >
+              <div style={styles.priceCardTitle}>{price.Carrot}K Gold</div>
+            </div>
+        
+
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <span style={styles.priceCardValue}>₹ {price.GoldRate}.00</span>
+            <span
+              style={{
+                color: index % 2 === 0 ? "green" : "red",
+                fontSize: "1.2rem",
+                fontWeight: "bold",
+              }}
+            >
+              {index % 2 === 0 ? "▲" : "▼"}
+            </span>
           </div>
+        </>
+      ) : (
+        
+        <div style={{ marginTop: "8px", fontWeight: "bold", fontSize: "1.5rem" }}>
+                        <div style={styles.priceCardTitle}>{price.Carrot}F Sliver</div>
+
+        ₹ {price.SilverRate ||  "Sliver Rate"}
+        <span
+              style={{
+                color: index % 2 === 0 ? "green" : "red",
+                fontSize: "1.2rem",
+                fontWeight: "bold",
+              }}
+            >
+              {index % 2 === 0 ? "▲" : "▼"}
+            </span>
+        </div>
+      )}
+    </div>
+  ))}
+</div>
+
           <div style={styles.MainContent} className="MainContent">
             <div style={styles.MainContentSecond} className="MainContentSecond">
               
@@ -581,38 +626,43 @@ export default function Landing() {
                     </tr>
                   </thead>
                   <tbody>
-                  {priceData.slice(0, 6).map((price, index) => {
-                const amData = priceData.filter((p) => p.Purity === price.Purity && p.RateTime === "12AM");
-                const pmData = priceData.filter((p) => p.Purity === price.Purity && p.RateTime === "6PM");
+                  {priceObjects.slice(0, 6).map((price, index) => {
+  const amData = priceObjects.filter(
+    (p) => p.Purity === price.Purity && p.RateTime === "12AM"
+  );
+  const pmData = priceObjects.filter(
+    (p) => p.Purity === price.Purity && p.RateTime === "6PM"
+  );
 
-                const isSilver = price.SilverRate !== "";
+  const isLastRow = index === priceObjects.slice(0, 6).length - 1;
 
-                if (isSilver && index === priceData.length - 1) {
-                  return (
-                    <tr key={index}>
-                      <td style={styles.tableCell}>Silver {price.Purity}</td>
-                      <td style={styles.tableCell}>
-                        {amData.length > 0 ? amData[0].SilverRate : "-"}
-                      </td>
-                      <td style={styles.tableCell}>
-                        {pmData.length > 0 ? pmData[0].SilverRate : "-"}
-                      </td>
-                    </tr>
-                  );
-                }
+  if (isLastRow) {
+    return (
+      <tr key={index}>
+        <td style={styles.tableCell}>Silver {price.Purity}</td>
+        <td style={styles.tableCell}>
+          {amData.length > 0 ? amData[0].SilverRate || "-" : "-"}
+        </td>
+        <td style={styles.tableCell}>
+          {pmData.length > 0 ? pmData[0].SilverRate || "-" : "-"}
+        </td>
+      </tr>
+    );
+  }
 
-                return (
-                  <tr key={index}>
-                    <td style={styles.tableCell}>Gold {price.Purity}</td>
-                    <td style={styles.tableCell}>
-                      {amData.length > 0 ? amData[0].GoldRate : "-"}
-                    </td>
-                    <td style={styles.tableCell}>
-                      {pmData.length > 0 ? pmData[0].GoldRate : "-"}
-                    </td>
-                  </tr>
-                );
-              })}
+  return (
+    <tr key={index}>
+      <td style={styles.tableCell}>Gold {price.Purity}</td>
+      <td style={styles.tableCell}>
+        {amData.length > 0 ? amData[0].GoldRate : "-"}
+      </td>
+      <td style={styles.tableCell}>
+        {pmData.length > 0 ? pmData[0].GoldRate : "-"}
+      </td>
+    </tr>
+  );
+})}
+
                   </tbody>
                   
                 </table>
@@ -649,38 +699,44 @@ export default function Landing() {
                     </tr>
                   </thead>
                   <tbody>
-                  {priceData.slice(0, 6).map((price, index) => {
-                const amData = priceData.filter((p) => p.Purity === price.Purity && p.RateTime === "12AM");
-                const pmData = priceData.filter((p) => p.Purity === price.Purity && p.RateTime === "6PM");
+                  {priceObjects.slice(0, 6).map((price, index) => {
+  const amData = priceObjects.filter(
+    (p) => p.Purity === price.Purity && p.RateTime === "12AM"
+  );
+  const pmData = priceObjects.filter(
+    (p) => p.Purity === price.Purity && p.RateTime === "6PM"
+  );
 
-                const isSilver = price.SilverRate !== "";
+  // Check if this is the last row
+  const isLastRow = index === priceObjects.slice(0, 6).length - 1;
 
-                if (isSilver && index === priceData.length - 1) {
-                  return (
-                    <tr key={index}>
-                      <td style={styles.tableCell}>Silver {price.Purity}</td>
-                      <td style={styles.tableCell}>
-                        {amData.length > 0 ? amData[0].SilverRate : "-"}
-                      </td>
-                      <td style={styles.tableCell}>
-                        {pmData.length > 0 ? pmData[0].SilverRate : "-"}
-                      </td>
-                    </tr>
-                  );
-                }
+  if (isLastRow) {
+    return (
+      <tr key={index}>
+        <td style={styles.tableCell}>Silver {price.Purity}</td>
+        <td style={styles.tableCell}>
+          {amData.length > 0 ? amData[0].SilverRate || "-" : "-"}
+        </td>
+        <td style={styles.tableCell}>
+          {pmData.length > 0 ? pmData[0].SilverRate || "-" : "-"}
+        </td>
+      </tr>
+    );
+  }
 
-                return (
-                  <tr key={index}>
-                    <td style={styles.tableCell}>Gold {price.Purity}</td>
-                    <td style={styles.tableCell}>
-                      {amData.length > 0 ? amData[0].GoldRate : "-"}
-                    </td>
-                    <td style={styles.tableCell}>
-                      {pmData.length > 0 ? pmData[0].GoldRate : "-"}
-                    </td>
-                  </tr>
-                );
-              })}
+  return (
+    <tr key={index}>
+      <td style={styles.tableCell}>Gold {price.Purity}</td>
+      <td style={styles.tableCell}>
+        {amData.length > 0 ? amData[0].GoldRate : "-"}
+      </td>
+      <td style={styles.tableCell}>
+        {pmData.length > 0 ? pmData[0].GoldRate : "-"}
+      </td>
+    </tr>
+  );
+})}
+
                   </tbody>
                 </table>
                 <div style={styles.TitleContainer}>  

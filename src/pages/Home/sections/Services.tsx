@@ -5,8 +5,8 @@ import { useRef } from "react";
 import styled from "styled-components";
 import editingThumbnail from "../../../assets/images/services/goldtwo.png";
 import logoThumbnail from "../../../assets/images/services/goldone.png";
-import photoshootThumbnail from "../../../assets/images/services/3.png";
-import SMMThumbnail from "../../../assets/images/services/4.png";
+import photoshootThumbnail from "../../../assets/images/services/goldthree.jpeg";
+import SMMThumbnail from "../../../assets/images/services/goldfour.jpeg";
 import { Link } from "react-router-dom";
 
 const Conatiner = styled.div`
@@ -194,51 +194,51 @@ const servicesData = [
     ],
     btnText: "Learn More ",
   },
-  // {
-  //   name: "IBJA BULLETIN",
-  //   info: "Your Trusted Source for Bullion & Jewellery Industry Updates.",
-  //   image: photoshootThumbnail,
-  //   backgroundColor: "#FFB6C1",
-  //   addInfo: [
-  //     {
-  //       name: "Stay Informed",
-  //       info: "Get the latest insights, trends, and updates.",
-  //     },
-  //     {
-  //       name: "Comprehensive Industry Analysis",
-  //       info: "Deep dive into the challenges, opportunities",
-  //     },
-  //     {
-  //       name: "Empowering Traders & Investors",
-  //       info: "Gain a competitive edge with expert guidance",
-  //     },
-  //   ],
-  //   btnText: "Learn More",
-  // },
+  {
+    name: "Have You Purchased GOLD/SLIVER?",
+    info: "Upload Your invoice on www.ibjab2c.com",
+    image: photoshootThumbnail,
+    backgroundColor: "#E0F7FA",
+    addInfo: [
+      {
+        name: "Stay Informed",
+        info: "Get the latest insights, trends, and updates.",
+      },
+      {
+        name: "Comprehensive Industry Analysis",
+        info: "Deep dive into the challenges, opportunities",
+      },
+      {
+        name: "Empowering Traders & Investors",
+        info: "Gain a competitive edge with expert guidance",
+      },
+    ],
+    btnText: "Learn More",
+  },
  
 
-  // {
-  //   name: "IBJA RATES API",
-  //   info: "India's Trusted Gold and Silver Rates API",
-  //   image: SMMThumbnail,
-  //   backgroundColor: "#FFB6C1",
-  //   addInfo: [
-  //     {
-  //       name: "Historical Data Access",
-  //       info: "Analyze historical trends for informed decision-making.",
-  //     },
-  //     {
-  //       name: "Reliable & Authentic Source",
-  //       info: "Trusted by businesses across India",
-  //     },
-  //     {
-  //       name: "Seamless Integration",
-  //       info: "Easily integrate with your applications for live",
-  //     },
+  {
+    name: "Are You a Plainum Member of IBJA?",
+    info: "Send a 60-90 second corporate video to IBJA for a free promotional feature.",
+    image: SMMThumbnail,
+    backgroundColor: "#87CEEB",
+    addInfo: [
+      {
+        name: " Promotion Platform",
+        info: "A dedicated platform to promote your corporate and product videos.",
+      },
+      {
+        name: "Member Privileges",
+        info: "Exclusive opportunity for IBJA  members to showcase their products",
+      },
+      {
+        name: "Free Promotion",
+        info: "Send a 60-90 second corporate video to IBJA for a free promotional feature",
+      },
       
-  //   ],
-  //   btnText: "Learn More",
-  // },
+    ],
+    btnText: "Learn More",
+  },
  
 ];
 

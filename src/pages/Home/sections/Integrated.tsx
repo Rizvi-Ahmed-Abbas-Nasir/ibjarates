@@ -112,12 +112,14 @@ export default function Integrated() {
   const [ApiIntegrated, setApiIntegrated] = useState<any>([]);
 
   const getData = async () => {
+    const apiKey = import.meta.env.VITE_API_KEY;
+
     await axios
       .get(
         "https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=APIEsteemedUsers",
         {
           headers: {
-            ACCESS_TOKEN: process.env.VITE_API_KEY,
+            ACCESS_TOKEN: ` ${apiKey}`,
             RequestType: "Testimonial",
           },
         }
