@@ -242,62 +242,67 @@ TitleContainer:{
 };
 
 export default function Landing() {
-  // interface Price {
-  //   RateDate: string;  
-  //   RateTime: string; 
-  //   Purity: string;    
-  //   GoldRate: string;  
-  //   SilverRate: string | "";  
-  // }
-  
-  // const [priceData, setPriceData] = useState<Price[]>([]);
+ 
+  interface PriceData {
+    RateDate: string;
+    RateTime: string;
+    Purity: string;
+    GoldRate: string;
+    SilverRate: string;
+
+  }
+
   
   const [PDF, setPDFata] = useState<any>([]);
 
   const priceCardsRef = useRef<Array<HTMLDivElement | null>>([]);
   const sidebarButtonsRef = useRef<(HTMLButtonElement | null)[]>([]);
   const tableContainersRef = useRef<Array<HTMLDivElement | null>>([]); 
+  const [priceData, setPriceData] = useState<PriceData[]>([]); 
 
- useEffect(() => {
 
-  function formatDate(date: Date): string {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0'); 
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  }
-  
-  const today = new Date();
-  
-  const startDate = new Date(today.setHours(0, 0, 0, 0)); 
-  const endDate = new Date(today.setHours(18, 0, 0, 0)); 
-  
-  const formattedStartDate = formatDate(startDate);
-  const formattedEndDate = formatDate(endDate);
+  useEffect(() => {
+    function formatDate(date: Date): string {
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    }
+
+    const today = new Date();
+    const startDate = new Date(today.setHours(0, 0, 0, 0)); 
+    const endDate = new Date(today.setHours(18, 0, 0, 0));
+
+    const formattedStartDate = formatDate(startDate);
+    const formattedEndDate = formatDate(endDate);
 
     const fetchData = async () => {
-
       try {
-        const apiKey = import.meta.env.VITE_API_KEY;
-        const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDate}&END_DATE=${formattedEndDate}`,
-          {
-            headers: {
-              ACCESS_TOKEN:  `${apiKey}`,
-              'Content-Type': 'application/json', 
-            },
-          }
-        );
+          const response = await axios.get("https://react.senseware.in/API/IbjaRates/User.aspx", {
+              params: {
+                  RequestType: "GetRates",
+                  START_DATE: formattedStartDate,
+                  END_DATE: formattedEndDate
+              },
+              headers: {
+                  "Content-Type": "application/json",
+                  "Accept": "application/json"
+              },
+              withCredentials: false  
+          });
+  
+          console.log(response.data);
+          setPriceData(response.data)
 
-        console.log(response.data);
-        // setPriceData(response.data)
 
       } catch (error) {
-        console.error('Error fetching data:', error);
+          console.error("Error fetching data:", error);
       }
-    };
+  };
 
+    
     fetchData();
-  }, []); 
+  }, []);
 
 
   useEffect(() => {
@@ -325,8 +330,8 @@ export default function Landing() {
           const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=30DaysPdf`,
             {
               headers: {
-                ACCESS_TOKEN: ` ${apiKey}`,
-                'Content-Type': 'application/json', 
+                Authorization: ` ${apiKey}`
+               
               },
             }
           );
@@ -369,11 +374,14 @@ export default function Landing() {
       const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDate}&END_DATE=${formattedEndDate}`,
         {
           headers: {
-            ACCESS_TOKEN: ` ${apiKey}`,
-            'Content-Type': 'application/json', 
+            Authorization: ` ${apiKey}`
           },
         }
       );
+
+
+
+      
 
       console.log(response.data);
       // setPriceData(response.data)
@@ -382,6 +390,9 @@ export default function Landing() {
       console.error('Error fetching data:', error);
     }
   };
+
+
+
 
   const NEXTFETCH = async () => {
     function formatDate(date: Date): string {  
@@ -411,12 +422,7 @@ export default function Landing() {
       const apiKey = import.meta.env.VITE_API_KEY;
 
       const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDateYesterday}&END_DATE=${formattedEndDateYesterday}`,
-        {
-          headers: {
-            ACCESS_TOKEN: ` ${apiKey}`,
-            'Content-Type': 'application/json', 
-          },
-        }
+       
       );
 
       console.log(response.data);
@@ -445,34 +451,32 @@ export default function Landing() {
   }, []);
 
   useEffect(() => {
-    // GSAP Animation for price cards
     gsap.fromTo(
       priceCardsRef.current,
       {
         opacity: 0,
-        y: 30, // Starting position
+        y: 30, 
       },
       {
         opacity: 1,
-        y: 0, // End position
-        stagger: 0.05, // Stagger animation
-        duration: 0.8, // Duration of the animation
+        y: 0, 
+        stagger: 0.05, 
+        duration: 0.8, 
         ease: "power3.out",
       }
     );
 
-    // GSAP Animation for tables
     gsap.fromTo(
       tableContainersRef.current,
       {
         opacity: 0,
-        y: 30, // Starting position
+        y: 30, 
       },
       {
         opacity: 1,
-        y: 0, // End position
-        stagger: 0.1, // Stagger animation
-        duration: 0.8, // Duration of the animation
+        y: 0, 
+        stagger: 0.1, 
+        duration: 0.8, 
         ease: "power3.out",
       }
     );
@@ -482,7 +486,6 @@ export default function Landing() {
   //dummy value bhaiii
   const currentDate = new Date();
   
-  // Corrected options for date formatting
   const options: Intl.DateTimeFormatOptions = {
     weekday: 'short',  
     year: 'numeric',  
@@ -543,7 +546,6 @@ export default function Landing() {
   
   // Convert JSON string to objects
   const priceObjects = convertJsonToObjects(jsonData);
-  console.log(priceObjects);
   
 
   const goldPurityMapping = [
@@ -744,7 +746,7 @@ export default function Landing() {
                   List of Holidays <GrDocumentTime />
                   </div>
               <div style={styles.Title} >
-                IBJA Terms <IoDocumentTextOutline />
+               * Gold rates per 10gm & Silver rate per 1kg <IoDocumentTextOutline />
               </div></div>
               </div>
             </div>

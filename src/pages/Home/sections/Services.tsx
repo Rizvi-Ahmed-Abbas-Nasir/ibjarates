@@ -153,90 +153,37 @@ const Button = styled(Link)`
 
 const servicesData = [
   {
-    name: "IBJA GOLD PRICES ARE INDIA's BENCHMARK RATES?",
+    name: "IBJA GOLD PRICES ARE INDIA's BENCHMARK RATES",
     info: "Submit your trading details on www.APIGold.com & Stand a chance to win Exclusive Rewards Daily, Weekly & Monthly!",
     image: editingThumbnail,
-    backgroundColor: "#C49A6C",
-    addInfo: [
-      {
-        name: "Gold & Silver Trading Simplified",
-        info: " Hassle-free and secure trading options tailored for you.",
-      },
-      {
-        name: "Market Insights:",
-        info: " Stay ahead with real-time updates on market trends.",
-      },
-      {
-        name: " Daily Notifications: ",
-        info:"Get notified about gold and silver prices instantly.",
-      },
-    ],
+    backgroundColor: "#F4A460",
+    TextColor: "black",
     btnText: "Learn More",
   },
   {
     name: "INDIA INFORMATIVE BULLETIN ON BULLION & JEWELRY",
     info: "Submit your trading details at www.IBJAVerified.com & unlock Exclusive Rewards for Traders!.",
     image: logoThumbnail,
-    backgroundColor: "#F4A460",
-    addInfo: [
-      {
-        name: "Certified Suppliers Only",
-        info: "IBJA Bulletin provide BULLION & JEWELRY,",
-      },
-      {
-        name: "Exclusive Rewards",
-        info: "Beautiful and user-friendly interfaces.",
-      },
-      {
-        name: "Market Updates",
-        info: "Stay informed with real-time updates on bullion prices and industry trends.",
-      },
-    ],
+    backgroundColor: "#5F3A26",
+    TextColor: "white",
     btnText: "Learn More ",
   },
   {
-    name: "Have You Purchased GOLD/SLIVER?",
+    name: "Have You Purchased GOLD/SLIVER",
     info: "Upload Your invoice on www.ibjab2c.com",
     image: photoshootThumbnail,
     backgroundColor: "#E0F7FA",
-    addInfo: [
-      {
-        name: "Stay Informed",
-        info: "Get the latest insights, trends, and updates.",
-      },
-      {
-        name: "Comprehensive Industry Analysis",
-        info: "Deep dive into the challenges, opportunities",
-      },
-      {
-        name: "Empowering Traders & Investors",
-        info: "Gain a competitive edge with expert guidance",
-      },
-    ],
+    TextColor: "black",
     btnText: "Learn More",
   },
  
 
   {
-    name: "Are You a Plainum Member of IBJA?",
+    name: "Are You a Plainum Member of IBJA",
     info: "Send a 60-90 second corporate video to IBJA for a free promotional feature.",
     image: SMMThumbnail,
     backgroundColor: "#87CEEB",
-    addInfo: [
-      {
-        name: " Promotion Platform",
-        info: "A dedicated platform to promote your corporate and product videos.",
-      },
-      {
-        name: "Member Privileges",
-        info: "Exclusive opportunity for IBJA  members to showcase their products",
-      },
-      {
-        name: "Free Promotion",
-        info: "Send a 60-90 second corporate video to IBJA for a free promotional feature",
-      },
-      
-    ],
+    TextColor: "black",
     btnText: "Learn More",
   },
  
@@ -282,6 +229,7 @@ const Services = () => {
         onEnter: () =>
           gsap.to(body, {
             backgroundColor: servicesData[index].backgroundColor,
+            color: servicesData[index].TextColor,
           }),
 
         onLeave: () => {
@@ -316,15 +264,7 @@ const Services = () => {
           >
             <img src={item.image} alt="" />
             <h1>{item.name}</h1>
-            <p>{item.info}</p>
-            <div className="more_info">
-              {item.addInfo.map((item) => (
-                <div className="info" key={item.name}>
-                  <p className="service_add_info">• {item.name}:</p>
-                  <p>{item.info}</p>
-                </div>
-              ))}
-            </div>
+          
             <Button to="/quote">{item.btnText}</Button>
           </Content>
         ))}

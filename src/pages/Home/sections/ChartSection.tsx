@@ -132,20 +132,18 @@ export default function ChartSection() {
             </p>
             <div className="flex justify-between gap-5 bg-[#fafaf8] px-[3rem] py-[0.7rem] rounded-[1rem]">
               <button className="px-3 py-1 rounded-md text-black text-sm">
-                Daily
+                weekly
               </button>
               <button className="px-3 py-1 rounded-md text-black text-sm">
-                Weekly
+                Monthly
               </button>
               <button className="px-5 py-3 bg-[#070757] text-white rounded-[1rem] text-sm">
-                Annually
+                6 Month
               </button>
             </div>
           </div>
-          {/* Chart with Reduced Height */}
           <div className="py-5" style={{ height: "550px" }}>
             {" "}
-            {/* Adjust height here */}
             <Line data={salesData} options={chartOptions} />
           </div>
         </div>

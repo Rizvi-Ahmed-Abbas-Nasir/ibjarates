@@ -9,16 +9,16 @@ import styled from "styled-components";
 // `;
 
 const Logo = styled.div`
-  width: 15rem;
+  width: 18rem;
   img {
     width: 100%;
     height: auto;
   }
   @media (max-width: 1080px) {
-    width: 10rem;
+    width: 40rem;
   }
   @media (max-width: 768px) {
-    width: 6rem;
+    width: 10rem;
   }
 `;
 
@@ -27,17 +27,15 @@ export default function Footer() {
     <>
       <footer className="text-black bg-[#fff2da] body-font mt-9 footer">
         <div className="container px-5 py-[10rem] mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
-          <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
+          <div className="w-67 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
           <Logo>
-        <img src={logoimg} alt="" />
+        <img src={logoimg}  alt="" />
       </Logo>
-            <p className="mt-2 text-sm text-gray-500">
-              Air plant banjo lyft occupy retro adaptogen indego
-            </p>
+           
           </div>
           <div className=" flex justify-center w-[100%] md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
             <div className=" md:w-1/2 w-full px-4">
-              <h2 className="title-font font-medium text-black tracking-widest text-[1.2rem] mb-3">
+              <h2 className="title-font font-medium text-black tracking-widest text-[1.7rem] mb-3">
                 Contact
               </h2>
               <nav className="list-none  mb-10">
@@ -60,7 +58,7 @@ Zaveri Bazar, Mumbai - 400003.</a>
               </nav>
             </div>
             <div className=" md:w-1/2 w-full px-4">
-            <h2 className="title-font font-medium text-black tracking-widest text-[1.2rem] mb-3">
+            <h2 className="title-font font-medium text-black tracking-widest text-[1.7rem] mb-3">
                 Information 
               </h2>
               <nav className="list-none  mb-10">

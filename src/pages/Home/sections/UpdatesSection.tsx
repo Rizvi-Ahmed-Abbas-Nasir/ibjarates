@@ -177,10 +177,7 @@ export default function UpdatesSection() {
 
   return (
     <Container>
-      <Title>
-        We activate brands across global touchpoints, from campaigns to events
-        and beyond.
-      </Title>
+    
       <Section ref={containerRef}>
         <RightSection className="updates_left_card">
           <Image
