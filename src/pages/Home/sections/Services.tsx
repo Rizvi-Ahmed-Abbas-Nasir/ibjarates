@@ -5,8 +5,8 @@ import { useRef } from "react";
 import styled from "styled-components";
 import editingThumbnail from "../../../assets/images/services/goldtwo.png";
 import logoThumbnail from "../../../assets/images/services/goldone.png";
-import photoshootThumbnail from "../../../assets/images/services/goldthree.jpeg";
-import SMMThumbnail from "../../../assets/images/services/goldfour.jpeg";
+import photoshootThumbnail from "../../../assets/images/services/goldfour.png";
+import SMMThumbnail from "../../../assets/images/services/goldthree.png";
 import { Link } from "react-router-dom";
 
 const Conatiner = styled.div`

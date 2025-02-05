@@ -200,7 +200,7 @@ export default function UpdatesSection() {
                 "Use of IBJA rates by All Scheduled commercial Bank",
                 "Use of IBJA rates for Sovereign Gold Bonds",
               ].map((item, index) => (
-                <ListItem data-count={index + 1} key={index}>
+                <ListItem  key={index}>
                   {item}
                 </ListItem>
               ))}

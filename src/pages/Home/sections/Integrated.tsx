@@ -4,6 +4,14 @@ import gsap from "gsap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import axios from "axios";
+import img1 from "../../../assets/Logo/India.png";
+import img2 from "../../../assets/Logo/ICICI.png";
+import img3 from "../../../assets/Logo/BajajFinserv.png";
+import img4 from "../../../assets/Logo/Paytm.png";
+import img5 from "../../../assets/Logo/Shriram.png";
+import img6 from "../../../assets/Logo/Keertana.png";
+import img7 from "../../../assets/Logo/IFL.png";
+import img8 from "../../../assets/Logo/360one.png";
 
 const Title = styled.div`
   margin: 3rem 0rem;
@@ -96,15 +104,33 @@ const Logo = styled.div`
   }
 `;
 
+
+
 const images = [
-  "https://senseware.co.in/ibjarates/images/API-Subsc-logo/Paytm-Money.png",
-  "https://senseware.co.in/ibjarates/images/API-Subsc-logo/BajajFinserv.png",
-  "https://senseware.co.in/ibjarates/images/API-Subsc-logo/Central-Bank-Of-India.png",
-  "https://senseware.co.in/ibjarates/images/API-Subsc-logo/Paytm-Money.png",
-  "https://senseware.co.in/ibjarates/images/API-Subsc-logo/Shriram-Finance-Limited.png",
-  "https://senseware.co.in/ibjarates/images/API-Subsc-logo/Paytm-Money.png",
-  "https://senseware.co.in/ibjarates/images/API-Subsc-logo/BajajFinserv.png",
-  "https://senseware.co.in/ibjarates/images/API-Subsc-logo/Central-Bank-Of-India.png",
+  {
+    imgUrl: img1,
+  },
+  {
+    imgUrl: img2,
+  },
+  {
+    imgUrl: img3,
+  },
+  {
+    imgUrl: img4,
+  },
+  {
+    imgUrl: img5,
+  },
+  {
+    imgUrl: img6,
+  },
+  {
+    imgUrl: img7,
+  },
+  {
+    imgUrl: img8,
+  },
 ];
 
 export default function Integrated() {
@@ -164,7 +190,7 @@ export default function Integrated() {
               {images.map((image, index) => (
                 <SwiperSlide>
                   <Logo key={index} className="API_logo">
-                    <img src={image} alt="" />
+                    <img src={image.imgUrl} alt="" />
                   </Logo>
                 </SwiperSlide>
               ))}
