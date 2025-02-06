@@ -203,7 +203,7 @@ export default function Blog() {
         <BlogWrapper>
           <Swiper
            modules={[Autoplay]}
-           loop={true} // Enable looping
+           loop={true} 
            autoplay={{
              delay: 1500, // Delay between slides (in ms)
              disableOnInteraction: false, // Continue autoplay after interaction

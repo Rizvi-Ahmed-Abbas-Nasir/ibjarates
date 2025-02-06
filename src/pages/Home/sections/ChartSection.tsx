@@ -125,12 +125,12 @@ export default function ChartSection() {
       <Container ref={containerRef}>
         <div className="chart_section px-6 py-6 rounded-[2rem] bg-[#fff2d8] shadow-lg w-[90%] flex flex-col justify-start mb-6">
           <h3 className="text-black text-lg font-bold mb-4">Sales 2022</h3>
-          <div className="text-black gap-5 text-sm mb-4 flex flex-col lg:flex-row justify-between ">
+          <div className="text-black gap-5 text-sm mb-4 flex flex-col lg:flex-row justify-between lg:p-5 p-0 ">
             <p>
               <span className="text-[3rem] font-bold">$12.7k</span>{" "}
               <span className="text-green-500">+1.3%</span> vs last year
             </p>
-            <div className="flex justify-between w-[100%] md:gap-5 bg-[#fafaf8] lg:px-[3rem] lg:py-[1rem] px-[1rem] py-[2rem] rounded-[1rem]">
+            <div className="flex justify-between  md:gap-5 bg-[#fafaf8] lg:px-[3rem] lg:py-[1rem] px-[1rem] py-[2rem] rounded-[1rem]">
             <button className="px-3 py-1 rounded-md text-black text-sm">Daily</button>
             <button className="px-3 py-1 rounded-md text-black text-sm">Weekly</button>
             <button className="px-3 py-3 bg-[#070757] text-white rounded-[1rem] text-sm">Annually</button>
