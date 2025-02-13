@@ -314,7 +314,7 @@ export default function Landing() {
   const fetchData = async (machineKey: string) => {
     try {
       const response = await axios.get(
-        `https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDate}&END_DATE=${formattedEndDate}&Machine_Key=${machineKey}&ACCESS_TOKEN=IBJSW3SEA73`
+        `https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=13/02/2025&END_DATE=13/02/2025&Machine_Key=${machineKey}&ACCESS_TOKEN=IBJSW3SEA73`
       );
   
       console.log("get rates data", response.data);
@@ -500,20 +500,19 @@ console.log(data);
   }, []);
 
   useEffect(() => {
-    gsap.fromTo(
-      priceCardsRef.current,
-      {
-        opacity: 0,
-        y: 30, 
-      },
-      {
-        opacity: 1,
-        y: 0, 
-        stagger: 0.05, 
-        duration: 0.8, 
-        ease: "power3.out",
-      }
-    );
+    if (priceCardsRef.current.length > 0) {
+      gsap.fromTo(
+        priceCardsRef.current,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.05,
+          duration: 0.8,
+          ease: "power3.out",
+        }
+      );
+    }
 
     gsap.fromTo(
       tableContainersRef.current,
@@ -529,7 +528,7 @@ console.log(data);
         ease: "power3.out",
       }
     );
-  }, []);
+  }, [priceData]);
 
 
   //dummy value bhaiii
