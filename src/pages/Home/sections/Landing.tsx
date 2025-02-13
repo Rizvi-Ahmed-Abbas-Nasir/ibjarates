@@ -293,33 +293,43 @@ export default function Landing() {
   const [priceData, setPriceData] = useState<PriceData[]>([]); 
 
 
+
   function formatDate(date: Date): string {
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   }
-
+  
   const today = new Date();
-  const startDate = new Date(today.setHours(0, 0, 0, 0)); 
+  const startDate = new Date(today.setHours(0, 0, 0, 0));
   const endDate = new Date(today.setHours(18, 0, 0, 0));
-
+  
   const formattedStartDate = formatDate(startDate);
   const formattedEndDate = formatDate(endDate);
-
+  
+  console.log(formattedStartDate); 
+  console.log(formattedEndDate);   
+  
   const fetchData = async (machineKey: string) => {
     try {
-      const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDate}&END_DATE=${formattedEndDate}&Machine_Key=${machineKey}&ACCESS_TOKEN=IBJSW3SEA73`,
-      
+      const response = await axios.get(
+        `https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDate}&END_DATE=${formattedEndDate}&Machine_Key=${machineKey}&ACCESS_TOKEN=IBJSW3SEA73`
       );
-
-      console.log("get rates data ",response.data);
-      setPriceData(response.data)
-
+  
+      console.log("get rates data", response.data);
+  
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        setPriceData(response.data); 
+      } else {
+        setPriceData([]); 
+      }
     } catch (error) {
-        console.error("Error fetching data:", error);
+      console.error("Error fetching data:", error);
+      setPriceData([]); 
     }
-};
+  };
+  
 
 useEffect(() => {
   const fetchAndSetData = async () => {
@@ -566,30 +576,11 @@ console.log(data);
     Carrot: number;
   }
   
-  function convertJsonToObjects(jsonString: string): PriceData[] {
-    try {
-      const data: PriceData[] = JSON.parse(jsonString);
-      return data.map((item) => ({
-        RateDate: item.RateDate,
-        RateTime: item.RateTime,
-        Purity: item.Purity,
-        GoldRate: item.GoldRate ? item.GoldRate : "",
-        SilverRate: item.SilverRate ? item.SilverRate : "",
-        Carrot: item.Carrot
-      }));
-    } catch (error) {
-      console.error("Invalid JSON:", error);
-      return [];
-    }
-  }
   
-  const priceObjects = convertJsonToObjects(jsonData);
+  
   
 
-  const goldPurityMapping = [
-    { Carrot: 24 },
-   
-  ];
+
   
 
   return (
@@ -597,23 +588,38 @@ console.log(data);
       <Container className="Container">
         <div style={styles.page} className="page">
         <div style={styles.headerPrices} className="headerPrices">
-  {priceData.slice(0, 6).map((price, index) => (
-    <div
-      key={index}
-      className="priceCard"
-      ref={(el) => priceCardsRef.current.push(el)}
-      style={styles.priceCard}
-    >
-      {index !== priceObjects.slice(0, 6).length - 1 ? (
-        <>
-         
-            <div >
+  {Array.isArray(priceData) && priceData.length > 0 ? (
+    priceData.slice(0, 6).map((price, index) => (
+      <div
+        key={index}
+        className="priceCard"
+        ref={(el) => priceCardsRef.current.push(el)}
+        style={styles.priceCard}
+      >
+        {index !== priceData.slice(0, 6).length - 1 ? (
+          <>
+            <div>
               <div style={styles.priceCardTitle}>{price.Carrot}K Gold</div>
             </div>
-        
-
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <span style={styles.priceCardValue}>₹ {price.GoldRate}.00</span>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <span style={styles.priceCardValue}>₹ {price.GoldRate}.00</span>
+              <span
+                style={{
+                  color: index % 2 === 0 ? "green" : "red",
+                  fontSize: "1.2rem",
+                  fontWeight: "bold",
+                }}
+              >
+                {index % 2 === 0 ? "▲" : "▼"}
+              </span>
+            </div>
+          </>
+        ) : (
+          <div
+            style={{ marginTop: "8px", fontWeight: "bold", fontSize: "1.5rem" }}
+          >
+            <div style={styles.priceCardTitle}>{price.Carrot}F Silver</div>
+            ₹ {price.SilverRate || "Silver Rate"}
             <span
               style={{
                 color: index % 2 === 0 ? "green" : "red",
@@ -624,169 +630,178 @@ console.log(data);
               {index % 2 === 0 ? "▲" : "▼"}
             </span>
           </div>
-        </>
-      ) : (
-        
-        <div style={{ marginTop: "8px", fontWeight: "bold", fontSize: "1.5rem" }}>
-                        <div style={styles.priceCardTitle}>{price.Carrot}F Sliver</div>
-
-        ₹ {price.SilverRate ||  "Sliver Rate"}
-        <span
-              style={{
-                color: index % 2 === 0 ? "green" : "red",
-                fontSize: "1.2rem",
-                fontWeight: "bold",
-              }}
-            >
-              {index % 2 === 0 ? "▲" : "▼"}
-            </span>
-        </div>
-      )}
+        )}
+      </div>
+    ))
+  ) : (
+    <div style={{ textAlign: "center", marginTop: "20px", color: "gray" }}>
+      No records found.
     </div>
-  ))}
+  )}
 </div>
 
-          <div style={styles.MainContent} className="MainContent">
-            <div style={styles.MainContentSecond} className="MainContentSecond">
-              
-              <div
-                className="tableContainer"
-                ref={(el) => tableContainersRef.current.push(el)} // Add ref to table container
-                style={{ ...styles.tableContainer, width: "100%" }}
-              >
-                
-                <div style={styles.tableHeader}>
-      {formattedDate}
-    </div>                <table style={styles.table}>
-                  <thead>
-                    <tr>
-                      <th style={styles.tableCell}>PURITY</th>
-                      <th style={styles.tableCell}>AM</th>
-                      <th style={styles.tableCell}>PM</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  {priceObjects.slice(0, 6).map((price, index) => {
-  const amData = priceObjects.filter(
-    (p) => p.Purity === price.Purity && p.RateTime === "12AM"
-  );
-  const pmData = priceObjects.filter(
-    (p) => p.Purity === price.Purity && p.RateTime === "6PM"
-  );
+<div style={styles.MainContent} className="MainContent">
+  <div style={styles.MainContentSecond} className="MainContentSecond">
+    <div
+      className="tableContainer"
+      ref={(el) => tableContainersRef.current.push(el)}
+      style={{ ...styles.tableContainer, width: "100%" }}
+    >
+      <div style={styles.tableHeader}>{formattedDate}</div>
+      <table style={styles.table}>
+        <thead>
+          <tr>
+            <th style={styles.tableCell}>PURITY</th>
+            <th style={styles.tableCell}>AM</th>
+            <th style={styles.tableCell}>PM</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Array.isArray(priceData) && priceData.length > 0 ? (
+            priceData.slice(0, 6).map((price, index) => {
+              const amData = priceData.filter(
+                (p) => p.Purity === price.Purity && p.RateTime === "12AM"
+              );
+              const pmData = priceData.filter(
+                (p) => p.Purity === price.Purity && p.RateTime === "6PM"
+              );
 
-  const isLastRow = index === priceObjects.slice(0, 6).length - 1;
+              const isLastRow =
+                index === priceData.slice(0, 6).length - 1;
 
-  if (isLastRow) {
-    return (
-      <tr key={index}>
-        <td style={styles.tableCell}>Silver {price.Purity}</td>
-        <td style={styles.tableCell}>
-          {amData.length > 0 ? amData[0].SilverRate || "-" : "-"}
-        </td>
-        <td style={styles.tableCell}>
-          {pmData.length > 0 ? pmData[0].SilverRate || "-" : "-"}
-        </td>
-      </tr>
-    );
-  }
+              if (isLastRow) {
+                return (
+                  <tr key={index}>
+                    <td style={styles.tableCell}>Silver {price.Purity}</td>
+                    <td style={styles.tableCell}>
+                      {amData.length > 0 ? amData[0].SilverRate || "-" : "-"}
+                    </td>
+                    <td style={styles.tableCell}>
+                      {pmData.length > 0 ? pmData[0].SilverRate || "-" : "-"}
+                    </td>
+                  </tr>
+                );
+              }
 
-  return (
-    <tr key={index}>
-      <td style={styles.tableCell}>Gold {price.Purity}</td>
-      <td style={styles.tableCell}>
-        {amData.length > 0 ? amData[0].GoldRate : "-"}
-      </td>
-      <td style={styles.tableCell}>
-        {pmData.length > 0 ? pmData[0].GoldRate : "-"}
-      </td>
-    </tr>
-  );
-})}
+              return (
+                <tr key={index}>
+                  <td style={styles.tableCell}>Gold {price.Purity}</td>
+                  <td style={styles.tableCell}>
+                    {amData.length > 0 ? amData[0].GoldRate : "-"}
+                  </td>
+                  <td style={styles.tableCell}>
+                    {pmData.length > 0 ? pmData[0].GoldRate : "-"}
+                  </td>
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td colSpan={3} style={styles.tableCell}>
+                No data available for the selected date.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+      <div style={styles.TitleContainer}>
+        <div style={styles.Title}>
+          Download last 30 Days <IoMdDownload />
+        </div>
+        <div style={styles.Title}>
+          IBJA Terms <IoDocumentTextOutline />
+        </div>
+      </div>
+    </div>
 
-                  </tbody>
-                  
-                </table>
-                <div style={styles.TitleContainer}>  
-                  <div style={styles.Title}>
-                Download last 30 Days <IoMdDownload />
-              </div>
-              <div style={styles.Title} >
-                IBJA Terms <IoDocumentTextOutline />
-              </div></div>
-              </div>
-
-              <div
-                ref={(el) => tableContainersRef.current.push(el)} // Add ref to table container
-                style={{ ...styles.tableContainer, width: "100%" }}
-              >
-                <div style={styles.tableHeader}>
-                  <span> {yesterdayFormatted}</span>
-                  <div className="buttonNEXbtn">
-                  <div>  <button className="buttonNEX" onClick={NEXTFETCH}>Next</button>
-                  </div>
-                  <div>  <button className="buttonNEX" onClick={PREFETCH}>Previous</button>
-                  </div>
-</div>
-
-                </div>
-                <table style={styles.table}>
-                  <thead>
-                    <tr>
-                      <th style={styles.tableCell}>PURITY</th>
-                      <th style={styles.tableCell}>AM</th>
-                      <th style={styles.tableCell}>PM</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  {priceObjects.slice(0, 6).map((price, index) => {
-  const amData = priceObjects.filter(
-    (p) => p.Purity === price.Purity && p.RateTime === "12AM"
-  );
-  const pmData = priceObjects.filter(
-    (p) => p.Purity === price.Purity && p.RateTime === "6PM"
-  );
-
-  const isLastRow = index === priceObjects.slice(0, 6).length - 1;
-
-  if (isLastRow) {
-    return (
-      <tr key={index}>
-        <td style={styles.tableCell}>Silver {price.Purity}</td>
-        <td style={styles.tableCell}>
-          {amData.length > 0 ? amData[0].SilverRate || "-" : "-"}
-        </td>
-        <td style={styles.tableCell}>
-          {pmData.length > 0 ? pmData[0].SilverRate || "-" : "-"}
-        </td>
-      </tr>
-    );
-  }
-
-  return (
-    <tr key={index}>
-      <td style={styles.tableCell}>Gold {price.Purity}</td>
-      <td style={styles.tableCell}>
-        {amData.length > 0 ? amData[0].GoldRate : "-"}
-      </td>
-      <td style={styles.tableCell}>
-        {pmData.length > 0 ? pmData[0].GoldRate : "-"}
-      </td>
-    </tr>
-  );
-})}
-
-                  </tbody>
-                </table>
-                <div style={styles.TitleContainer}>  
-                  <div style={styles.Title}>
-                  List of Holidays <GrDocumentTime />
-                  </div>
-              <div style={styles.Title} >
-               * Gold rates per 10gm & Silver rate per 1kg <IoDocumentTextOutline />
-              </div></div>
-              </div>
-            </div>
+    {/* Second Table */}
+    <div
+      ref={(el) => tableContainersRef.current.push(el)}
+      style={{ ...styles.tableContainer, width: "100%" }}
+    >
+      <div style={styles.tableHeader}>
+        <span>{yesterdayFormatted}</span>
+        <div className="buttonNEXbtn">
+          <div>
+            <button className="buttonNEX" onClick={NEXTFETCH}>
+              Next
+            </button>
           </div>
+          <div>
+            <button className="buttonNEX" onClick={PREFETCH}>
+              Previous
+            </button>
+          </div>
+        </div>
+      </div>
+      <table style={styles.table}>
+        <thead>
+          <tr>
+            <th style={styles.tableCell}>PURITY</th>
+            <th style={styles.tableCell}>AM</th>
+            <th style={styles.tableCell}>PM</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Array.isArray(priceData) && priceData.length > 0 ? (
+            priceData.slice(0, 6).map((price, index) => {
+              const amData = priceData.filter(
+                (p) => p.Purity === price.Purity && p.RateTime === "12AM"
+              );
+              const pmData = priceData.filter(
+                (p) => p.Purity === price.Purity && p.RateTime === "6PM"
+              );
+
+              const isLastRow =
+                index === priceData.slice(0, 6).length - 1;
+
+              if (isLastRow) {
+                return (
+                  <tr key={index}>
+                    <td style={styles.tableCell}>Silver {price.Purity}</td>
+                    <td style={styles.tableCell}>
+                      {amData.length > 0 ? amData[0].SilverRate || "-" : "-"}
+                    </td>
+                    <td style={styles.tableCell}>
+                      {pmData.length > 0 ? pmData[0].SilverRate || "-" : "-"}
+                    </td>
+                  </tr>
+                );
+              }
+
+              return (
+                <tr key={index}>
+                  <td style={styles.tableCell}>Gold {price.Purity}</td>
+                  <td style={styles.tableCell}>
+                    {amData.length > 0 ? amData[0].GoldRate : "-"}
+                  </td>
+                  <td style={styles.tableCell}>
+                    {pmData.length > 0 ? pmData[0].GoldRate : "-"}
+                  </td>
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td colSpan={3} style={styles.tableCell}>
+                No data available for the selected date.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+      <div style={styles.TitleContainer}>
+        <div style={styles.Title}>
+          List of Holidays <GrDocumentTime />
+        </div>
+        <div style={styles.Title}>
+          * Gold rates per 10gm & Silver rate per 1kg <IoDocumentTextOutline />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
         </div>
 
         <CardsWrapper>
