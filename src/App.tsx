@@ -8,11 +8,52 @@ import Navbar from "./components/Navbar";
 import "swiper/css";
 import { useGSAP } from "@gsap/react";
 import BackToTop from "./components/BackToTop";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import fetchMachineKey from "./api/getMachineKey";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 function App() {
+  const [data, setData] = useState(null);
+  const [machineKey, setMachineKey] = useState("");
+
+  const fetchData = async (machineKey: string) => {
+    try {
+      const response = await axios.get(
+        `https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=APIEsteemedUsers&Machine_Key=${machineKey}&ACCESS_TOKEN=IBJSW3SEA73`
+      );
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    const fetchAndSetData = async () => {
+      let key = await fetchMachineKey();
+      if (!key) return;
+
+      setMachineKey(key);
+      let result = await fetchData(key);
+
+      if (!result) {
+        key = await fetchMachineKey();
+        if (!key) return;
+        setMachineKey(key);
+        result = await fetchData(key);
+      }
+
+      setData(result);
+    };
+
+    fetchAndSetData();
+  }, []);
+
+  console.log(data);
+
   // useEffect(() => {
   //   const handleContextMenu = (event: MouseEvent) => {
   //     event.preventDefault();
