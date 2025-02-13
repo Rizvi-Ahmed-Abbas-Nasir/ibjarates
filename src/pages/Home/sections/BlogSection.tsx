@@ -31,6 +31,10 @@ const BlogWrapper = styled.div`
   @media (max-width: 1080px) {
     width: 100%;
   }
+    @media (max-width: 768px) {
+        width: 100%;
+
+  }
 `;
 
 const BlogPost = styled.div`
@@ -198,13 +202,22 @@ export default function Blog() {
       <Container>
         <BlogWrapper>
           <Swiper
-            modules={[Autoplay]}
-            slidesPerView={2}
-            spaceBetween={40}
-            loop
-            autoplay={{
-              delay: 1500,
-            }}
+           modules={[Autoplay]}
+           loop={true} 
+           autoplay={{
+             delay: 1500, // Delay between slides (in ms)
+             disableOnInteraction: false, // Continue autoplay after interaction
+           }}
+           spaceBetween={20} // Space between slides
+           breakpoints={{
+             768: {
+               slidesPerView: 2, // Show 2 slides for screens >= 768px
+             },
+             0: {
+               slidesPerView: 1, // Show 1 slide for smaller screens
+             },
+           }}
+            
           >
             {newsDataDemo.map((item, index) => (
               <SwiperSlide>

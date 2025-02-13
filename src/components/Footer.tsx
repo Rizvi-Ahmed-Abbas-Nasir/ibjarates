@@ -33,7 +33,7 @@ export default function Footer() {
       </Logo>
            
           </div>
-          <div className=" flex justify-center w-[100%] md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
+          <div className=" flex lg:flex-row flex-col justify-center w-[100%] md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
             <div className=" md:w-1/2 w-full px-4">
               <h2 className="title-font font-medium text-black tracking-widest text-[1.7rem] mb-3">
                 Contact

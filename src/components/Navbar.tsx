@@ -16,10 +16,10 @@ const Logo = styled.div`
     height: auto;
   }
   @media (max-width: 1080px) {
-    width: 12rem;
+    width: 20rem;
   }
   @media (max-width: 768px) {
-    width: 6rem;
+    width: 12rem;
   }
 `;
 

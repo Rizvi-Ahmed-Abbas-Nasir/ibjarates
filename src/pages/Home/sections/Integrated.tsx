@@ -104,8 +104,6 @@ const Logo = styled.div`
   }
 `;
 
-
-
 const images = [
   {
     imgUrl: img1,

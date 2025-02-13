@@ -8,6 +8,7 @@ import Banner2 from "../../../assets/images/smaill-banner2.jpg";
 import { IoMdDownload } from "react-icons/io";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { GrDocumentTime } from "react-icons/gr";
+import fetchMachineKey from "../../../api/getMachineKey";
 
 const Container = styled.div`
   padding: 0 10rem;
@@ -98,7 +99,7 @@ const styles: Record<string, Style> = {
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
-    gap: "2rem",
+    gap: "0rem",
     marginTop: "2.5rem",
   },
   priceCard: {
@@ -142,23 +143,47 @@ const styles: Record<string, Style> = {
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
     border: "1px solid #ffdd99",
     textAlign: "center",
-    opacity: 0, // Initially invisible for animation
+    opacity: 0, 
   },
-  tableHeader: {
-    width: "100%",
-    justifyContent: "center",
-    backgroundColor: "rgb(241 181 75 / 46%)",
-    padding: "1rem",
-    fontSize:"1.2rem",
-    borderTopLeftRadius: ".8rem",
-    borderTopRightRadius: ".8rem",
-    fontWeight: "bold",
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "nowrap",
-    alignItems: "center",
-  }
-,  
+    tableHeader: {
+      width: "100%",
+      justifyContent: "center",
+      backgroundColor: "rgb(241 181 75 / 46%)",
+      padding: "1rem",
+      fontSize: "1.2rem",
+      borderTopLeftRadius: ".8rem",
+      borderTopRightRadius: ".8rem",
+      fontWeight: "bold",
+      display: "flex",
+      flexDirection: "row",
+      flexWrap: "wrap",
+      alignItems: "center",
+      gap: "1rem",
+    },
+    buttonNEXbtn: {
+      display: "flex",
+      gap: "0.5rem",
+    },
+    buttonNEX: {
+      padding: "0.5rem 1rem",
+      backgroundColor: "rgb(100, 181, 246)",
+      borderRadius: "0.5rem",
+      color: "#fff",
+      fontSize: "1rem",
+      cursor: "pointer",
+    },
+    mobile: {
+      tableHeader: {
+        flexDirection: "column",
+        fontSize: "1rem", 
+        gap: "0.8rem",
+        padding: "0.8rem",
+      },
+      buttonNEXbtn: {
+        justifyContent: "center", 
+      },
+    },
+
   table: {
     width: "100%",
     textAlign: "center",
@@ -224,35 +249,42 @@ const styles: Record<string, Style> = {
     fontSize: "1.2rem",
   },
 
-TitleContainer:{
-  width:"100%",
-  display:"flex",
-  justifyContent: "center",
-  gap:"8rem",
-},
- Title : {
-  fontWeight: "600",
-  paddingBottom: "0.5rem",
-  padding: "0.7rem 0",
-  display: "flex",
-  alignItems: "center",
- 
-}
+    TitleContainer: {
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
+      gap: "2rem", // Default gap for larger screens
+      flexWrap: "wrap", // Allow wrapping for small screens
+    },
+    Title: {
+      fontWeight: "600",
+      paddingBottom: "0.5rem",
+      padding: "0.7rem 0",
+      display: "flex",
+      alignItems: "center",
+      fontSize: "1.2rem", // Default font size
+      gap: "0.5rem", // Space between text and icon
+    },
+    // Mobile-specific styles
+    "@media (max-width: 768px)": {
+      TitleContainer: {
+        flexDirection: "column", // Stack titles vertically
+        justifyContent: "flex-start", // Align items to the top
+        gap: "1rem", // Reduce gap for mobile
+      },
+      Title: {
+        fontSize: "1rem", // Adjust font size for smaller screens
+        textAlign: "center", // Center-align text for better readability
+      },
+    },
+  };
+  
 
-};
+
 
 export default function Landing() {
- 
-  interface PriceData {
-    RateDate: string;
-    RateTime: string;
-    Purity: string;
-    GoldRate: string;
-    SilverRate: string;
-
-  }
-
-  
+  const [machineKey, setMachineKey] = useState("");
+  const [data, setData] = useState(null); 
   const [PDF, setPDFata] = useState<any>([]);
 
   const priceCardsRef = useRef<Array<HTMLDivElement | null>>([]);
@@ -261,49 +293,56 @@ export default function Landing() {
   const [priceData, setPriceData] = useState<PriceData[]>([]); 
 
 
-  useEffect(() => {
-    function formatDate(date: Date): string {
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const year = date.getFullYear();
-      return `${day}/${month}/${year}`;
+  function formatDate(date: Date): string {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+
+  const today = new Date();
+  const startDate = new Date(today.setHours(0, 0, 0, 0)); 
+  const endDate = new Date(today.setHours(18, 0, 0, 0));
+
+  const formattedStartDate = formatDate(startDate);
+  const formattedEndDate = formatDate(endDate);
+
+  const fetchData = async (machineKey: string) => {
+    try {
+      const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDate}&END_DATE=${formattedEndDate}&Machine_Key=${machineKey}&ACCESS_TOKEN=IBJSW3SEA73`,
+      
+      );
+
+      console.log("get rates data ",response.data);
+      setPriceData(response.data)
+
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+};
+
+useEffect(() => {
+  const fetchAndSetData = async () => {
+    let key = await fetchMachineKey();
+    if (!key) return;
+
+    setMachineKey(key);
+    let result: any = await fetchData(key);
+    
+    if (!result) {
+      key = await fetchMachineKey();
+      if (!key) return;
+      setMachineKey(key);
+      result = await fetchData(key);
     }
 
-    const today = new Date();
-    const startDate = new Date(today.setHours(0, 0, 0, 0)); 
-    const endDate = new Date(today.setHours(18, 0, 0, 0));
-
-    const formattedStartDate = formatDate(startDate);
-    const formattedEndDate = formatDate(endDate);
-
-    const fetchData = async () => {
-      try {
-          const response = await axios.get("https://react.senseware.in/API/IbjaRates/User.aspx", {
-              params: {
-                  RequestType: "GetRates",
-                  START_DATE: formattedStartDate,
-                  END_DATE: formattedEndDate
-              },
-              headers: {
-                  "Content-Type": "application/json",
-                  "Accept": "application/json"
-              },
-              withCredentials: false  
-          });
-  
-          console.log(response.data);
-          setPriceData(response.data)
-
-
-      } catch (error) {
-          console.error("Error fetching data:", error);
-      }
+    setData(result);
   };
 
-    
-    fetchData();
-  }, []);
+  fetchAndSetData();
+}, []);
 
+console.log(data);
 
   useEffect(() => {
 
@@ -327,17 +366,17 @@ export default function Landing() {
         try {
           const apiKey = import.meta.env.VITE_API_KEY;
 
-          const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=30DaysPdf`,
+          const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=30DaysPdf&ACCESS_TOKEN=IBJSW3SEA73&Machine_Key=e5327cc5089680d48347ecb050d8e282`,
             {
               headers: {
-                Authorization: ` ${apiKey}`
+                ACCESS_TOKEN: ` ${apiKey}`
                
               },
             }
           );
   
           console.log(response.data);
-          // setPDF(response.data)
+          setPDFata(response.data)
   
         } catch (error) {
           console.error('Error fetching data:', error);
@@ -374,7 +413,7 @@ export default function Landing() {
       const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDate}&END_DATE=${formattedEndDate}`,
         {
           headers: {
-            Authorization: ` ${apiKey}`
+            ACCESS_TOKEN: ` ${apiKey}`
           },
         }
       );
@@ -383,8 +422,8 @@ export default function Landing() {
 
       
 
-      console.log(response.data);
-      // setPriceData(response.data)
+      // console.log(response.data);
+      setPriceData(response.data)
 
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -425,8 +464,8 @@ export default function Landing() {
        
       );
 
-      console.log(response.data);
-      // setPriceData(response.data)
+      // console.log(response.data);
+      setPriceData(response.data)
 
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -544,7 +583,6 @@ export default function Landing() {
     }
   }
   
-  // Convert JSON string to objects
   const priceObjects = convertJsonToObjects(jsonData);
   
 
@@ -559,7 +597,7 @@ export default function Landing() {
       <Container className="Container">
         <div style={styles.page} className="page">
         <div style={styles.headerPrices} className="headerPrices">
-  {priceObjects.slice(0, 6).map((price, index) => (
+  {priceData.slice(0, 6).map((price, index) => (
     <div
       key={index}
       className="priceCard"
@@ -677,7 +715,6 @@ export default function Landing() {
               </div></div>
               </div>
 
-              {/* Second Table */}
               <div
                 ref={(el) => tableContainersRef.current.push(el)} // Add ref to table container
                 style={{ ...styles.tableContainer, width: "100%" }}
@@ -709,7 +746,6 @@ export default function Landing() {
     (p) => p.Purity === price.Purity && p.RateTime === "6PM"
   );
 
-  // Check if this is the last row
   const isLastRow = index === priceObjects.slice(0, 6).length - 1;
 
   if (isLastRow) {
