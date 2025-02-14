@@ -285,12 +285,15 @@ const styles: Record<string, Style> = {
 export default function Landing() {
   const [machineKey, setMachineKey] = useState("");
   const [data, setData] = useState(null); 
-  const [PDF, setPDFata] = useState<any>([]);
+  const [PDF, setPDFData] = useState<any>([]);
+  const [dateOffset, setDateOffset] = useState<number>(+1); 
 
   const priceCardsRef = useRef<Array<HTMLDivElement | null>>([]);
   const sidebarButtonsRef = useRef<(HTMLButtonElement | null)[]>([]);
   const tableContainersRef = useRef<Array<HTMLDivElement | null>>([]); 
   const [priceData, setPriceData] = useState<PriceData[]>([]); 
+  const [priceData2, setPriceData2] = useState<PriceData[]>([]); 
+
 
 
 
@@ -354,134 +357,115 @@ useEffect(() => {
 
 console.log(data);
 
-  useEffect(() => {
 
-    function formatDate(date: Date): string {
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0'); 
-      const year = date.getFullYear();
-      return `${day}/${month}/${year}`;
-    }
-    
-    const today = new Date();
-    
-    const startDate = new Date(today.setHours(0, 0, 0, 0)); 
-    const endDate = new Date(today.setHours(18, 0, 0, 0)); 
-    
-    const formattedStartDate = formatDate(startDate);
-    const formattedEndDate = formatDate(endDate);
   
-      const fetchData = async () => {
+  
+      const fetchData1 = async (machineKey: string) => {
   
         try {
-          const apiKey = import.meta.env.VITE_API_KEY;
 
-          const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=30DaysPdf&ACCESS_TOKEN=IBJSW3SEA73&Machine_Key=e5327cc5089680d48347ecb050d8e282`,
-            {
-              headers: {
-                ACCESS_TOKEN: ` ${apiKey}`
-               
-              },
-            }
+          const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=30DaysPdf&Machine_Key=${machineKey}&ACCESS_TOKEN=IBJSW3SEA73`,
+           
           );
   
-          console.log(response.data);
-          setPDFata(response.data)
+          console.log("pdfdata ",response.data);
+
+          const data = response.data; 
+        if (Array.isArray(data) && data.length > 0 && data[0].PdfFilePath) {
+          setPDFData(data[0].PdfFilePath); 
+        }
   
         } catch (error) {
           console.error('Error fetching data:', error);
         }
       };
   
-      fetchData();
-    }, []); 
 
-
-  
-
-
-  const PREFETCH = async () => {
-
-    function formatDate(date: Date): string {
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0'); 
-      const year = date.getFullYear();
-      return `${day}/${month}/${year}`;
-    }
+    useEffect(() => {
+      const fetchAndSetData = async () => {
+        let key = await fetchMachineKey();
+        if (!key) return;
     
-    const today = new Date();
-    
-    const startDate = new Date(today.setHours(0, 0, 0, 0)); 
-    const endDate = new Date(today.setHours(18, 0, 0, 0)); 
-    
-    const formattedStartDate = formatDate(startDate);
-    const formattedEndDate = formatDate(endDate);
-  
-    try {
-      const apiKey = import.meta.env.VITE_API_KEY;
-
-      const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDate}&END_DATE=${formattedEndDate}`,
-        {
-          headers: {
-            ACCESS_TOKEN: ` ${apiKey}`
-          },
+        setMachineKey(key);
+        let result: any = await fetchData1(key);
+        
+        if (!result) {
+          key = await fetchMachineKey();
+          if (!key) return;
+          setMachineKey(key);
+          result = await fetchData(key);
         }
-      );
+    
+        setData(result);
+      };
+    
+      fetchAndSetData();
+    }, []);
+  
 
-
-
-      
-
-      // console.log(response.data);
-      setPriceData(response.data)
-
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
-
-
-
-  const NEXTFETCH = async () => {
-    function formatDate(date: Date): string {  
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0'); 
+    const PREFETCH = () => {
+      setDateOffset((prevOffset) => prevOffset - 1); 
+    };
+    
+    const NEXTFETCH = () => {
+      setDateOffset((prevOffset) => prevOffset + 1); 
+    };
+    
+    const formatDateYET = (date: Date): string => {
+      const day = String(date.getDate()).padStart(2, "0");
+      const month = String(date.getMonth() + 1).padStart(2, "0");
       const year = date.getFullYear();
       return `${day}/${month}/${year}`;
-    }
+    };
     
-    const today = new Date();
+    const fetchDataYET = async (machineKey: string, offset: number) => {
+      const currentDate = new Date();
+      
+      const targetDate = new Date(currentDate);
+      targetDate.setDate(currentDate.getDate() - offset); 
     
-    const yesterday = new Date(today);
-    yesterday.setDate(today.getDate() - 1);
+      const startDate = new Date(targetDate);
+      startDate.setHours(0, 0, 0, 0);
     
-    const startDateToday = new Date(today.setHours(0, 0, 0, 0)); 
-    const endDateToday = new Date(today.setHours(18, 0, 0, 0)); 
-    const startDateYesterday = new Date(yesterday.setHours(0, 0, 0, 0)); 
-    const endDateYesterday = new Date(yesterday.setHours(18, 0, 0, 0)); 
+      const endDate = new Date(targetDate);
+      endDate.setHours(18, 0, 0, 0);
     
-    const formattedStartDateToday = formatDate(startDateToday);
-    const formattedEndDateToday = formatDate(endDateToday);
+      const formattedStartDate = formatDateYET(startDate);
+      const formattedEndDate = formatDateYET(endDate);
     
-    const formattedStartDateYesterday = formatDate(startDateYesterday);
-    const formattedEndDateYesterday = formatDate(endDateYesterday);
+      try {
+        const response = await axios.get(
+          `https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDate}&END_DATE=${formattedEndDate}&Machine_Key=${machineKey}&ACCESS_TOKEN=IBJSW3SEA73`
+        );
+    
+        if (!response.data || !Array.isArray(response.data) || response.data.length === 0) {
+          console.warn("No data received or data is in an incorrect format.");
+          setPriceData2([]); // Clear previous data if no data is fetched
+          return;
+        }
+    
+        console.log("Fetched data", response.data);
+        setPriceData2(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setPriceData2([]); // Handle fetch errors by clearing the data
+      }
+    };
+    
+    useEffect(() => {
+      const fetchAndSetData = async () => {
+        const key = await fetchMachineKey();
+        if (!key) return;
+    
+        setMachineKey(key);
+        await fetchDataYET(key, dateOffset); // Fetch data for the current offset
+      };
+    
+      fetchAndSetData();
+    }, [dateOffset]); // Re-fetch data whenever the dateOffset changes
+    
   
-    try {
-      const apiKey = import.meta.env.VITE_API_KEY;
-
-      const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDateYesterday}&END_DATE=${formattedEndDateYesterday}`,
-       
-      );
-
-      // console.log(response.data);
-      setPriceData(response.data)
-
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
+  
 
   useEffect(() => {
     if (sidebarButtonsRef.current.length > 0) {
@@ -548,31 +532,19 @@ console.log(data);
 
   const todayFormatted = currentDate.toLocaleString('en-GB', options).replace(',', '');
   const yesterdayDate = new Date(currentDate);
-  yesterdayDate.setDate(currentDate.getDate() - 1);
+  yesterdayDate.setDate(currentDate.getDate() - dateOffset);
   const yesterdayFormatted = yesterdayDate.toLocaleString('en-GB', options).replace(',', '');
 
 
 
-  const jsonData: string = `[ 
-    { "RateDate": "16/01/2025", "RateTime": "12AM", "Purity": "916", "GoldRate": "72106", "SilverRate": "", "Carrot": 24 },
-    { "RateDate": "16/01/2025", "RateTime": "6PM", "Purity": "916", "GoldRate": "72533", "SilverRate": "", "Carrot": 22 },
-    { "RateDate": "16/01/2025", "RateTime": "6PM", "Purity": "585", "GoldRate": "46323", "SilverRate": "91228", "Carrot": 18 },
-    { "RateDate": "16/01/2025", "RateTime": "12AM", "Purity": "999", "GoldRate": "78718", "SilverRate": "91218", "Carrot": 16 },
-    { "RateDate": "16/01/2025", "RateTime": "12AM", "Purity": "750", "GoldRate": "59039", "SilverRate": "", "Carrot": 14 },
-    { "RateDate": "16/01/2025", "RateTime": "12AM", "Purity": "585", "GoldRate": "46050", "SilverRate": "91228", "Carrot": 12 },
-    { "RateDate": "16/01/2025", "RateTime": "6PM", "Purity": "999", "GoldRate": "79184", "SilverRate": "91784", "Carrot": 16 },
-    { "RateDate": "16/01/2025", "RateTime": "12AM", "Purity": "995", "GoldRate": "78403", "SilverRate": "", "Carrot": 16 },
-    { "RateDate": "16/01/2025", "RateTime": "6PM", "Purity": "995", "GoldRate": "78867", "SilverRate": "", "Carrot": 16 },
-    { "RateDate": "16/01/2025", "RateTime": "6PM", "Purity": "750", "GoldRate": "59388", "SilverRate": "", "Carrot": 16 }
-  ]`;
-
+ 
   interface PriceData {
     RateDate: string;
     RateTime: string;
     Purity: string;
     GoldRate: string;
     SilverRate: string;
-    Carrot: number;
+    Carat: number;
   }
   
   
@@ -598,7 +570,7 @@ console.log(data);
         {index !== priceData.slice(0, 6).length - 1 ? (
           <>
             <div>
-              <div style={styles.priceCardTitle}>{price.Carrot}K Gold</div>
+              <div style={styles.priceCardTitle}>{price.Carat}K Gold</div>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
               <span style={styles.priceCardValue}>₹ {price.GoldRate}.00</span>
@@ -617,7 +589,7 @@ console.log(data);
           <div
             style={{ marginTop: "8px", fontWeight: "bold", fontSize: "1.5rem" }}
           >
-            <div style={styles.priceCardTitle}>{price.Carrot}F Silver</div>
+            <div style={styles.priceCardTitle}>{price.Carat}F Silver</div>
             ₹ {price.SilverRate || "Silver Rate"}
             <span
               style={{
@@ -705,7 +677,9 @@ console.log(data);
       </table>
       <div style={styles.TitleContainer}>
         <div style={styles.Title}>
-          Download last 30 Days <IoMdDownload />
+        <a  href={PDF} download="last_30_days.pdf">
+  Download last 30 Days
+</a>  <IoMdDownload />
         </div>
         <div style={styles.Title}>
           IBJA Terms <IoDocumentTextOutline />
@@ -743,7 +717,7 @@ console.log(data);
         </thead>
         <tbody>
           {Array.isArray(priceData) && priceData.length > 0 ? (
-            priceData.slice(0, 6).map((price, index) => {
+            priceData2.slice(0, 6).map((price, index) => {
               const amData = priceData.filter(
                 (p) => p.Purity === price.Purity && p.RateTime === "12AM"
               );
