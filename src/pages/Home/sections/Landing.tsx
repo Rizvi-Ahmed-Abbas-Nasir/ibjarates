@@ -317,7 +317,7 @@ export default function Landing() {
   const fetchData = async (machineKey: string) => {
     try {
       const response = await axios.get(
-        `https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=13/02/2025&END_DATE=13/02/2025&Machine_Key=${machineKey}&ACCESS_TOKEN=IBJSW3SEA73`
+        `https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=14/02/2025&END_DATE=14/02/2025&Machine_Key=${machineKey}&ACCESS_TOKEN=IBJSW3SEA73`
       );
   
       console.log("get rates data", response.data);
@@ -440,7 +440,7 @@ console.log(data);
     
         if (!response.data || !Array.isArray(response.data) || response.data.length === 0) {
           console.warn("No data received or data is in an incorrect format.");
-          setPriceData2([]); // Clear previous data if no data is fetched
+          setPriceData2([]); 
           return;
         }
     
@@ -448,7 +448,7 @@ console.log(data);
         setPriceData2(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
-        setPriceData2([]); // Handle fetch errors by clearing the data
+        setPriceData2([]);
       }
     };
     
@@ -458,11 +458,11 @@ console.log(data);
         if (!key) return;
     
         setMachineKey(key);
-        await fetchDataYET(key, dateOffset); // Fetch data for the current offset
+        await fetchDataYET(key, dateOffset); 
       };
     
       fetchAndSetData();
-    }, [dateOffset]); // Re-fetch data whenever the dateOffset changes
+    }, [dateOffset]); 
     
   
   
@@ -628,51 +628,56 @@ console.log(data);
           </tr>
         </thead>
         <tbody>
-          {Array.isArray(priceData) && priceData.length > 0 ? (
-            priceData.slice(0, 6).map((price, index) => {
-              const amData = priceData.filter(
-                (p) => p.Purity === price.Purity && p.RateTime === "12AM"
-              );
-              const pmData = priceData.filter(
-                (p) => p.Purity === price.Purity && p.RateTime === "6PM"
-              );
+        {Array.isArray(priceData) && priceData.length > 0 ? (
+  Array.from({ length: 6 }).map((_, index) => {
+    const price = priceData[index] || {}; // Use empty object for missing data
+    const amData = priceData.filter(
+      (p) => p.Purity === price.Purity && p.RateTime === "12AM"
+    );
+    const pmData = priceData.filter(
+      (p) => p.Purity === price.Purity && p.RateTime === "6PM"
+    );
 
-              const isLastRow =
-                index === priceData.slice(0, 6).length - 1;
+    const isLastRow = index === 5; // Last row in the table
 
-              if (isLastRow) {
-                return (
-                  <tr key={index}>
-                    <td style={styles.tableCell}>Silver {price.Purity}</td>
-                    <td style={styles.tableCell}>
-                      {amData.length > 0 ? amData[0].SilverRate || "-" : "-"}
-                    </td>
-                    <td style={styles.tableCell}>
-                      {pmData.length > 0 ? pmData[0].SilverRate || "-" : "-"}
-                    </td>
-                  </tr>
-                );
-              }
+    if (isLastRow) {
+      return (
+        <tr key={index}>
+          <td style={styles.tableCell}>Silver {price.Purity || "-"}</td>
+          <td style={styles.tableCell}>
+            {amData.length > 0 ? amData[0]?.SilverRate || "-" : "-"}
+          </td>
+          <td style={styles.tableCell}>
+            {pmData.length > 0 ? pmData[0]?.SilverRate || "-" : "-"}
+          </td>
+        </tr>
+      );
+    }
 
-              return (
-                <tr key={index}>
-                  <td style={styles.tableCell}>Gold {price.Purity}</td>
-                  <td style={styles.tableCell}>
-                    {amData.length > 0 ? amData[0].GoldRate : "-"}
-                  </td>
-                  <td style={styles.tableCell}>
-                    {pmData.length > 0 ? pmData[0].GoldRate : "-"}
-                  </td>
-                </tr>
-              );
-            })
-          ) : (
-            <tr>
-              <td colSpan={3} style={styles.tableCell}>
-                No data available for the selected date.
-              </td>
-            </tr>
-          )}
+    return (
+      <tr key={index}>
+        <td style={styles.tableCell}>Gold {price.Purity || "-"}</td>
+        <td style={styles.tableCell}>
+          {amData.length > 0 ? amData[0]?.GoldRate || "-" : "-"}
+        </td>
+        <td style={styles.tableCell}>
+          {pmData.length > 0 ? pmData[0]?.GoldRate || "-" : "-"}
+        </td>
+      </tr>
+    );
+  })
+) : (
+  Array.from({ length: 6 }).map((_, index) => (
+    <tr key={index}>
+      <td style={styles.tableCell}>-</td>
+      <td style={styles.tableCell}>-</td>
+      <td style={styles.tableCell}>-</td>
+    </tr>
+  ))
+
+)}
+
+       
         </tbody>
       </table>
       <div style={styles.TitleContainer}>
@@ -697,12 +702,12 @@ console.log(data);
         <div className="buttonNEXbtn">
           <div>
             <button className="buttonNEX" onClick={NEXTFETCH}>
-              Next
+              Next Day
             </button>
           </div>
           <div>
             <button className="buttonNEX" onClick={PREFETCH}>
-              Previous
+              Previous Day
             </button>
           </div>
         </div>
@@ -716,17 +721,17 @@ console.log(data);
           </tr>
         </thead>
         <tbody>
-          {Array.isArray(priceData) && priceData.length > 0 ? (
+          {Array.isArray(priceData2) && priceData2.length > 0 ? (
             priceData2.slice(0, 6).map((price, index) => {
-              const amData = priceData.filter(
+              const amData = priceData2.filter(
                 (p) => p.Purity === price.Purity && p.RateTime === "12AM"
               );
-              const pmData = priceData.filter(
+              const pmData = priceData2.filter(
                 (p) => p.Purity === price.Purity && p.RateTime === "6PM"
               );
 
               const isLastRow =
-                index === priceData.slice(0, 6).length - 1;
+                index === priceData2.slice(0, 6).length - 1;
 
               if (isLastRow) {
                 return (

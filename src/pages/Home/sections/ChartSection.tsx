@@ -233,21 +233,24 @@ export default function ChartSection() {
         },
       },
       y: {
+        min: 0, 
+        max: 10000, 
         ticks: {
-          callback: (value: any) => `$${value / 1000}k`,
+          stepSize: 1000, 
+          callback: (value: any) => `${value / 1000}k`, 
         },
       },
     },
   };
+  
 
   return (
     <Container ref={containerRef}>
       <div className="chart_section px-6 py-6 rounded-[2rem] bg-[#fff2d8] shadow-lg w-[100%] flex flex-col justify-start">
-      <h3 className="text-black text-lg font-bold mb-4">Sales 2022</h3>
+      <h3 className="text-black text-lg font-bold mb-4">API </h3>
       <div className="text-black text-sm mb-4 flex justify-between p-5">
         <p>
-          <span className="text-[3rem] font-bold">$12.7k</span>{" "}
-          <span className="text-green-500">+1.3%</span> vs last year
+          <span className="text-[3rem] font-bold">IBJA RATES GOLD</span>{" "}
         </p>
         <div className="flex justify-between gap-5 bg-[#fafaf8] px-[3rem] py-[0.7rem] rounded-[2rem]">
           <button
