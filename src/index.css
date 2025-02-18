@@ -20,18 +20,18 @@ body {
 a {
   text-decoration: none;
 }
-.buttonNEXbtn{
+.buttonNEXbtn {
   display: flex;
-  gap:2rem;
-  padding-left:2rem;
+  gap: 2rem;
+  padding-left: 2rem;
 }
 
-.buttonNEX{
+.buttonNEX {
   font-weight: 600;
-  border:.1px solid rgb(228, 190, 124);
+  border: 0.1px solid rgb(228, 190, 124);
   padding-bottom: 0.5rem;
   border-radius: 2rem;
-  padding: 0.2rem .7rem;
+  padding: 0.2rem 0.7rem;
   display: flex;
   align-items: center;
 }
@@ -189,8 +189,22 @@ a {
   }
 }
 
+.TitleContainer {
+  width: "100%";
+  display: "flex";
+}
 
-.TitleContainer{
-  width:"100%";
-  display:"flex";
+@media (max-width: 1080px) {
+  .chart-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .headerPrices {
+    flex-wrap: wrap;
+  }
+  .chart-title {
+    font-size: 1rem;
+  }
 }

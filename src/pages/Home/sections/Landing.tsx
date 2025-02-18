@@ -1,6 +1,6 @@
 import gsap from "gsap";
 import axios from "axios";
-import { useRef } from 'react';
+import { useRef } from "react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Banner1 from "../../../assets/images/smaill-banner.jpg";
@@ -47,15 +47,15 @@ const Card = styled.div`
     padding: 1rem;
 
     width: 100%;
-    .TOPTitle{
-    font-size:1.5rem;
+    .TOPTitle {
+      font-size: 1.5rem;
     }
     .title {
       font-weight: 600;
-  
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Lighter border */
-  padding-bottom: 0.5rem;
-    font-size:1rem;
+
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Lighter border */
+      padding-bottom: 0.5rem;
+      font-size: 1rem;
 
       padding: 0.7rem 0rem;
       display: flex;
@@ -143,46 +143,46 @@ const styles: Record<string, Style> = {
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
     border: "1px solid #ffdd99",
     textAlign: "center",
-    opacity: 0, 
+    opacity: 0,
   },
+  tableHeader: {
+    width: "100%",
+    justifyContent: "center",
+    backgroundColor: "rgb(241 181 75 / 46%)",
+    padding: "1rem",
+    fontSize: "1.2rem",
+    borderTopLeftRadius: ".8rem",
+    borderTopRightRadius: ".8rem",
+    fontWeight: "bold",
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    gap: "1rem",
+  },
+  buttonNEXbtn: {
+    display: "flex",
+    gap: "0.5rem",
+  },
+  buttonNEX: {
+    padding: "0.5rem 1rem",
+    backgroundColor: "rgb(100, 181, 246)",
+    borderRadius: "0.5rem",
+    color: "#fff",
+    fontSize: "1rem",
+    cursor: "pointer",
+  },
+  mobile: {
     tableHeader: {
-      width: "100%",
-      justifyContent: "center",
-      backgroundColor: "rgb(241 181 75 / 46%)",
-      padding: "1rem",
-      fontSize: "1.2rem",
-      borderTopLeftRadius: ".8rem",
-      borderTopRightRadius: ".8rem",
-      fontWeight: "bold",
-      display: "flex",
-      flexDirection: "row",
-      flexWrap: "wrap",
-      alignItems: "center",
-      gap: "1rem",
+      flexDirection: "column",
+      fontSize: "1rem",
+      gap: "0.8rem",
+      padding: "0.8rem",
     },
     buttonNEXbtn: {
-      display: "flex",
-      gap: "0.5rem",
+      justifyContent: "center",
     },
-    buttonNEX: {
-      padding: "0.5rem 1rem",
-      backgroundColor: "rgb(100, 181, 246)",
-      borderRadius: "0.5rem",
-      color: "#fff",
-      fontSize: "1rem",
-      cursor: "pointer",
-    },
-    mobile: {
-      tableHeader: {
-        flexDirection: "column",
-        fontSize: "1rem", 
-        gap: "0.8rem",
-        padding: "0.8rem",
-      },
-      buttonNEXbtn: {
-        justifyContent: "center", 
-      },
-    },
+  },
 
   table: {
     width: "100%",
@@ -249,223 +249,215 @@ const styles: Record<string, Style> = {
     fontSize: "1.2rem",
   },
 
+  TitleContainer: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    gap: "2rem", // Default gap for larger screens
+    flexWrap: "wrap", // Allow wrapping for small screens
+  },
+  Title: {
+    fontWeight: "600",
+    paddingBottom: "0.5rem",
+    padding: "0.7rem 0",
+    display: "flex",
+    alignItems: "center",
+    fontSize: "1.2rem", // Default font size
+    gap: "0.5rem", // Space between text and icon
+  },
+  // Mobile-specific styles
+  "@media (max-width: 768px)": {
     TitleContainer: {
-      width: "100%",
-      display: "flex",
-      justifyContent: "center",
-      gap: "2rem", // Default gap for larger screens
-      flexWrap: "wrap", // Allow wrapping for small screens
+      flexDirection: "column", // Stack titles vertically
+      justifyContent: "flex-start", // Align items to the top
+      gap: "1rem", // Reduce gap for mobile
     },
     Title: {
-      fontWeight: "600",
-      paddingBottom: "0.5rem",
-      padding: "0.7rem 0",
-      display: "flex",
-      alignItems: "center",
-      fontSize: "1.2rem", // Default font size
-      gap: "0.5rem", // Space between text and icon
+      fontSize: "1rem", // Adjust font size for smaller screens
+      textAlign: "center", // Center-align text for better readability
     },
-    // Mobile-specific styles
-    "@media (max-width: 768px)": {
-      TitleContainer: {
-        flexDirection: "column", // Stack titles vertically
-        justifyContent: "flex-start", // Align items to the top
-        gap: "1rem", // Reduce gap for mobile
-      },
-      Title: {
-        fontSize: "1rem", // Adjust font size for smaller screens
-        textAlign: "center", // Center-align text for better readability
-      },
-    },
-  };
-  
-
-
+  },
+};
 
 export default function Landing() {
   const [machineKey, setMachineKey] = useState("");
-  const [data, setData] = useState(null); 
+  const [data, setData] = useState(null);
   const [PDF, setPDFData] = useState<any>([]);
-  const [dateOffset, setDateOffset] = useState<number>(+1); 
+  const [dateOffset, setDateOffset] = useState<number>(+1);
 
   const priceCardsRef = useRef<Array<HTMLDivElement | null>>([]);
   const sidebarButtonsRef = useRef<(HTMLButtonElement | null)[]>([]);
-  const tableContainersRef = useRef<Array<HTMLDivElement | null>>([]); 
-  const [priceData, setPriceData] = useState<PriceData[]>([]); 
-  const [priceData2, setPriceData2] = useState<PriceData[]>([]); 
-
-
-
+  const tableContainersRef = useRef<Array<HTMLDivElement | null>>([]);
+  const [priceData, setPriceData] = useState<PriceData[]>([]);
+  const [priceData2, setPriceData2] = useState<PriceData[]>([]);
 
   function formatDate(date: Date): string {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   }
-  
+
   const today = new Date();
   const startDate = new Date(today.setHours(0, 0, 0, 0));
   const endDate = new Date(today.setHours(18, 0, 0, 0));
-  
+
   const formattedStartDate = formatDate(startDate);
   const formattedEndDate = formatDate(endDate);
-  
-  console.log(formattedStartDate); 
-  console.log(formattedEndDate);   
-  
+
+  console.log(formattedStartDate);
+  console.log(formattedEndDate);
+
   const fetchData = async (machineKey: string) => {
     try {
       const response = await axios.get(
-        `https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=14/02/2025&END_DATE=14/02/2025&Machine_Key=${machineKey}&ACCESS_TOKEN=IBJSW3SEA73`
+        `https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDate}&END_DATE=${formattedEndDate}&Machine_Key=${machineKey}&ACCESS_TOKEN=IBJSW3SEA73`
       );
-  
+
       console.log("get rates data", response.data);
-  
+
       if (Array.isArray(response.data) && response.data.length > 0) {
-        setPriceData(response.data); 
+        setPriceData(response.data);
       } else {
-        setPriceData([]); 
+        setPriceData([]);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
-      setPriceData([]); 
+      setPriceData([]);
     }
   };
-  
 
-useEffect(() => {
-  const fetchAndSetData = async () => {
-    let key = await fetchMachineKey();
-    if (!key) return;
-
-    setMachineKey(key);
-    let result: any = await fetchData(key);
-    
-    if (!result) {
-      key = await fetchMachineKey();
+  useEffect(() => {
+    const fetchAndSetData = async () => {
+      let key = await fetchMachineKey();
       if (!key) return;
-      setMachineKey(key);
-      result = await fetchData(key);
-    }
 
-    setData(result);
+      setMachineKey(key);
+      let result: any = await fetchData(key);
+
+      if (!result) {
+        key = await fetchMachineKey();
+        if (!key) return;
+        setMachineKey(key);
+        result = await fetchData(key);
+      }
+
+      setData(result);
+    };
+
+    fetchAndSetData();
+  }, []);
+
+  console.log(data);
+
+  const fetchData1 = async (machineKey: string) => {
+    try {
+      const response = await axios.get(
+        `https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=30DaysPdf&Machine_Key=${machineKey}&ACCESS_TOKEN=IBJSW3SEA73`
+      );
+
+      console.log("pdfdata ", response.data);
+
+      const data = response.data;
+      if (Array.isArray(data) && data.length > 0 && data[0].PdfFilePath) {
+        setPDFData(data[0].PdfFilePath);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
-  fetchAndSetData();
-}, []);
+  useEffect(() => {
+    const fetchAndSetData = async () => {
+      let key = await fetchMachineKey();
+      if (!key) return;
 
-console.log(data);
+      setMachineKey(key);
+      let result: any = await fetchData1(key);
 
-
-  
-  
-      const fetchData1 = async (machineKey: string) => {
-  
-        try {
-
-          const response = await axios.get(`https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=30DaysPdf&Machine_Key=${machineKey}&ACCESS_TOKEN=IBJSW3SEA73`,
-           
-          );
-  
-          console.log("pdfdata ",response.data);
-
-          const data = response.data; 
-        if (Array.isArray(data) && data.length > 0 && data[0].PdfFilePath) {
-          setPDFData(data[0].PdfFilePath); 
-        }
-  
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      };
-  
-
-    useEffect(() => {
-      const fetchAndSetData = async () => {
-        let key = await fetchMachineKey();
+      if (!result) {
+        key = await fetchMachineKey();
         if (!key) return;
-    
         setMachineKey(key);
-        let result: any = await fetchData1(key);
-        
-        if (!result) {
-          key = await fetchMachineKey();
-          if (!key) return;
-          setMachineKey(key);
-          result = await fetchData(key);
-        }
-    
-        setData(result);
-      };
-    
-      fetchAndSetData();
-    }, []);
-  
-
-    const PREFETCH = () => {
-      setDateOffset((prevOffset) => prevOffset - 1); 
-    };
-    
-    const NEXTFETCH = () => {
-      setDateOffset((prevOffset) => prevOffset + 1); 
-    };
-    
-    const formatDateYET = (date: Date): string => {
-      const day = String(date.getDate()).padStart(2, "0");
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-      const year = date.getFullYear();
-      return `${day}/${month}/${year}`;
-    };
-    
-    const fetchDataYET = async (machineKey: string, offset: number) => {
-      const currentDate = new Date();
-      
-      const targetDate = new Date(currentDate);
-      targetDate.setDate(currentDate.getDate() - offset); 
-    
-      const startDate = new Date(targetDate);
-      startDate.setHours(0, 0, 0, 0);
-    
-      const endDate = new Date(targetDate);
-      endDate.setHours(18, 0, 0, 0);
-    
-      const formattedStartDate = formatDateYET(startDate);
-      const formattedEndDate = formatDateYET(endDate);
-    
-      try {
-        const response = await axios.get(
-          `https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDate}&END_DATE=${formattedEndDate}&Machine_Key=${machineKey}&ACCESS_TOKEN=IBJSW3SEA73`
-        );
-    
-        if (!response.data || !Array.isArray(response.data) || response.data.length === 0) {
-          console.warn("No data received or data is in an incorrect format.");
-          setPriceData2([]); 
-          return;
-        }
-    
-        console.log("Fetched data", response.data);
-        setPriceData2(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setPriceData2([]);
+        result = await fetchData(key);
       }
+
+      setData(result);
     };
-    
-    useEffect(() => {
-      const fetchAndSetData = async () => {
-        const key = await fetchMachineKey();
-        if (!key) return;
-    
-        setMachineKey(key);
-        await fetchDataYET(key, dateOffset); 
-      };
-    
-      fetchAndSetData();
-    }, [dateOffset]); 
-    
-  
-  
+
+    fetchAndSetData();
+  }, []);
+
+  const PREFETCH = () => {
+    setDateOffset((prevOffset) => prevOffset + 1);
+  };
+
+  const NEXTFETCH = () => {
+    setDateOffset((prevOffset) => prevOffset - 1);
+  };
+
+  const formatDateYET = (date: Date): string => {
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
+  const fetchDataYET = async (machineKey: string, offset: number) => {
+    const currentDate = new Date();
+
+    const targetDate = new Date(currentDate);
+    targetDate.setDate(currentDate.getDate() - offset);
+
+    if (targetDate.getDay() === 6 || targetDate.getDay() === 0) {
+      console.warn("Weekend detected, setting price data to empty.");
+      setPriceData2([]);
+      return;
+    }
+
+    const startDate = new Date(targetDate);
+    startDate.setHours(0, 0, 0, 0);
+
+    const endDate = new Date(targetDate);
+    endDate.setHours(18, 0, 0, 0);
+
+    const formattedStartDate = formatDateYET(startDate);
+    const formattedEndDate = formatDateYET(endDate);
+
+    try {
+      const response = await axios.get(
+        `https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDate}&END_DATE=${formattedEndDate}&Machine_Key=${machineKey}&ACCESS_TOKEN=IBJSW3SEA73`
+      );
+
+      if (
+        !response.data ||
+        !Array.isArray(response.data) ||
+        response.data.length === 0
+      ) {
+        console.warn("No data received or data is in an incorrect format.");
+        setPriceData2([]);
+        return;
+      }
+
+      console.log("Fetched data", response.data);
+      setPriceData2(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setPriceData2([]);
+    }
+  };
+
+  useEffect(() => {
+    const fetchAndSetData = async () => {
+      const key = await fetchMachineKey();
+      if (!key) return;
+
+      setMachineKey(key);
+      await fetchDataYET(key, dateOffset);
+    };
+
+    fetchAndSetData();
+  }, [dateOffset]);
 
   useEffect(() => {
     if (sidebarButtonsRef.current.length > 0) {
@@ -502,42 +494,44 @@ console.log(data);
       tableContainersRef.current,
       {
         opacity: 0,
-        y: 30, 
+        y: 30,
       },
       {
         opacity: 1,
-        y: 0, 
-        stagger: 0.1, 
-        duration: 0.8, 
+        y: 0,
+        stagger: 0.1,
+        duration: 0.8,
         ease: "power3.out",
       }
     );
   }, [priceData]);
 
-
   //dummy value bhaiii
   const currentDate = new Date();
-  
+
   const options: Intl.DateTimeFormatOptions = {
-    weekday: 'short',  
-    year: 'numeric',  
-    month: 'short',  
-    day: 'numeric',  
-    hour: 'numeric', 
-    minute: 'numeric',  
-    hour12: true, 
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
   };
 
-  const formattedDate = currentDate.toLocaleString('en-GB', options).replace(',', '');
+  const formattedDate = currentDate
+    .toLocaleString("en-GB", options)
+    .replace(",", "");
 
-  const todayFormatted = currentDate.toLocaleString('en-GB', options).replace(',', '');
+  const todayFormatted = currentDate
+    .toLocaleString("en-GB", options)
+    .replace(",", "");
   const yesterdayDate = new Date(currentDate);
   yesterdayDate.setDate(currentDate.getDate() - dateOffset);
-  const yesterdayFormatted = yesterdayDate.toLocaleString('en-GB', options).replace(',', '');
+  const yesterdayFormatted = yesterdayDate
+    .toLocaleString("en-GB", options)
+    .replace(",", "");
 
-
-
- 
   interface PriceData {
     RateDate: string;
     RateTime: string;
@@ -546,255 +540,284 @@ console.log(data);
     SilverRate: string;
     Carat: number;
   }
-  
-  
-  
-  
-
-
-  
 
   return (
     <>
       <Container className="Container">
         <div style={styles.page} className="page">
-        <div style={styles.headerPrices} className="headerPrices">
-  {Array.isArray(priceData) && priceData.length > 0 ? (
-    priceData.slice(0, 6).map((price, index) => (
-      <div
-        key={index}
-        className="priceCard"
-        ref={(el) => priceCardsRef.current.push(el)}
-        style={styles.priceCard}
-      >
-        {index !== priceData.slice(0, 6).length - 1 ? (
-          <>
-            <div>
-              <div style={styles.priceCardTitle}>{price.Carat}K Gold</div>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <span style={styles.priceCardValue}>₹ {price.GoldRate}.00</span>
-              <span
+          <div style={styles.headerPrices} className="headerPrices">
+            {Array.isArray(priceData) && priceData.length > 0 ? (
+              priceData.slice(0, 6).map((price, index) => (
+                <div
+                  key={index}
+                  className="priceCard"
+                  ref={(el) => priceCardsRef.current.push(el)}
+                  style={styles.priceCard}
+                >
+                  {index !== priceData.slice(0, 6).length - 1 ? (
+                    <>
+                      <div>
+                        <div style={styles.priceCardTitle}>
+                          {price.Carat}K Gold
+                        </div>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "8px",
+                        }}
+                      >
+                        <span style={styles.priceCardValue}>
+                          ₹ {price.GoldRate}.00
+                        </span>
+                        <span
+                          style={{
+                            color: index % 2 === 0 ? "green" : "red",
+                            fontSize: "1.2rem",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          {index % 2 === 0 ? "▲" : "▼"}
+                        </span>
+                      </div>
+                    </>
+                  ) : (
+                    <div
+                      style={{
+                        marginTop: "8px",
+                        fontWeight: "bold",
+                        fontSize: "1.5rem",
+                      }}
+                    >
+                      <div style={styles.priceCardTitle}>
+                        {price.Carat}F Silver
+                      </div>
+                      ₹ {price.SilverRate || "Silver Rate"}
+                      <span
+                        style={{
+                          color: index % 2 === 0 ? "green" : "red",
+                          fontSize: "1.2rem",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {index % 2 === 0 ? "▲" : "▼"}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              ))
+            ) : (
+              <div
                 style={{
-                  color: index % 2 === 0 ? "green" : "red",
-                  fontSize: "1.2rem",
-                  fontWeight: "bold",
+                  textAlign: "center",
+                  marginTop: "20px",
+                  color: "gray",
                 }}
               >
-                {index % 2 === 0 ? "▲" : "▼"}
-              </span>
+                No records found.
+              </div>
+            )}
+          </div>
+
+          <div style={styles.MainContent} className="MainContent">
+            <div style={styles.MainContentSecond} className="MainContentSecond">
+              <div
+                className="tableContainer"
+                ref={(el) => tableContainersRef.current.push(el)}
+                style={{ ...styles.tableContainer, width: "100%" }}
+              >
+                <div style={styles.tableHeader}>{formattedDate}</div>
+                <table style={styles.table}>
+                  <thead>
+                    <tr>
+                      <th style={styles.tableCell}>PURITY</th>
+                      <th style={styles.tableCell}>AM</th>
+                      <th style={styles.tableCell}>PM</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Array.isArray(priceData) && priceData.length > 0
+                      ? Array.from({ length: 6 }).map((_, index) => {
+                          const price = priceData[index] || {}; // Use empty object for missing data
+                          const amData = priceData.filter(
+                            (p) =>
+                              p.Purity === price.Purity && p.RateTime === "12AM"
+                          );
+                          const pmData = priceData.filter(
+                            (p) =>
+                              p.Purity === price.Purity && p.RateTime === "6PM"
+                          );
+
+                          const isLastRow = index === 5; // Last row in the table
+
+                          if (isLastRow) {
+                            return (
+                              <tr key={index}>
+                                <td style={styles.tableCell}>
+                                  Silver {price.Purity || "-"}
+                                </td>
+                                <td style={styles.tableCell}>
+                                  {amData.length > 0
+                                    ? amData[0]?.SilverRate || "-"
+                                    : "-"}
+                                </td>
+                                <td style={styles.tableCell}>
+                                  {pmData.length > 0
+                                    ? pmData[0]?.SilverRate || "-"
+                                    : "-"}
+                                </td>
+                              </tr>
+                            );
+                          }
+
+                          return (
+                            <tr key={index}>
+                              <td style={styles.tableCell}>
+                                Gold {price.Purity || "-"}
+                              </td>
+                              <td style={styles.tableCell}>
+                                {amData.length > 0
+                                  ? amData[0]?.GoldRate || "-"
+                                  : "-"}
+                              </td>
+                              <td style={styles.tableCell}>
+                                {pmData.length > 0
+                                  ? pmData[0]?.GoldRate || "-"
+                                  : "-"}
+                              </td>
+                            </tr>
+                          );
+                        })
+                      : Array.from({ length: 6 }).map((_, index) => (
+                          <tr key={index}>
+                            <td style={styles.tableCell}>-</td>
+                            <td style={styles.tableCell}>-</td>
+                            <td style={styles.tableCell}>-</td>
+                          </tr>
+                        ))}
+                  </tbody>
+                </table>
+                <div style={styles.TitleContainer}>
+                  <div style={styles.Title}>
+                    <a href={PDF} download="last_30_days.pdf" target="_blank">
+                      Download last 30 Days
+                    </a>{" "}
+                    <IoMdDownload />
+                  </div>
+                  <div style={styles.Title}>
+                    IBJA Terms <IoDocumentTextOutline />
+                  </div>
+                </div>
+              </div>
+
+              {/* Second Table */}
+              <div
+                ref={(el) => tableContainersRef.current.push(el)}
+                style={{ ...styles.tableContainer, width: "100%" }}
+              >
+                <div style={styles.tableHeader}>
+                  <span>{yesterdayFormatted}</span>
+                  <div className="buttonNEXbtn">
+                    <div>
+                      <button className="buttonNEX" onClick={PREFETCH}>
+                        Previous Day
+                      </button>
+                    </div>
+                    <div>
+                      <button className="buttonNEX" onClick={NEXTFETCH}>
+                        Next Day
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <table style={styles.table}>
+                  <thead>
+                    <tr>
+                      <th style={styles.tableCell}>PURITY</th>
+                      <th style={styles.tableCell}>AM</th>
+                      <th style={styles.tableCell}>PM</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Array.isArray(priceData2) && priceData2.length > 0 ? (
+                      priceData2.slice(0, 6).map((price, index) => {
+                        const amData = priceData2.filter(
+                          (p) =>
+                            p.Purity === price.Purity && p.RateTime === "12AM"
+                        );
+                        const pmData = priceData2.filter(
+                          (p) =>
+                            p.Purity === price.Purity && p.RateTime === "6PM"
+                        );
+
+                        const isLastRow =
+                          index === priceData2.slice(0, 6).length - 1;
+
+                        if (isLastRow) {
+                          return (
+                            <tr key={index}>
+                              <td style={styles.tableCell}>
+                                Silver {price.Purity}
+                              </td>
+                              <td style={styles.tableCell}>
+                                {amData.length > 0
+                                  ? amData[0].SilverRate || "-"
+                                  : "-"}
+                              </td>
+                              <td style={styles.tableCell}>
+                                {pmData.length > 0
+                                  ? pmData[0].SilverRate || "-"
+                                  : "-"}
+                              </td>
+                            </tr>
+                          );
+                        }
+
+                        return (
+                          <tr key={index}>
+                            <td style={styles.tableCell}>
+                              Gold {price.Purity}
+                            </td>
+                            <td style={styles.tableCell}>
+                              {amData.length > 0 ? amData[0].GoldRate : "-"}
+                            </td>
+                            <td style={styles.tableCell}>
+                              {pmData.length > 0 ? pmData[0].GoldRate : "-"}
+                            </td>
+                          </tr>
+                        );
+                      })
+                    ) : (
+                      <tr>
+                        <td colSpan={3} style={styles.tableCell}>
+                          No data available for the selected date.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+                <div style={styles.TitleContainer}>
+                  <div style={styles.Title}>
+                    List of Holidays <GrDocumentTime />
+                  </div>
+                  <div style={styles.Title}>
+                    * Gold rates per 10gm & Silver rate per 1kg{" "}
+                    <IoDocumentTextOutline />
+                  </div>
+                </div>
+              </div>
             </div>
-          </>
-        ) : (
-          <div
-            style={{ marginTop: "8px", fontWeight: "bold", fontSize: "1.5rem" }}
-          >
-            <div style={styles.priceCardTitle}>{price.Carat}F Silver</div>
-            ₹ {price.SilverRate || "Silver Rate"}
-            <span
-              style={{
-                color: index % 2 === 0 ? "green" : "red",
-                fontSize: "1.2rem",
-                fontWeight: "bold",
-              }}
-            >
-              {index % 2 === 0 ? "▲" : "▼"}
-            </span>
           </div>
-        )}
-      </div>
-    ))
-  ) : (
-    <div style={{ textAlign: "center", marginTop: "20px", color: "gray" }}>
-      No records found.
-    </div>
-  )}
-</div>
-
-<div style={styles.MainContent} className="MainContent">
-  <div style={styles.MainContentSecond} className="MainContentSecond">
-    <div
-      className="tableContainer"
-      ref={(el) => tableContainersRef.current.push(el)}
-      style={{ ...styles.tableContainer, width: "100%" }}
-    >
-      <div style={styles.tableHeader}>{formattedDate}</div>
-      <table style={styles.table}>
-        <thead>
-          <tr>
-            <th style={styles.tableCell}>PURITY</th>
-            <th style={styles.tableCell}>AM</th>
-            <th style={styles.tableCell}>PM</th>
-          </tr>
-        </thead>
-        <tbody>
-        {Array.isArray(priceData) && priceData.length > 0 ? (
-  Array.from({ length: 6 }).map((_, index) => {
-    const price = priceData[index] || {}; // Use empty object for missing data
-    const amData = priceData.filter(
-      (p) => p.Purity === price.Purity && p.RateTime === "12AM"
-    );
-    const pmData = priceData.filter(
-      (p) => p.Purity === price.Purity && p.RateTime === "6PM"
-    );
-
-    const isLastRow = index === 5; // Last row in the table
-
-    if (isLastRow) {
-      return (
-        <tr key={index}>
-          <td style={styles.tableCell}>Silver {price.Purity || "-"}</td>
-          <td style={styles.tableCell}>
-            {amData.length > 0 ? amData[0]?.SilverRate || "-" : "-"}
-          </td>
-          <td style={styles.tableCell}>
-            {pmData.length > 0 ? pmData[0]?.SilverRate || "-" : "-"}
-          </td>
-        </tr>
-      );
-    }
-
-    return (
-      <tr key={index}>
-        <td style={styles.tableCell}>Gold {price.Purity || "-"}</td>
-        <td style={styles.tableCell}>
-          {amData.length > 0 ? amData[0]?.GoldRate || "-" : "-"}
-        </td>
-        <td style={styles.tableCell}>
-          {pmData.length > 0 ? pmData[0]?.GoldRate || "-" : "-"}
-        </td>
-      </tr>
-    );
-  })
-) : (
-  Array.from({ length: 6 }).map((_, index) => (
-    <tr key={index}>
-      <td style={styles.tableCell}>-</td>
-      <td style={styles.tableCell}>-</td>
-      <td style={styles.tableCell}>-</td>
-    </tr>
-  ))
-
-)}
-
-       
-        </tbody>
-      </table>
-      <div style={styles.TitleContainer}>
-        <div style={styles.Title}>
-        <a  href={PDF} download="last_30_days.pdf">
-  Download last 30 Days
-</a>  <IoMdDownload />
-        </div>
-        <div style={styles.Title}>
-          IBJA Terms <IoDocumentTextOutline />
-        </div>
-      </div>
-    </div>
-
-    {/* Second Table */}
-    <div
-      ref={(el) => tableContainersRef.current.push(el)}
-      style={{ ...styles.tableContainer, width: "100%" }}
-    >
-      <div style={styles.tableHeader}>
-        <span>{yesterdayFormatted}</span>
-        <div className="buttonNEXbtn">
-          <div>
-            <button className="buttonNEX" onClick={NEXTFETCH}>
-              Next Day
-            </button>
-          </div>
-          <div>
-            <button className="buttonNEX" onClick={PREFETCH}>
-              Previous Day
-            </button>
-          </div>
-        </div>
-      </div>
-      <table style={styles.table}>
-        <thead>
-          <tr>
-            <th style={styles.tableCell}>PURITY</th>
-            <th style={styles.tableCell}>AM</th>
-            <th style={styles.tableCell}>PM</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Array.isArray(priceData2) && priceData2.length > 0 ? (
-            priceData2.slice(0, 6).map((price, index) => {
-              const amData = priceData2.filter(
-                (p) => p.Purity === price.Purity && p.RateTime === "12AM"
-              );
-              const pmData = priceData2.filter(
-                (p) => p.Purity === price.Purity && p.RateTime === "6PM"
-              );
-
-              const isLastRow =
-                index === priceData2.slice(0, 6).length - 1;
-
-              if (isLastRow) {
-                return (
-                  <tr key={index}>
-                    <td style={styles.tableCell}>Silver {price.Purity}</td>
-                    <td style={styles.tableCell}>
-                      {amData.length > 0 ? amData[0].SilverRate || "-" : "-"}
-                    </td>
-                    <td style={styles.tableCell}>
-                      {pmData.length > 0 ? pmData[0].SilverRate || "-" : "-"}
-                    </td>
-                  </tr>
-                );
-              }
-
-              return (
-                <tr key={index}>
-                  <td style={styles.tableCell}>Gold {price.Purity}</td>
-                  <td style={styles.tableCell}>
-                    {amData.length > 0 ? amData[0].GoldRate : "-"}
-                  </td>
-                  <td style={styles.tableCell}>
-                    {pmData.length > 0 ? pmData[0].GoldRate : "-"}
-                  </td>
-                </tr>
-              );
-            })
-          ) : (
-            <tr>
-              <td colSpan={3} style={styles.tableCell}>
-                No data available for the selected date.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-      <div style={styles.TitleContainer}>
-        <div style={styles.Title}>
-          List of Holidays <GrDocumentTime />
-        </div>
-        <div style={styles.Title}>
-          * Gold rates per 10gm & Silver rate per 1kg <IoDocumentTextOutline />
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
         </div>
 
         <CardsWrapper>
           <Card>
             <div className="info">
               <div className="TOPTitle">Daily Market Update</div>
-              <div className="title">
-                17/01/2025
-              </div>
-              <div className="title">
-              16/01/2025
-              </div>
-              <div className="title">
-              15/01/2025
-              </div>
+              <div className="title">17/01/2025</div>
+              <div className="title">16/01/2025</div>
+              <div className="title">15/01/2025</div>
             </div>
           </Card>
           <Card>

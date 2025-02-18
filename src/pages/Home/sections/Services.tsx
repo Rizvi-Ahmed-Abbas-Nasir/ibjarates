@@ -69,6 +69,13 @@ const Content = styled.div`
       }
     }
   }
+  @media (max-width: 1300px) {
+    h1 {
+      margin-top: 1.5rem;
+      font-size: 3rem;
+      padding-bottom: 0.5rem;
+    }
+  }
   @media (max-width: 768px) {
     width: 100%;
     height: fit-content;
@@ -176,7 +183,6 @@ const servicesData = [
     TextColor: "black",
     btnText: "Learn More",
   },
- 
 
   {
     name: "Are You a Plainum Member of IBJA",
@@ -186,7 +192,6 @@ const servicesData = [
     TextColor: "black",
     btnText: "Learn More",
   },
- 
 ];
 
 const Services = () => {
@@ -211,7 +216,6 @@ const Services = () => {
       });
 
       ScrollTrigger.create({
-
         trigger: containerRef.current,
         start: "top top",
         end: "bottom bottom",
@@ -264,8 +268,8 @@ const Services = () => {
           >
             <img src={item.image} alt="" />
             <h1>{item.name}</h1>
-          
-            <Button to="/quote">{item.btnText}</Button>
+
+            {/* <Button to="/quote">{item.btnText}</Button> */}
           </Content>
         ))}
       </ContentWrapper>

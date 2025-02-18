@@ -28,10 +28,9 @@ export default function Footer() {
       <footer className="text-black bg-[#fff2da] body-font mt-9 footer">
         <div className="container px-5 py-[10rem] mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
           <div className="w-67 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
-          <Logo>
-        <img src={logoimg}  alt="" />
-      </Logo>
-           
+            <Logo>
+              <img src={logoimg} alt="" />
+            </Logo>
           </div>
           <div className=" flex lg:flex-row flex-col justify-center w-[100%] md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
             <div className=" md:w-1/2 w-full px-4">
@@ -40,30 +39,40 @@ export default function Footer() {
               </h2>
               <nav className="list-none  mb-10">
                 <li className="py-[.7rem] w-[13rem]">
-                  <a href="http://localhost:5173/" className="text-black hover:text-black">
-IBJA House, 2nd Agiary Lane,
-Zaveri Bazar, Mumbai - 400003.</a>
+                  <a
+                    href="http://localhost:5173/"
+                    className="text-black hover:text-black"
+                  >
+                    IBJA House, 2nd Agiary Lane, Zaveri Bazar, Mumbai - 400003.
+                  </a>
                 </li>
-                <li  className="py-[.7rem]">
+                <li className="py-[.7rem]">
                   <a className="text-black hover:text-black">
-                  +91-22 49098950 / 49098960</a>
+                    +91-22 49098950 / 49098960
+                  </a>
                 </li>
-                <li  className="py-[.7rem]">
-                  <a className="text-black hover:text-black">
-                  +91-22 23426971</a>
+                <li className="py-[.7rem]">
+                  <a className="text-black hover:text-black">+91-22 23426971</a>
                 </li>
-                <li  className="py-[.7rem]">
-                  <a href="info@ibja.in" className="text-black hover:text-black">info@ibja.in</a>
+                <li className="py-[.7rem]">
+                  <a
+                    href="info@ibja.in"
+                    className="text-black hover:text-black"
+                  >
+                    info@ibja.in
+                  </a>
                 </li>
               </nav>
             </div>
             <div className=" md:w-1/2 w-full px-4">
-            <h2 className="title-font font-medium text-black tracking-widest text-[1.7rem] mb-3">
-                Information 
+              <h2 className="title-font font-medium text-black tracking-widest text-[1.7rem] mb-3">
+                Information
               </h2>
               <nav className="list-none  mb-10">
                 <li className="py-[.7rem]">
-                  <a className="text-black hover:text-black">Terms & Conditions</a>
+                  <a className="text-black hover:text-black">
+                    Terms & Conditions
+                  </a>
                 </li>
                 <li className="py-[.7rem]">
                   <a className="text-black hover:text-black">About Us</a>
@@ -76,26 +85,26 @@ Zaveri Bazar, Mumbai - 400003.</a>
                 </li>
               </nav>
             </div>
-             
-               <div className=" md:w-1/2 w-full px-4">
-            
+
+            <div className=" md:w-1/2 w-full px-4">
               <nav className="list-none mt-[-1rem]">
                 <li className="py-[.7rem]">
-                  <a className="text-black text-[1.8rem] hover:text-black">Subscribe to IBJA Gold Rates,</a>
+                  <a className="text-black text-[1.8rem] hover:text-black">
+                    Subscribe to IBJA Gold Rates,
+                  </a>
                 </li>
                 <li className="py-[.7rem]">
-                  <a className="text-black hover:text-black">Email:nagaraj.iyer@ibja.in
-</a>
+                  <a className="text-black hover:text-black">
+                    Email:nagaraj.iyer@ibja.in
+                  </a>
                 </li>
-                 <li className="py-[.7rem]">
-                  <a className="text-black hover:text-black">Mobile: +91 9821161214
-
-</a>
+                <li className="py-[.7rem]">
+                  <a className="text-black hover:text-black">
+                    Mobile: +91 9821161214
+                  </a>
                 </li>
-              
               </nav>
             </div>
-           
           </div>
         </div>
         <div className="bg-[#fbdea9] bg-opacity-75">
@@ -104,7 +113,11 @@ Zaveri Bazar, Mumbai - 400003.</a>
               © 2024 IBJA Rates. All Rights Reserved
             </p>
             <span className="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
-              <a className="text-black">
+              <a
+                className="text-black"
+                href="https://www.facebook.com/IBJA1919"
+                target="_blank"
+              >
                 <svg
                   fill="currentColor"
                   stroke-linecap="round"
@@ -116,7 +129,11 @@ Zaveri Bazar, Mumbai - 400003.</a>
                   <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
                 </svg>
               </a>
-              <a className="ml-3 text-black">
+              <a
+                className="ml-3 text-black"
+                href="https://x.com/IBJA1919"
+                target="_blank"
+              >
                 <svg
                   fill="currentColor"
                   stroke-linecap="round"
@@ -128,7 +145,7 @@ Zaveri Bazar, Mumbai - 400003.</a>
                   <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
                 </svg>
               </a>
-              <a className="ml-3 text-black">
+              <a className="ml-3 text-black" href="">
                 <svg
                   fill="none"
                   stroke="currentColor"
@@ -142,7 +159,11 @@ Zaveri Bazar, Mumbai - 400003.</a>
                   <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
                 </svg>
               </a>
-              <a className="ml-3 text-black">
+              <a
+                className="ml-3 text-black"
+                href="https://www.linkedin.com/company/india-bullion-and-jewellers-association-ltd-"
+                target="_blank"
+              >
                 <svg
                   fill="currentColor"
                   stroke="currentColor"

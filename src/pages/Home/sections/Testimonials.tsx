@@ -5,6 +5,7 @@ import Logo2 from "../../../assets/Logo/India.png";
 import Logo3 from "../../../assets/Logo/ICICI.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const Container = styled.div`
   padding: 0 10rem;
@@ -31,7 +32,7 @@ const CardsWrapper = styled.div`
 `;
 
 const Card = styled.div`
-  width: calc(33.3% - 2rem);
+  /* width: calc(33.3% - 2rem); */
   background-color: #f5f3eb;
   padding: 1.5rem;
   border-radius: 0.7rem;
@@ -124,16 +125,31 @@ export default function Testimonials() {
 
       <Container>
         <CardsWrapper>
-          {testimonials.map((item, index) => (
-            <Card key={index}>
-              <p>{item.text}</p>
-              <div className="info_wrapper">
-                <div className="profile_img">
-                  <img src={item.image} alt="" />
-                </div>
-              </div>
-            </Card>
-          ))}
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={20}
+            breakpoints={{
+              1080: {
+                slidesPerView: 3,
+              },
+              768: {
+                slidesPerView: 1,
+              },
+            }}
+          >
+            {testimonials.map((item, index) => (
+              <SwiperSlide>
+                <Card key={index}>
+                  <p>{item.text}</p>
+                  <div className="info_wrapper">
+                    <div className="profile_img">
+                      <img src={item.image} alt="" />
+                    </div>
+                  </div>
+                </Card>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </CardsWrapper>
       </Container>
     </>
