@@ -16,7 +16,7 @@ export default function HomePage() {
     <Container>
       <Landing />
       <EsteemUser />
-      <Service />
+      {/* <Service /> */}
       <FeatureSection />
       <Integrated />
       <UpdatesSection />

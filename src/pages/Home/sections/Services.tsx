@@ -1,7 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import editingThumbnail from "../../../assets/images/services/goldtwo.png";
 import logoThumbnail from "../../../assets/images/services/goldone.png";
@@ -202,7 +202,6 @@ const Services = () => {
   useGSAP(() => {
     let mm = gsap.matchMedia();
     const images = gsap.utils.toArray(".image:not(:first-child)");
-    gsap.set(images, { clearProps: "all" });
 
     const body = document.body;
 
@@ -235,7 +234,6 @@ const Services = () => {
             backgroundColor: servicesData[index].backgroundColor,
             color: servicesData[index].TextColor,
           }),
-
         onLeave: () => {
           if (index === contents.length - 1) {
             gsap.to(body, {
