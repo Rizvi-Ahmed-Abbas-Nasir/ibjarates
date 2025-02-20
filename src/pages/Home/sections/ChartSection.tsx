@@ -249,7 +249,7 @@ export default function ChartSection() {
 
   return (
     <Container ref={containerRef}>
-      <div className="chart_section px-6 py-6 rounded-[2rem] bg-[#fff2d8] shadow-lg w-[100%] flex flex-col justify-start">
+      <div className="chart_section px-6 py-6 rounded-[2rem] bg-[#fff2d8] shadow-lg w-[100%] flex flex-col justify-start max-md:px-3">
         <h3 className="text-black text-lg font-bold mb-4">API </h3>
         <div className="text-black text-sm mb-4 flex justify-between p-5 max-md:flex-wrap max-md:gap-[1rem] max-md:p-0">
           <p>
@@ -257,7 +257,7 @@ export default function ChartSection() {
               IBJA RATES GOLD
             </span>{" "}
           </p>
-          <div className="flex justify-between gap-5 bg-[#fafaf8] px-[3rem] py-[0.7rem] rounded-[2rem] max-md:flex-wrap max-md:px-[1rem]">
+          <div className="flex justify-between bg-[#fafaf8] px-[3rem] py-[0.7rem] rounded-[2rem] max-md:flex-wrap max-md:px-[1rem]">
             <button
               className={`px-3 py-1 rounded-[2rem] text-sm ${
                 activeButton === "weekly"
