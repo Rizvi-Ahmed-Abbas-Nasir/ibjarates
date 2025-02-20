@@ -9,6 +9,7 @@ import { IoMdDownload } from "react-icons/io";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { GrDocumentTime } from "react-icons/gr";
 import fetchMachineKey from "../../../api/getMachineKey";
+import { motion } from "motion/react";
 
 const Container = styled.div`
   padding: 0 5rem;
@@ -116,7 +117,7 @@ const styles: Record<string, Style> = {
     height: "6rem",
     margin: "5px",
     border: "1px solid #ffdd99",
-    opacity: 0, // Initially invisible for animation
+    opacity: 1, // Initially invisible for animation
   },
   priceCardTitle: {
     fontSize: "16px" /* Smaller text */,
@@ -143,7 +144,7 @@ const styles: Record<string, Style> = {
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
     border: "1px solid #ffdd99",
     textAlign: "center",
-    opacity: 0,
+    opacity: 1,
   },
   tableHeader: {
     width: "100%",
@@ -309,7 +310,7 @@ export default function Landing() {
   const fetchData = async (machineKey: string) => {
     try {
       const response = await axios.get(
-        `https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=${formattedStartDate}&END_DATE=${formattedEndDate}&Machine_Key=${machineKey}&ACCESS_TOKEN=IBJSW3SEA73`
+        `https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=GetRates&START_DATE=18/02/2025&END_DATE=18/02/2025&Machine_Key=${machineKey}&ACCESS_TOKEN=IBJSW3SEA73`
       );
 
       console.log("get rates data", response.data);
@@ -492,36 +493,25 @@ export default function Landing() {
     }
   }, []);
 
-  useEffect(() => {
-    if (priceCardsRef.current.length > 0) {
-      gsap.fromTo(
-        priceCardsRef.current,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          stagger: 0.05,
-          duration: 0.8,
-          ease: "power3.out",
-        }
-      );
-    }
+  // useEffect(() => {
+  //   if (priceCardsRef.current.length > 0) {
+  //     gsap.to(priceCardsRef.current, {
+  //       opacity: 1,
+  //       y: 0,
+  //       stagger: 0.05,
+  //       duration: 0.8,
+  //       ease: "power3.out",
+  //     });
+  //   }
 
-    gsap.fromTo(
-      tableContainersRef.current,
-      {
-        opacity: 0,
-        y: 30,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        stagger: 0.1,
-        duration: 0.8,
-        ease: "power3.out",
-      }
-    );
-  }, []);
+  //   gsap.to(tableContainersRef.current, {
+  //     opacity: 1,
+  //     y: 0,
+  //     stagger: 0.1,
+  //     duration: 0.8,
+  //     ease: "power3.out",
+  //   });
+  // }, []);
 
   //dummy value bhaiii
   const currentDate = new Date();
