@@ -177,7 +177,6 @@ export default function UpdatesSection() {
 
   return (
     <Container>
-    
       <Section ref={containerRef}>
         <RightSection className="updates_left_card">
           <Image
@@ -200,9 +199,7 @@ export default function UpdatesSection() {
                 "Use of IBJA rates by All Scheduled commercial Bank",
                 "Use of IBJA rates for Sovereign Gold Bonds",
               ].map((item, index) => (
-                <ListItem  key={index}>
-                  {item}
-                </ListItem>
+                <ListItem key={index}>{item}</ListItem>
               ))}
             </List>
           </ScrollableList>

@@ -15,11 +15,13 @@ const Container = styled.div`
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
+  height: 50vh;
   @media (max-width: 1370px) {
     padding: 0 5rem;
   }
   @media (max-width: 1080px) {
     padding: 4rem 4rem;
+    height: fit-content;
   }
   @media (max-width: 768px) {
     padding: 1rem;
@@ -28,6 +30,7 @@ const Container = styled.div`
 
 const BlogWrapper = styled.div`
   width: 65%;
+  height: 100%;
   @media (max-width: 1080px) {
     width: 100%;
   }
@@ -39,7 +42,7 @@ const BlogWrapper = styled.div`
 const BlogPost = styled.div`
   background-color: #f5f3eb;
   width: 100%;
-  height: 55vh;
+  height: fit-cotent;
   border-radius: 0.7rem;
   overflow: hidden;
   padding: 1rem;
@@ -68,7 +71,7 @@ const BlogPost = styled.div`
 
 const ImageWrapper = styled.div`
   width: 100%;
-  height: 17rem;
+  height: 15rem;
   img {
     width: 100%;
     height: 100%;
@@ -79,10 +82,12 @@ const ImageWrapper = styled.div`
 const AchievementWrapper = styled.div`
   background-color: #f5f3eb;
   overflow: hidden;
-  height: 55vh;
+  /* height: 40vh; */
+  height: 100%;
   width: calc(35% - 2rem);
   @media (max-width: 1080px) {
     width: 100%;
+    height: 40vh;
   }
 `;
 
