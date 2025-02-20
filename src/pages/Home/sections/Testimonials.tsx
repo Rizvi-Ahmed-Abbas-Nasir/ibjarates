@@ -6,15 +6,16 @@ import Logo3 from "../../../assets/Logo/ICICI.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
+import fetchMachineKey from "../../../api/getMachineKey";
 
 const Container = styled.div`
-  padding: 0 10rem;
+  padding: 0 5rem;
   @media (max-width: 1370px) {
     padding: 0 5rem;
   }
   @media (max-width: 1080px) {
-    margin-top: 3rem;
-    padding: 0 4rem;
+    margin-top: 1rem;
+    padding: 0 2rem;
   }
   @media (max-width: 768px) {
     padding: 1rem;
@@ -59,13 +60,6 @@ const Card = styled.div`
       }
     }
   }
-
-  @media (max-width: 1080px) {
-    width: 49%;
-  }
-  @media (max-width: 768px) {
-    width: 100%;
-  }
 `;
 
 const testimonials = [
@@ -97,27 +91,43 @@ type TestimonialResType = {
 
 export default function Testimonials() {
   const [testimonial, setTestimonial] = useState<TestimonialResType[]>([]);
+  const [machineKey, setMachineKey] = useState("");
 
-  const getData = async () => {
-    const apiKey = import.meta.env.VITE_API_KEY;
-
-    await axios
-      .get(
-        "https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=Testimonial",
-        {
-          headers: {
-            ACCESS_TOKEN: ` ${apiKey}`,
-            RequestType: "Testimonial",
-          },
-        }
-      )
-      .then((response) => setTestimonial(response.data));
+  const fetchData = async (machineKey: string) => {
+    try {
+      const response = await axios.get(
+        `https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=APIEsteemedUsers&Machine_Key=${machineKey}&ACCESS_TOKEN=IBJSW3SEA73`
+      );
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
+    }
   };
 
   useEffect(() => {
-    // call this function and replace testimonials in line no 125 with testimonial State Data
-    // getData();
+    const fetchAndSetData = async () => {
+      let key = await fetchMachineKey();
+      if (!key) return;
+
+      setMachineKey(key);
+      let result = await fetchData(key);
+
+      if (!result) {
+        key = await fetchMachineKey();
+        if (!key) return;
+        setMachineKey(key);
+        result = await fetchData(key);
+      }
+
+      setTestimonial(result);
+    };
+
+    fetchAndSetData();
   }, []);
+
+  console.log(testimonial);
 
   return (
     <>
@@ -133,6 +143,9 @@ export default function Testimonials() {
                 slidesPerView: 3,
               },
               768: {
+                slidesPerView: 2,
+              },
+              400: {
                 slidesPerView: 1,
               },
             }}

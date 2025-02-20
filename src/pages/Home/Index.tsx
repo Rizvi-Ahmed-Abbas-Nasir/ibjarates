@@ -7,7 +7,7 @@ import Testimonials from "./sections/Testimonials";
 import Landing from "./sections/Landing";
 import ChartSection from "./sections/ChartSection";
 import Blog from "./sections/BlogSection";
-import Service from "./sections/Services"
+import Service from "./sections/Services";
 
 const Container = styled.div``;
 
@@ -16,14 +16,14 @@ export default function HomePage() {
     <Container>
       <Landing />
       <EsteemUser />
-      <Service />
-      <FeatureSection /> 
-      <Integrated />
+      {/* <Service /> */}
+      <FeatureSection />
+      {/* <Integrated /> */}
       <UpdatesSection />
       <ChartSection />
       <Testimonials />
       <Blog />
-      {/* =<Achievement /> */}
+      {/* <Achievement /> */}
       {/* <About /> */}
     </Container>
   );

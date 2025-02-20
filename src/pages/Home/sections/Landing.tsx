@@ -11,7 +11,7 @@ import { GrDocumentTime } from "react-icons/gr";
 import fetchMachineKey from "../../../api/getMachineKey";
 
 const Container = styled.div`
-  padding: 0 10rem;
+  padding: 0 5rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -290,6 +290,7 @@ export default function Landing() {
   const tableContainersRef = useRef<Array<HTMLDivElement | null>>([]);
   const [priceData, setPriceData] = useState<PriceData[]>([]);
   const [priceData2, setPriceData2] = useState<PriceData[]>([]);
+  const [dailyData, setDailyData] = useState<any>([]);
 
   function formatDate(date: Date): string {
     const day = String(date.getDate()).padStart(2, "0");
@@ -304,9 +305,6 @@ export default function Landing() {
 
   const formattedStartDate = formatDate(startDate);
   const formattedEndDate = formatDate(endDate);
-
-  console.log(formattedStartDate);
-  console.log(formattedEndDate);
 
   const fetchData = async (machineKey: string) => {
     try {
@@ -327,6 +325,23 @@ export default function Landing() {
     }
   };
 
+  const fetchDailyData = async (machineKey: string) => {
+    try {
+      const response = await axios.get(
+        `https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=DailyMarket&ACCESS_TOKEN=IBJSW3SEA73&Machine_Key=${machineKey}`
+      );
+
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        setDailyData(response.data);
+      } else {
+        setDailyData([]);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setDailyData([]);
+    }
+  };
+
   useEffect(() => {
     const fetchAndSetData = async () => {
       let key = await fetchMachineKey();
@@ -334,12 +349,14 @@ export default function Landing() {
 
       setMachineKey(key);
       let result: any = await fetchData(key);
+      fetchDailyData(key);
 
       if (!result) {
         key = await fetchMachineKey();
         if (!key) return;
         setMachineKey(key);
         result = await fetchData(key);
+        fetchDailyData(key);
       }
 
       setData(result);
@@ -504,7 +521,7 @@ export default function Landing() {
         ease: "power3.out",
       }
     );
-  }, [priceData]);
+  }, []);
 
   //dummy value bhaiii
   const currentDate = new Date();
@@ -540,6 +557,8 @@ export default function Landing() {
     SilverRate: string;
     Carat: number;
   }
+
+  console.log("Daily Data:", dailyData);
 
   return (
     <>
@@ -815,9 +834,16 @@ export default function Landing() {
           <Card>
             <div className="info">
               <div className="TOPTitle">Daily Market Update</div>
-              <div className="title">17/01/2025</div>
-              <div className="title">16/01/2025</div>
-              <div className="title">15/01/2025</div>
+              {dailyData.map((item: any, index: number) => (
+                <a
+                  key={index}
+                  className="title"
+                  href={item.DailyMarketPdfLink}
+                  target="_blank"
+                >
+                  {item.DailyMarketDate}
+                </a>
+              ))}
             </div>
           </Card>
           <Card>

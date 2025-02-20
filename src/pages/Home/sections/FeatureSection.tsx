@@ -6,10 +6,10 @@ import important_notice_logo from "../../../assets/Logo/IBJA-logo.png";
 
 const Container = styled.div`
   display: flex;
-  gap: 3rem;
+  gap: 2rem;
   width: 100%;
   height: fit-content;
-  padding: 7rem 10rem;
+  padding: 5rem;
   padding-bottom: 0;
   @media (max-width: 1370px) {
     padding: 5rem 5rem;
@@ -17,7 +17,7 @@ const Container = styled.div`
   }
   @media (max-width: 1080px) {
     gap: 1rem;
-    padding: 4rem 4rem;
+    padding: 2rem 2rem;
   }
   @media (max-width: 768px) {
     gap: 1rem;

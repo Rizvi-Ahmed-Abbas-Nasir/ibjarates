@@ -4,11 +4,11 @@ import SplitType from "split-type";
 import styled from "styled-components";
 
 const Container = styled.div`
-  margin: 7rem 0;
+  margin: 5rem 0;
   margin-bottom: 3rem;
-  padding: 0 10rem;
+  padding: 0 5rem;
   h2 {
-    font-size: 3rem;
+    font-size: 2.3rem;
     font-family: "Montserrat", serif;
     font-weight: 700;
     text-transform: uppercase;
@@ -21,11 +21,12 @@ const Container = styled.div`
   }
   @media (max-width: 1370px) {
     padding: 0 5rem;
+    margin: 4rem 0;
   }
   @media (max-width: 1080px) {
     margin: 2rem 0;
     margin-bottom: 1rem;
-    padding: 0 4rem;
+    padding: 0 2rem;
     h2 {
       font-size: 2rem;
     }

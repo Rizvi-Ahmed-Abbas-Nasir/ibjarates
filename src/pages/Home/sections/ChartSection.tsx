@@ -31,17 +31,17 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5rem 10rem;
-  padding-bottom: 0;
+  padding: 0rem 5rem;
+
   @media (max-width: 1370px) {
-    padding: 2rem 2rem;
-    padding-bottom: 0;
+    padding: 0rem 5rem;
   }
   @media (max-width: 1080px) {
-    padding: 5rem 4rem;
+    padding: 0rem 2rem;
   }
   @media (max-width: 768px) {
     padding: 2rem 1rem;
+    padding-top: 1rem;
   }
 `;
 

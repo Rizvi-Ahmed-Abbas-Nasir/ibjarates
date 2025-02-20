@@ -11,7 +11,7 @@ import { Autoplay } from "swiper/modules";
 import axios from "axios";
 
 const Container = styled.div`
-  padding: 0 10rem;
+  padding: 0 5rem;
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
@@ -31,9 +31,8 @@ const BlogWrapper = styled.div`
   @media (max-width: 1080px) {
     width: 100%;
   }
-    @media (max-width: 768px) {
-        width: 100%;
-
+  @media (max-width: 768px) {
+    width: 100%;
   }
 `;
 
@@ -163,7 +162,7 @@ export default function Blog() {
         "https://react.senseware.in/API/IbjaRates/User.aspx?RequestType=News",
         {
           headers: {
-            ACCESS_TOKEN:` ${apiKey}`,
+            ACCESS_TOKEN: ` ${apiKey}`,
             RequestType: "News",
           },
         }
@@ -202,22 +201,21 @@ export default function Blog() {
       <Container>
         <BlogWrapper>
           <Swiper
-           modules={[Autoplay]}
-           loop={true} 
-           autoplay={{
-             delay: 1500, // Delay between slides (in ms)
-             disableOnInteraction: false, // Continue autoplay after interaction
-           }}
-           spaceBetween={20} // Space between slides
-           breakpoints={{
-             768: {
-               slidesPerView: 2, // Show 2 slides for screens >= 768px
-             },
-             0: {
-               slidesPerView: 1, // Show 1 slide for smaller screens
-             },
-           }}
-            
+            modules={[Autoplay]}
+            loop={true}
+            autoplay={{
+              delay: 1500, // Delay between slides (in ms)
+              disableOnInteraction: false, // Continue autoplay after interaction
+            }}
+            spaceBetween={20} // Space between slides
+            breakpoints={{
+              768: {
+                slidesPerView: 2, // Show 2 slides for screens >= 768px
+              },
+              0: {
+                slidesPerView: 1, // Show 1 slide for smaller screens
+              },
+            }}
           >
             {newsDataDemo.map((item, index) => (
               <SwiperSlide>
